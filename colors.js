@@ -6,7 +6,7 @@ const THEME_PALETTES = {
     light: {
         primary: '#d4a3a3',
         secondary: '#f4e4e4',
-        tertiary: '#b08585',
+        tertiary: '#FFA1A1',
         background: '#FFF5F5',
         surface: '#fff9f9',
         surfaceLowest: '#fff9f9',

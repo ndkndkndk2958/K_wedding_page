@@ -99,18 +99,63 @@
       /* Glassmorphism Navigation */
       .glass-nav {
         background: var(--glass-bg);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
         border: 1px solid var(--glass-border);
+        box-shadow:
+          0 4px 18px rgba(130, 60, 60, 0.2),
+          0 2px 6px rgba(0, 0, 0, 0.08),
+          inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      }
+      html.dark .glass-nav {
+        box-shadow:
+          0 4px 22px rgba(0, 0, 0, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+      .glass-nav .glass-nav-icon {
+        font-size: 2rem;
+        line-height: 1;
+        font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+        color: var(--color-tertiary);
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.12));
+      }
+      html.dark .glass-nav .glass-nav-icon {
+        color: var(--color-primary);
+        filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
       }
 
       /* Full Screen Menu */
       #mobile-menu {
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         transform: translateY(-100%);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+      html.light #mobile-menu {
+        background: rgba(225, 130, 130, 0.7);
+      }
+      html.dark #mobile-menu {
+        background: rgba(8, 8, 8, 0.7);
       }
       #mobile-menu.active {
         transform: translateY(0);
+      }
+      #mobile-menu nav a {
+        transition: color 0.2s ease;
+      }
+      html.light #mobile-menu nav a {
+        color: var(--color-secondary);
+        font-weight: 600;
+      }
+      html.light #mobile-menu nav a:hover {
+        color: #ffffff;
+      }
+      html.dark #mobile-menu nav a {
+        color: var(--color-primary);
+        font-weight: 600;
+      }
+      html.dark #mobile-menu nav a:hover {
+        color: var(--color-secondary);
       }
 
       /* Gallery grid */
@@ -350,32 +395,32 @@
 <div class="petals-container" id="petals"></div>
 <!-- Music & Theme toggles -->
 <div class="fixed safe-fixed-tl z-[100] flex flex-col gap-3">
-<button aria-label="Bật/tắt nhạc nền" class="glass-nav w-14 h-14 rounded-full flex items-center justify-center text-primary shadow-lg hover:scale-110 active:scale-95 transition-all" id="music-btn" title="Nhạc nền">
-<span class="material-symbols-outlined text-3xl" id="music-icon">volume_off</span>
+<button aria-label="Bật/tắt nhạc nền" class="glass-nav w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all" id="music-btn" title="Nhạc nền">
+<span class="material-symbols-outlined glass-nav-icon" id="music-icon">volume_off</span>
 </button>
-<button aria-label="Bật/tắt chế độ tối" class="glass-nav w-14 h-14 rounded-full flex items-center justify-center text-primary shadow-lg hover:scale-110 active:scale-95 transition-all" id="theme-toggle" title="Chế độ tối">
-<span class="material-symbols-outlined text-3xl" id="theme-icon">dark_mode</span>
+<button aria-label="Bật/tắt chế độ tối" class="glass-nav w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all" id="theme-toggle" title="Chế độ tối">
+<span class="material-symbols-outlined glass-nav-icon" id="theme-icon">dark_mode</span>
 </button>
 </div>
 <audio id="bg-music" loop preload="auto"></audio>
 <!-- Modern Hamburger Navigation -->
 <header class="fixed safe-fixed-tr z-[100]">
-<button class="glass-nav w-14 h-14 rounded-full flex items-center justify-center text-primary shadow-lg hover:scale-110 active:scale-95 transition-all" id="menu-btn">
-<span class="material-symbols-outlined text-3xl" id="menu-icon">menu</span>
+<button class="glass-nav w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all" id="menu-btn">
+<span class="material-symbols-outlined glass-nav-icon" id="menu-icon">menu</span>
 </button>
 </header>
 <!-- Full-screen Menu Overlay -->
-<div class="fixed inset-0 z-[90] bg-surface/95 backdrop-blur-xl flex flex-col items-center justify-center hidden" id="mobile-menu">
+<div class="fixed inset-0 z-[90] flex flex-col items-center justify-center hidden" id="mobile-menu">
 <nav class="flex flex-col gap-8 text-center">
-<a class="font-headline-md text-3xl text-primary hover:text-tertiary dark:hover:text-secondary transition-colors" href="#home" onclick="toggleMenu()">Home</a>
-<a class="font-headline-md text-3xl text-primary hover:text-tertiary dark:hover:text-secondary transition-colors" href="#intro" onclick="toggleMenu()">Introduction</a>
-<a class="font-headline-md text-3xl text-primary hover:text-tertiary dark:hover:text-secondary transition-colors" href="#gallery" onclick="toggleMenu()">Gallery</a>
-<a class="font-headline-md text-3xl text-primary hover:text-tertiary dark:hover:text-secondary transition-colors" href="#events" onclick="toggleMenu()">Events</a>
-<a class="font-headline-md text-3xl text-primary hover:text-tertiary dark:hover:text-secondary transition-colors" href="#rsvp" onclick="toggleMenu()">RSVP</a>
+<a class="font-headline-md text-3xl" href="#home" onclick="toggleMenu()">Home</a>
+<a class="font-headline-md text-3xl" href="#intro" onclick="toggleMenu()">Introduction</a>
+<a class="font-headline-md text-3xl" href="#gallery" onclick="toggleMenu()">Gallery</a>
+<a class="font-headline-md text-3xl" href="#events" onclick="toggleMenu()">Events</a>
+<a class="font-headline-md text-3xl" href="#rsvp" onclick="toggleMenu()">RSVP</a>
 </nav>
-<div class="mt-16">
-<button class="bg-primary text-white px-8 py-3 rounded-full font-label-caps text-label-caps tracking-widest hover:bg-tertiary transition-all" onclick="toggleMenu()">CLOSE</button>
-</div>
+<!-- <div class="mt-16">
+<button class="bg-primary text-white px-8 py-3 rounded-full font-label-caps text-label-caps tracking-widest hover:bg-tertiary transition-all" onclick="toggleMenu()">CLOSE</button> -->
+<!-- </div> -->
 </div>
 <!-- 1. Hero Slideshow Banner -->
 <section class="relative hero-screen flex flex-col items-center justify-center text-center overflow-hidden overflow-x-clip" id="home">
@@ -552,14 +597,16 @@
 <p class="font-label-caps text-label-caps text-outline" id="footer-copyright"></p>
 </div>
 </footer>
-<button aria-label="Quay lại đầu trang" class="glass-nav fixed safe-fixed-br z-[100] w-14 h-14 rounded-full flex items-center justify-center text-primary shadow-lg hover:scale-110 active:scale-95" id="back-to-top" title="Quay lại đầu trang">
-<span class="material-symbols-outlined text-3xl">keyboard_double_arrow_up</span>
+<button aria-label="Quay lại đầu trang" class="glass-nav fixed safe-fixed-br z-[100] w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95" id="back-to-top" title="Quay lại đầu trang">
+<span class="material-symbols-outlined glass-nav-icon">keyboard_double_arrow_up</span>
 </button>
 <script src="config.js"></script>
 <script>
     let revealObserver = null;
     let heroSectionObserver = null;
     let scrollLocked = true;
+    let menuOpen = false;
+    let menuScrollY = 0;
     let heroIntroComplete = false;
     let skipNextHeroIntersect = true;
     const observedReveals = new WeakSet();
@@ -611,15 +658,35 @@
     }
 
     function preventScrollWhileLocked(e) {
-        if (!scrollLocked) return;
+        if (!scrollLocked && !menuOpen) return;
         e.preventDefault();
+    }
+
+    function lockMenuScroll() {
+        if (menuOpen) return;
+        menuScrollY = window.scrollY;
+        menuOpen = true;
+        if (!scrollLocked) {
+            document.body.classList.add('scroll-locked');
+            document.body.style.top = `-${menuScrollY}px`;
+        }
+    }
+
+    function unlockMenuScroll() {
+        if (!menuOpen) return;
+        menuOpen = false;
+        if (!scrollLocked) {
+            document.body.classList.remove('scroll-locked');
+            document.body.style.top = '';
+            window.scrollTo(0, menuScrollY);
+        }
     }
 
     function initScrollLock() {
         window.addEventListener('wheel', preventScrollWhileLocked, { passive: false });
         window.addEventListener('touchmove', preventScrollWhileLocked, { passive: false });
         window.addEventListener('keydown', (e) => {
-            if (!scrollLocked) return;
+            if (!scrollLocked && !menuOpen) return;
             if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(e.key)) {
                 e.preventDefault();
             }
@@ -701,7 +768,9 @@
 
         revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                entry.target.classList.toggle('revealed', entry.isIntersecting);
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
             });
         }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
 
@@ -1050,10 +1119,12 @@
         const isActive = mobileMenu.classList.toggle('hidden');
         if (!isActive) {
             mobileMenu.classList.add('flex');
+            lockMenuScroll();
             setTimeout(() => mobileMenu.classList.add('active'), 10);
             menuIcon.innerText = 'close';
         } else {
             mobileMenu.classList.remove('active');
+            unlockMenuScroll();
             setTimeout(() => {
                 mobileMenu.classList.remove('flex');
                 mobileMenu.classList.add('hidden');
