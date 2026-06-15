@@ -1172,13 +1172,76 @@
         showSlide((currentSlide + 1) % slides.length);
     }
 
-    function goToSlide(index) {
-        showSlide(index);
+    function prevSlide() {
+        const slides = getSlides();
+        if (!slides.length) return;
+        showSlide((currentSlide - 1 + slides.length) % slides.length);
+    }
+
+    function restartSlideInterval() {
         clearInterval(slideInterval);
         slideInterval = setInterval(nextSlide, 5000);
     }
 
+    function goToSlide(index) {
+        showSlide(index);
+        restartSlideInterval();
+    }
+
+    function initHeroSwipe() {
+        const hero = document.getElementById('home');
+        if (!hero) return;
+
+        const SWIPE_THRESHOLD = 50;
+        let startX = 0;
+        let startY = 0;
+        let tracking = false;
+
+        function onSwipeStart(x, y) {
+            if (menuOpen || getSlides().length <= 1) return;
+            startX = x;
+            startY = y;
+            tracking = true;
+        }
+
+        function onSwipeEnd(x, y) {
+            if (!tracking) return;
+            tracking = false;
+
+            const deltaX = x - startX;
+            const deltaY = y - startY;
+
+            if (Math.abs(deltaX) < SWIPE_THRESHOLD) return;
+            if (Math.abs(deltaX) <= Math.abs(deltaY)) return;
+
+            if (deltaX < 0) nextSlide();
+            else prevSlide();
+            restartSlideInterval();
+        }
+
+        hero.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            if (touch) onSwipeStart(touch.clientX, touch.clientY);
+        }, { passive: true });
+
+        hero.addEventListener('touchend', (e) => {
+            const touch = e.changedTouches[0];
+            if (touch) onSwipeEnd(touch.clientX, touch.clientY);
+        }, { passive: true });
+
+        hero.addEventListener('mousedown', (e) => {
+            if (e.button !== 0) return;
+            onSwipeStart(e.clientX, e.clientY);
+        });
+
+        window.addEventListener('mouseup', (e) => {
+            if (!tracking || e.button !== 0) return;
+            onSwipeEnd(e.clientX, e.clientY);
+        });
+    }
+
     slideInterval = setInterval(nextSlide, 5000);
+    initHeroSwipe();
 
     // --- Gửi email qua cấu hình WEDDING_CONFIG.email ---
     async function sendWeddingEmail(subject, fields) {
