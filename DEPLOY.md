@@ -22,21 +22,15 @@ Test Turnstile key **không** chạy trên domain thật. Tạo widget productio
    cd worker
    npx wrangler secret put TURNSTILE_SECRET_KEY
    ```
-6. Thêm GitHub Variable `TURNSTILE_SITE_KEY` = Site Key (xem bước dưới)
+6. Site key đã nằm trong `config.js` — không cần GitHub Variable riêng
 
 ## GitHub Variables (Settings → Actions → Variables)
 
 | Variable | Giá trị |
 |---|---|
 | `EMAIL_ENDPOINT` | `https://wedding-mail.ndkndkndk2958.workers.dev/send` |
-| `TURNSTILE_SITE_KEY` | Site key từ Turnstile Dashboard |
 
-Hoặc dùng CLI:
-
-```bash
-gh variable set EMAIL_ENDPOINT -b "https://wedding-mail.ndkndkndk2958.workers.dev/send" -R ndkndkndk2958/K_wedding_page
-gh variable set TURNSTILE_SITE_KEY -b "YOUR_SITE_KEY" -R ndkndkndk2958/K_wedding_page
-```
+~~`TURNSTILE_SITE_KEY`~~ — không cần; dùng `config.js` trong repo.
 
 ## Bật GitHub Pages
 

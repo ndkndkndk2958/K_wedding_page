@@ -31,11 +31,9 @@ jobs:
       - name: Prepare production config
         env:
           EMAIL_ENDPOINT: ${{ vars.EMAIL_ENDPOINT }}
-          TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
         run: |
           cp config.js public-config.js
           sed -i "s|http://localhost:8787/send|${EMAIL_ENDPOINT}|g" public-config.js
-          sed -i "s|1x00000000000000000000AA|${TURNSTILE_SITE_KEY}|g" public-config.js
 
       - name: Assemble static site
         run: |
