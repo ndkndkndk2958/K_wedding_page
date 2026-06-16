@@ -15,7 +15,9 @@ Test Turnstile key **không** chạy trên domain thật. Tạo widget productio
 
 1. [Cloudflare Dashboard → Turnstile](https://dash.cloudflare.com/?to=/:account/turnstile)
 2. **Add site** → tên `K-wedding-page`
-3. Hostnames: `ndkndkndk2958.github.io`, `localhost`
+3. Hostnames (**bắt buộc** — thiếu sẽ lỗi `400020`, captcha không hiện):
+   - `ndkndkndk2958.github.io`
+   - `localhost` (cho dev local)
 4. Copy **Site Key** và **Secret Key**
 5. Cập nhật Worker secret:
    ```bash

@@ -603,7 +603,13 @@
 <span class="material-symbols-outlined glass-nav-icon">keyboard_double_arrow_up</span>
 </button>
 <script src="config.js"></script>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+<script>
+    window.onTurnstileApiLoad = function () {
+        window._turnstileApiReady = true;
+        if (typeof window._bootTurnstile === 'function') window._bootTurnstile();
+    };
+</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileApiLoad" async defer></script>
 <script>
     let revealObserver = null;
     let heroSectionObserver = null;
@@ -1250,17 +1256,43 @@
     let rsvpTurnstileId = null;
     let wishTurnstileId = null;
 
-    function initTurnstileWidgets() {
-        const siteKey = WEDDING_CONFIG.turnstile?.siteKey;
-        if (!siteKey || typeof turnstile === 'undefined') return;
-
-        const rsvpEl = document.getElementById('rsvp-turnstile');
-        const wishEl = document.getElementById('wish-turnstile');
-        if (rsvpEl && rsvpTurnstileId === null) {
-            rsvpTurnstileId = turnstile.render('#rsvp-turnstile', { sitekey: siteKey });
+    function onTurnstileError(code) {
+        console.error('Turnstile error:', code);
+        if (code === 400020 || code === 110100 || code === 110200) {
+            return 'Captcha chưa cấu hình đúng domain. Thêm ndkndkndk2958.github.io trong Cloudflare Turnstile → Hostnames.';
         }
-        if (wishEl && wishTurnstileId === null) {
-            wishTurnstileId = turnstile.render('#wish-turnstile', { sitekey: siteKey });
+        return 'Captcha lỗi (' + code + '). Vui lòng tải lại trang.';
+    }
+
+    function renderTurnstileWidget(containerId, assignId) {
+        const siteKey = WEDDING_CONFIG.turnstile?.siteKey;
+        const el = document.getElementById(containerId);
+        if (!siteKey || !el || typeof turnstile === 'undefined') return null;
+
+        return turnstile.render(el, {
+            sitekey: siteKey,
+            theme: 'auto',
+            size: 'normal',
+            'error-callback': onTurnstileError,
+        });
+    }
+
+    function initTurnstileWidgets() {
+        if (typeof turnstile === 'undefined') return;
+
+        const boot = () => {
+            if (rsvpTurnstileId === null) {
+                rsvpTurnstileId = renderTurnstileWidget('rsvp-turnstile', (id) => { rsvpTurnstileId = id; });
+            }
+            if (wishTurnstileId === null) {
+                wishTurnstileId = renderTurnstileWidget('wish-turnstile', (id) => { wishTurnstileId = id; });
+            }
+        };
+
+        if (turnstile.ready) {
+            turnstile.ready(boot);
+        } else {
+            boot();
         }
     }
 
@@ -1283,7 +1315,12 @@
         }
 
         if (!turnstileToken) {
-            throw new Error('Vui lòng hoàn thành xác minh captcha.');
+            const widgetBroken = rsvpTurnstileId === null && wishTurnstileId === null;
+            throw new Error(
+                widgetBroken
+                    ? 'Captcha chưa tải. Kiểm tra domain ndkndkndk2958.github.io đã thêm trong Cloudflare Turnstile.'
+                    : 'Vui lòng hoàn thành xác minh captcha.'
+            );
         }
 
         if (window.location.protocol === 'file:') {
@@ -1404,10 +1441,7 @@
     initRsvpForm();
     initWishesForm();
 
-    if (typeof turnstile !== 'undefined') {
-        initTurnstileWidgets();
-    } else {
-        window.addEventListener('load', initTurnstileWidgets);
-    }
+    window._bootTurnstile = initTurnstileWidgets;
+    if (window._turnstileApiReady) initTurnstileWidgets();
 </script>
 </body></html>
