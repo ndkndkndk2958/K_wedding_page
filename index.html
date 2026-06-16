@@ -549,6 +549,7 @@
 <input class="w-full bg-transparent border-0 border-b border-outline focus:ring-0 focus:border-primary px-0 py-3 font-body-md transition-colors" id="rsvp-guests" inputmode="numeric" max="20" min="1" required="" type="number" value="1"/>
 </div>
 <p class="form-status" id="rsvp-status"></p>
+<div class="flex justify-center" id="rsvp-turnstile"></div>
 <button class="w-full bg-primary text-white py-5 rounded-full font-label-caps text-label-caps tracking-widest transition-all hover:bg-tertiary active:scale-95 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed" id="rsvp-submit" type="submit">XÁC NHẬN</button>
 </form>
 </div>
@@ -567,6 +568,7 @@
 <label class="float-label text-outline font-label-caps text-label-caps" for="wish-message">Lời chúc tốt đẹp</label>
 </div>
 <p class="form-status" id="wish-status"></p>
+<div class="flex justify-center" id="wish-turnstile"></div>
 <button class="w-full bg-primary text-white py-5 rounded-full font-label-caps text-label-caps tracking-widest transition-all hover:bg-tertiary active:scale-95 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed" id="wish-submit" type="submit">GỬI LỜI CHÚC</button>
 </form>
 </div>
@@ -601,6 +603,7 @@
 <span class="material-symbols-outlined glass-nav-icon">keyboard_double_arrow_up</span>
 </button>
 <script src="config.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 <script>
     let revealObserver = null;
     let heroSectionObserver = null;
@@ -1243,69 +1246,65 @@
     slideInterval = setInterval(nextSlide, 5000);
     initHeroSwipe();
 
-    // --- Gửi email qua cấu hình WEDDING_CONFIG.email ---
-    async function sendWeddingEmail(subject, fields) {
-        const { to, accessKey, formsubmitId } = WEDDING_CONFIG.email || {};
+    // --- Gửi email qua Cloudflare Worker (WEDDING_CONFIG.email.endpoint) ---
+    let rsvpTurnstileId = null;
+    let wishTurnstileId = null;
 
-        if (!to || to === 'your-email@gmail.com') {
-            throw new Error('Vui lòng cấu hình email nhận trong config.js');
+    function initTurnstileWidgets() {
+        const siteKey = WEDDING_CONFIG.turnstile?.siteKey;
+        if (!siteKey || typeof turnstile === 'undefined') return;
+
+        const rsvpEl = document.getElementById('rsvp-turnstile');
+        const wishEl = document.getElementById('wish-turnstile');
+        if (rsvpEl && rsvpTurnstileId === null) {
+            rsvpTurnstileId = turnstile.render('#rsvp-turnstile', { sitekey: siteKey });
+        }
+        if (wishEl && wishTurnstileId === null) {
+            wishTurnstileId = turnstile.render('#wish-turnstile', { sitekey: siteKey });
+        }
+    }
+
+    function getTurnstileToken(widgetId) {
+        if (!widgetId || typeof turnstile === 'undefined') return '';
+        return turnstile.getResponse(widgetId) || '';
+    }
+
+    function resetTurnstileWidget(widgetId) {
+        if (widgetId && typeof turnstile !== 'undefined') {
+            turnstile.reset(widgetId);
+        }
+    }
+
+    async function sendWeddingEmail(subject, fields, turnstileToken) {
+        const endpoint = WEDDING_CONFIG.email?.endpoint;
+
+        if (!endpoint || endpoint.includes('<account>')) {
+            throw new Error('Vui lòng cấu hình email.endpoint trong config.js (xem worker/README.md)');
         }
 
-        const messageBody = Object.entries(fields)
-            .map(([key, value]) => `${key}: ${value}`)
-            .join('\n');
-
-        if (accessKey) {
-            const res = await fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({
-                    access_key: accessKey,
-                    subject,
-                    from_name: fields['Tên'] || 'Khách mời',
-                    message: messageBody,
-                }),
-            });
-            const data = await res.json();
-            if (!data.success) {
-                throw new Error(data.message || 'Không thể gửi email qua Web3Forms');
-            }
-            return;
+        if (!turnstileToken) {
+            throw new Error('Vui lòng hoàn thành xác minh captcha.');
         }
 
         if (window.location.protocol === 'file:') {
-            throw new Error('Không gửi được khi mở file trực tiếp. Chạy: python3 -m http.server 8080 rồi mở http://localhost:8080/code.html');
+            throw new Error('Không gửi được khi mở file trực tiếp. Chạy: python3 -m http.server 8080 rồi mở http://localhost:8080/');
         }
 
-        const endpointId = formsubmitId || to;
-        const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(endpointId)}`, {
+        const res = await fetch(endpoint, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({
-                _subject: subject,
-                _template: 'table',
-                _captcha: 'false',
-                ...fields,
-            }),
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ subject, fields, turnstileToken }),
         });
 
         let data;
         try {
             data = await res.json();
         } catch {
-            throw new Error('Không nhận được phản hồi từ server email. Vui lòng thử lại.');
+            throw new Error('Không nhận được phản hồi từ server. Vui lòng thử lại.');
         }
 
-        const failed = data.success === false || data.success === 'false';
-        if (failed || !res.ok) {
-            const msg = data.message || 'Không thể gửi email';
-            if (/activation|activate form/i.test(msg)) {
-                throw new Error('Kiểm tra hộp thư (cả Spam) và bấm link "Activate Form" từ FormSubmit, sau đó gửi lại.');
-            }
-            if (/web server/i.test(msg)) {
-                throw new Error('Cần mở trang qua web server, không mở file HTML trực tiếp.');
-            }
-            throw new Error(msg);
+        if (!res.ok || !data.success) {
+            throw new Error(data.message || 'Không thể gửi email.');
         }
     }
 
@@ -1336,6 +1335,7 @@
             setSubmitLoading(submitBtn, true, 'XÁC NHẬN');
 
             try {
+                const turnstileToken = getTurnstileToken(rsvpTurnstileId);
                 const coupleNames = WEDDING_CONFIG.footer.names;
                 await sendWeddingEmail(`[RSVP] ${name} — ${coupleNames}`, {
                     'Loại': 'Xác nhận tham dự',
@@ -1344,10 +1344,11 @@
                     'Số khách': String(guests),
                     'Sự kiện': WEDDING_CONFIG.event.title,
                     'Ngày': WEDDING_CONFIG.event.dateText,
-                });
+                }, turnstileToken);
                 setFormStatus(statusEl, 'Cảm ơn bạn đã xác nhận!', 'success');
                 form.reset();
                 guestsInput.value = '1';
+                resetTurnstileWidget(rsvpTurnstileId);
             } catch (err) {
                 setFormStatus(statusEl, err.message || 'Gửi thất bại, vui lòng thử lại.', 'error');
             } finally {
@@ -1372,12 +1373,13 @@
             setSubmitLoading(submitBtn, true, 'GỬI LỜI CHÚC');
 
             try {
+                const turnstileToken = getTurnstileToken(wishTurnstileId);
                 const coupleNames = WEDDING_CONFIG.footer.names;
                 await sendWeddingEmail(`[Lời chúc] ${name} — ${coupleNames}`, {
                     'Loại': 'Lời chúc',
                     'Tên': name,
                     'Lời chúc': message,
-                });
+                }, turnstileToken);
 
                 const display = document.getElementById('wishes-display');
                 const newWish = document.createElement('div');
@@ -1390,6 +1392,7 @@
 
                 setFormStatus(statusEl, 'Cảm ơn lời chúc chân thành của bạn!', 'success');
                 form.reset();
+                resetTurnstileWidget(wishTurnstileId);
             } catch (err) {
                 setFormStatus(statusEl, err.message || 'Gửi thất bại, vui lòng thử lại.', 'error');
             } finally {
@@ -1400,5 +1403,11 @@
 
     initRsvpForm();
     initWishesForm();
+
+    if (typeof turnstile !== 'undefined') {
+        initTurnstileWidgets();
+    } else {
+        window.addEventListener('load', initTurnstileWidgets);
+    }
 </script>
 </body></html>

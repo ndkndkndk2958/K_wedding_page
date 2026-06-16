@@ -1,0 +1,8 @@
+name = "wedding-mail"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
+
+# Comma-separated origins allowed to call this worker (no trailing slash)
+# Update with your GitHub Pages URL and custom domain before deploy.
+[vars]
+ALLOWED_ORIGINS = "http://localhost:8080,http://127.0.0.1:8080,http://localhost:8000,http://127.0.0.1:8000,https://ndkndkndk2958.github.io"

@@ -1,0 +1,6 @@
+WEB3FORMS_ACCESS_KEY=
+RESEND_API_KEY=re_defLZZ5Q_DFwY6sg1pKafhe3tYCAsafQK
+RECIPIENT_EMAIL=ndkndkndk2958@gmail.com
+TURNSTILE_SECRET_KEY=your-turnstile-secret-key
+# Tuỳ chọn — cần domain đã verify trên Resend
+# RESEND_FROM=Wedding <rsvp@ndkndkndk2958.com>

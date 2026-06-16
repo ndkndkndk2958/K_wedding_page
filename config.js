@@ -65,21 +65,13 @@ const WEDDING_CONFIG = {
         autoplay: true,
     },
     email: {
-        // Email nhận RSVP & lời chúc
-        to: 'ndkndkndk2958@gmail.com',
-        // Cách 1 (khuyến nghị): Web3Forms — đăng ký miễn phí tại https://web3forms.com
-        // Dùng email ở trên để đăng ký, copy accessKey và dán vào đây
-        accessKey: '193841d1-487f-4bbc-b439-3d6e9e04df0e',
-        // Cách 2: FormSubmit — sau khi gửi form lần đầu, mở email và bấm "Activate Form"
-        // Có thể dán mã hash từ email kích hoạt vào formsubmitId (ổn định hơn dùng email thuần)
-        formsubmitId: '',
-
-    //    < form action="https://api.web3forms.com/submit" method="POST" >
-    // <input type="hidden" name="access_key" value="193841d1-487f-4bbc-b439-3d6e9e04df0e">
-    //     <input type="text" name="name" required>
-    //         <input type="email" name="email" required>
-    //             <textarea name="message" required></textarea>
-    //             <button type="submit">Submit</button>
-    //         </form>
+        // URL Cloudflare Worker — xem worker/README.md để deploy
+        // Production: https://wedding-mail.<account>.workers.dev/send
+        // Local dev: http://localhost:8787/send (chạy: cd worker && npm run dev)
+        endpoint: 'http://localhost:8787/send',
+    },
+    turnstile: {
+        // Site key công khai từ Cloudflare Turnstile Dashboard
+        siteKey: '1x00000000000000000000AA',
     },
 };
