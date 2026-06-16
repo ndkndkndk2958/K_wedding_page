@@ -15,19 +15,19 @@ const WEDDING_CONFIG = {
         },
     },
     wedding: {
-        dateDisplay: '20 . 04 . 2027',
+        dateDisplay: '25 . 04 . 2027',
         invitationText: 'Trân trọng kính mời bạn đến chung vui cùng chúng tôi trong ngày trọng đại này.',
     },
     event: {
         title: 'Tiệc Chúc Mừng',
         time: '06:00 PM',
-        dateText: 'Ngày 20 Tháng 04 Năm 2027',
+        dateText: 'Ngày 25 Tháng 04 Năm 2027',
         venueName: 'Wedding Palace - Sảnh Diamond',
         venueAddress: 'Quận 1, TP. Hồ Chí Minh',
         mapsUrl: 'https://maps.google.com',
     },
     rsvp: {
-        deadlineText: 'Vui lòng phản hồi trước ngày 10/04/2027',
+        deadlineText: 'Vui lòng phản hồi trước ngày 20/04/2027',
     },
     footer: {
         names: 'Đăng Khoa & Cẩm Nhung',
