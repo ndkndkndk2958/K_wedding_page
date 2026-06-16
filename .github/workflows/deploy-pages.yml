@@ -28,17 +28,10 @@ jobs:
       - run: npm ci
       - run: npm run build:css
 
-      - name: Prepare production config
-        env:
-          EMAIL_ENDPOINT: ${{ vars.EMAIL_ENDPOINT }}
-        run: |
-          cp config.js public-config.js
-          sed -i "s|http://localhost:8787/send|${EMAIL_ENDPOINT}|g" public-config.js
-
       - name: Assemble static site
         run: |
           mkdir site
-          cp index.html colors.js public-config.js site/config.js
+          cp index.html colors.js config.js site/
           cp -r assets site/
 
       - uses: actions/upload-pages-artifact@v3

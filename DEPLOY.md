@@ -22,17 +22,9 @@ Test Turnstile key **không** chạy trên domain thật. Tạo widget productio
    cd worker
    npx wrangler secret put TURNSTILE_SECRET_KEY
    ```
-6. Site key đã nằm trong `config.js` — không cần GitHub Variable riêng
+## GitHub Pages
 
-## GitHub Variables (Settings → Actions → Variables)
-
-| Variable | Giá trị |
-|---|---|
-| `EMAIL_ENDPOINT` | `https://wedding-mail.ndkndkndk2958.workers.dev/send` |
-
-~~`TURNSTILE_SITE_KEY`~~ — không cần; dùng `config.js` trong repo.
-
-## Bật GitHub Pages
+**Không cần** cấu hình GitHub Variables — `config.js` tự dùng Worker production khi chạy trên `ndkndkndk2958.github.io`, và `localhost` khi dev local.
 
 1. Repo **Settings → Pages → Build and deployment**
 2. Source: **GitHub Actions**

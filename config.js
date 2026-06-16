@@ -65,10 +65,10 @@ const WEDDING_CONFIG = {
         autoplay: true,
     },
     email: {
-        // URL Cloudflare Worker — xem worker/README.md để deploy
-        // Production: https://wedding-mail.<account>.workers.dev/send
-        // Local dev: http://localhost:8787/send (chạy: cd worker && npm run dev)
-        endpoint: 'http://localhost:8787/send',
+        // Tự chọn endpoint: local → wrangler dev, production → Worker đã deploy
+        endpoint: (typeof location !== 'undefined' && /^(localhost|127\.0\.0\.1)$/.test(location.hostname))
+            ? 'http://localhost:8787/send'
+            : 'https://wedding-mail.ndkndkndk2958.workers.dev/send',
     },
     turnstile: {
         // Site key công khai từ Cloudflare Turnstile Dashboard
