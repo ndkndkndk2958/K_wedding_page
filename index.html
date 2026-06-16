@@ -1264,7 +1264,7 @@
         return 'Captcha lỗi (' + code + '). Vui lòng tải lại trang.';
     }
 
-    function renderTurnstileWidget(containerId, assignId) {
+    function renderTurnstileWidget(containerId) {
         const siteKey = WEDDING_CONFIG.turnstile?.siteKey;
         const el = document.getElementById(containerId);
         if (!siteKey || !el || typeof turnstile === 'undefined') return null;
@@ -1280,19 +1280,11 @@
     function initTurnstileWidgets() {
         if (typeof turnstile === 'undefined') return;
 
-        const boot = () => {
-            if (rsvpTurnstileId === null) {
-                rsvpTurnstileId = renderTurnstileWidget('rsvp-turnstile', (id) => { rsvpTurnstileId = id; });
-            }
-            if (wishTurnstileId === null) {
-                wishTurnstileId = renderTurnstileWidget('wish-turnstile', (id) => { wishTurnstileId = id; });
-            }
-        };
-
-        if (turnstile.ready) {
-            turnstile.ready(boot);
-        } else {
-            boot();
+        if (rsvpTurnstileId === null) {
+            rsvpTurnstileId = renderTurnstileWidget('rsvp-turnstile');
+        }
+        if (wishTurnstileId === null) {
+            wishTurnstileId = renderTurnstileWidget('wish-turnstile');
         }
     }
 
