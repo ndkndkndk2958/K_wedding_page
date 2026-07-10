@@ -4,3 +4,5 @@ config.local.js
 worker/.dev.vars
 worker/node_modules/
 .wrangler/
+.superpowers/
+.agents/
