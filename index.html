@@ -1256,13 +1256,19 @@
     let rsvpTurnstileId = null;
     let wishTurnstileId = null;
 
+    let turnstileNetworkError = false; // true khi lỗi 600010 (mạng/DNS)
+
     function onTurnstileError(code) {
         console.error('Turnstile error:', code);
+        // Lỗi 600010 = mạng/DNS không tới được Cloudflare — cho phép gửi form không có token
+        if (code === 600010) {
+            turnstileNetworkError = true;
+            return; // Không hiển thị lỗi, vẫn cho phép gửi
+        }
+        turnstileNetworkError = false;
         let msg = 'Captcha lỗi (' + code + '). Vui lòng tải lại trang.';
         if (code === 400020 || code === 110100 || code === 110200) {
             msg = 'Lỗi Captcha: Domain/IP chưa được khai báo trong Cloudflare Turnstile dashboard.';
-        } else if (code === 600010) {
-            msg = 'Lỗi kết nối: Không thể phân giải DNS Cloudflare (Vui lòng tắt Adblocker/VPN hoặc kiểm tra DNS/mạng).';
         }
         
         const rsvpStatus = document.getElementById('rsvp-status');
@@ -1314,12 +1320,17 @@
         }
 
         if (!turnstileToken) {
-            const widgetBroken = rsvpTurnstileId === null && wishTurnstileId === null;
-            throw new Error(
-                widgetBroken
-                    ? 'Captcha chưa tải. Kiểm tra domain ndkndkndk2958.github.io đã thêm trong Cloudflare Turnstile.'
-                    : 'Vui lòng hoàn thành xác minh captcha.'
-            );
+            // Nếu lỗi mạng 600010, bỏ qua captcha và gửi bình thường
+            if (turnstileNetworkError) {
+                console.warn('Turnstile 600010: bypassing captcha due to network error');
+            } else {
+                const widgetBroken = rsvpTurnstileId === null && wishTurnstileId === null;
+                throw new Error(
+                    widgetBroken
+                        ? 'Captcha chưa tải. Kiểm tra domain ndkndkndk2958.github.io đã thêm trong Cloudflare Turnstile.'
+                        : 'Vui lòng hoàn thành xác minh captcha.'
+                );
+            }
         }
 
         if (window.location.protocol === 'file:') {

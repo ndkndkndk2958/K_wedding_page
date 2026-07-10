@@ -36,13 +36,13 @@ export default {
 
         const { subject, fields, turnstileToken } = body || {};
 
-        if (!turnstileToken || typeof turnstileToken !== 'string') {
-            return jsonResponse({ success: false, message: 'Vui lòng hoàn thành xác minh captcha.' }, 400, request, env);
-        }
-
-        const turnstileOk = await verifyTurnstile(turnstileToken, clientIp, env);
-        if (!turnstileOk) {
-            return jsonResponse({ success: false, message: 'Xác minh captcha thất bại, vui lòng thử lại.' }, 403, request, env);
+        // Turnstile là tuỳ chọn — nếu không có token (do lỗi mạng 600010), vẫn cho phép gửi
+        // Chỉ xác minh nếu client gửi token
+        if (turnstileToken && typeof turnstileToken === 'string') {
+            const turnstileOk = await verifyTurnstile(turnstileToken, clientIp, env);
+            if (!turnstileOk) {
+                return jsonResponse({ success: false, message: 'Xác minh captcha thất bại, vui lòng thử lại.' }, 403, request, env);
+            }
         }
 
         if (!subject || typeof subject !== 'string' || subject.length > MAX_SUBJECT_LENGTH) {
