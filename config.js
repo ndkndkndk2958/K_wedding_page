@@ -65,14 +65,10 @@ const WEDDING_CONFIG = {
         volume: 0.4,
         autoplay: true,
     },
-    email: {
-        // Tự chọn endpoint: local → wrangler dev, production → Worker đã deploy
+    worker: {
+        // Endpoint Cloudflare Worker — Google Sheets URL ẩn trong Worker secrets (không lộ ra frontend)
         endpoint: (typeof location !== 'undefined' && /^(localhost|127\.0\.0\.1)$/.test(location.hostname))
             ? 'http://localhost:8787/send'
             : 'https://wedding-mail.ndkndkndk2958.workers.dev/send',
-    },
-    turnstile: {
-        // Site key công khai từ Cloudflare Turnstile Dashboard (Dùng 1x00000000000000000000AA khi chạy local)
-        siteKey: '0x4AAAAAADlq16jn93APeJp8',
     },
 };

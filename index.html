@@ -1252,95 +1252,22 @@
     slideInterval = setInterval(nextSlide, 5000);
     initHeroSwipe();
 
-    // --- Gửi email qua Cloudflare Worker (WEDDING_CONFIG.email.endpoint) ---
-    let rsvpTurnstileId = null;
-    let wishTurnstileId = null;
+    // --- Gửi form qua Cloudflare Worker (Google Sheets URL ẩn phía server) ---
+    async function sendToWorker(subject, fields) {
+        const endpoint = WEDDING_CONFIG.worker?.endpoint;
 
-    let turnstileNetworkError = false; // true khi lỗi 600010 (mạng/DNS)
-
-    function onTurnstileError(code) {
-        console.error('Turnstile error:', code);
-        // Lỗi 600010 = mạng/DNS không tới được Cloudflare — cho phép gửi form không có token
-        if (code === 600010) {
-            turnstileNetworkError = true;
-            return; // Không hiển thị lỗi, vẫn cho phép gửi
-        }
-        turnstileNetworkError = false;
-        let msg = 'Captcha lỗi (' + code + '). Vui lòng tải lại trang.';
-        if (code === 400020 || code === 110100 || code === 110200) {
-            msg = 'Lỗi Captcha: Domain/IP chưa được khai báo trong Cloudflare Turnstile dashboard.';
-        }
-        
-        const rsvpStatus = document.getElementById('rsvp-status');
-        const wishStatus = document.getElementById('wish-status');
-        if (rsvpStatus) setFormStatus(rsvpStatus, msg, 'error');
-        if (wishStatus) setFormStatus(wishStatus, msg, 'error');
-    }
-
-    function renderTurnstileWidget(containerId) {
-        const siteKey = WEDDING_CONFIG.turnstile?.siteKey;
-        const el = document.getElementById(containerId);
-        if (!siteKey || !el || typeof turnstile === 'undefined') return null;
-
-        return turnstile.render(el, {
-            sitekey: siteKey,
-            theme: 'auto',
-            size: 'normal',
-            'error-callback': onTurnstileError,
-        });
-    }
-
-    function initTurnstileWidgets() {
-        if (typeof turnstile === 'undefined') return;
-
-        if (rsvpTurnstileId === null) {
-            rsvpTurnstileId = renderTurnstileWidget('rsvp-turnstile');
-        }
-        if (wishTurnstileId === null) {
-            wishTurnstileId = renderTurnstileWidget('wish-turnstile');
-        }
-    }
-
-    function getTurnstileToken(widgetId) {
-        if (!widgetId || typeof turnstile === 'undefined') return '';
-        return turnstile.getResponse(widgetId) || '';
-    }
-
-    function resetTurnstileWidget(widgetId) {
-        if (widgetId && typeof turnstile !== 'undefined') {
-            turnstile.reset(widgetId);
-        }
-    }
-
-    async function sendWeddingEmail(subject, fields, turnstileToken) {
-        const endpoint = WEDDING_CONFIG.email?.endpoint;
-
-        if (!endpoint || endpoint.includes('<account>')) {
-            throw new Error('Vui lòng cấu hình email.endpoint trong config.js (xem worker/README.md)');
-        }
-
-        if (!turnstileToken) {
-            // Nếu lỗi mạng 600010, bỏ qua captcha và gửi bình thường
-            if (turnstileNetworkError) {
-                console.warn('Turnstile 600010: bypassing captcha due to network error');
-            } else {
-                const widgetBroken = rsvpTurnstileId === null && wishTurnstileId === null;
-                throw new Error(
-                    widgetBroken
-                        ? 'Captcha chưa tải. Kiểm tra domain ndkndkndk2958.github.io đã thêm trong Cloudflare Turnstile.'
-                        : 'Vui lòng hoàn thành xác minh captcha.'
-                );
-            }
+        if (!endpoint) {
+            throw new Error('Vui lòng cấu hình worker.endpoint trong config.js');
         }
 
         if (window.location.protocol === 'file:') {
-            throw new Error('Không gửi được khi mở file trực tiếp. Chạy: python3 -m http.server 8080 rồi mở http://localhost:8080/');
+            throw new Error('Không gửi được khi mở file trực tiếp. Chạy: python3 -m http.server 8080');
         }
 
         const res = await fetch(endpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({ subject, fields, turnstileToken }),
+            body: JSON.stringify({ subject, fields }),
         });
 
         let data;
@@ -1351,7 +1278,7 @@
         }
 
         if (!res.ok || !data.success) {
-            throw new Error(data.message || 'Không thể gửi email.');
+            throw new Error(data.message || 'Không thể gửi. Vui lòng thử lại.');
         }
     }
 
@@ -1382,20 +1309,18 @@
             setSubmitLoading(submitBtn, true, 'XÁC NHẬN');
 
             try {
-                const turnstileToken = getTurnstileToken(rsvpTurnstileId);
                 const coupleNames = WEDDING_CONFIG.footer.names;
-                await sendWeddingEmail(`[Phản hồi tham dự] ${name} — ${coupleNames}`, {
+                await sendToWorker(`[Phản hồi tham dự] ${name} — ${coupleNames}`, {
                     'Loại': 'Xác nhận tham dự',
                     'Tên': name,
                     'Tham dự': 'Có',
                     'Số khách': String(guests),
                     'Sự kiện': WEDDING_CONFIG.event.title,
                     'Ngày': WEDDING_CONFIG.event.dateText,
-                }, turnstileToken);
+                });
                 setFormStatus(statusEl, 'Cảm ơn bạn đã xác nhận!', 'success');
                 form.reset();
                 guestsInput.value = '1';
-                resetTurnstileWidget(rsvpTurnstileId);
             } catch (err) {
                 setFormStatus(statusEl, err.message || 'Gửi thất bại, vui lòng thử lại.', 'error');
             } finally {
@@ -1420,13 +1345,12 @@
             setSubmitLoading(submitBtn, true, 'GỬI LỜI CHÚC');
 
             try {
-                const turnstileToken = getTurnstileToken(wishTurnstileId);
                 const coupleNames = WEDDING_CONFIG.footer.names;
-                await sendWeddingEmail(`[Lời chúc] ${name} — ${coupleNames}`, {
+                await sendToWorker(`[Lời chúc] ${name} — ${coupleNames}`, {
                     'Loại': 'Lời chúc',
                     'Tên': name,
                     'Lời chúc': message,
-                }, turnstileToken);
+                });
 
                 const display = document.getElementById('wishes-display');
                 const newWish = document.createElement('div');
@@ -1439,7 +1363,6 @@
 
                 setFormStatus(statusEl, 'Cảm ơn lời chúc chân thành của bạn!', 'success');
                 form.reset();
-                resetTurnstileWidget(wishTurnstileId);
             } catch (err) {
                 setFormStatus(statusEl, err.message || 'Gửi thất bại, vui lòng thử lại.', 'error');
             } finally {
@@ -1450,8 +1373,5 @@
 
     initRsvpForm();
     initWishesForm();
-
-    window._bootTurnstile = initTurnstileWidgets;
-    if (window._turnstileApiReady) initTurnstileWidgets();
 </script>
 </body></html>
