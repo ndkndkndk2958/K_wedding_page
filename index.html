@@ -354,6 +354,33 @@
         transform: translateY(0);
       }
 
+      /* Khắc phục đè nút cuộn & dot chuyển hình trên mobile */
+      @media (max-width: 767px) {
+        .hero-name {
+          font-size: 3rem !important;
+          line-height: 1.2 !important;
+          margin-bottom: 0.25rem !important;
+        }
+        .hero-name#hero-bride-name {
+          margin-bottom: 1rem !important;
+        }
+        .hero-ampersand {
+          font-size: 3.5rem !important;
+          margin-top: 0.25rem !important;
+          margin-bottom: 0.25rem !important;
+        }
+        .hero-divider {
+          margin-bottom: 1rem !important;
+        }
+        .hero-date-text {
+          font-size: 1.25rem !important;
+          margin-bottom: 1rem !important;
+        }
+        .hero-content {
+          padding-bottom: 7.5rem !important;
+        }
+      }
+
       /* Nút quay lại đầu trang */
       #back-to-top {
         opacity: 0;
