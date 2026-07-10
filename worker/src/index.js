@@ -59,105 +59,47 @@ export default {
             }
         }
 
-        const accessKey = env.WEB3FORMS_ACCESS_KEY;
-        const resendKey = env.RESEND_API_KEY;
-        const recipient = env.RECIPIENT_EMAIL;
+        const googleSheetsUrl = env.GOOGLE_SHEETS_URL;
 
-        if (!recipient) {
-            return jsonResponse({ success: false, message: 'Server chưa cấu hình email nhận.' }, 500, request, env);
+        if (!googleSheetsUrl) {
+            return jsonResponse({ success: false, message: 'Server chưa cấu hình link Google Sheets.' }, 500, request, env);
         }
 
-        const messageBody = Object.entries(fields)
-            .map(([key, value]) => `${key}: ${value}`)
-            .join('\n');
-
-        if (resendKey) {
-            const sent = await sendViaResend({
-                apiKey: resendKey,
-                to: recipient,
-                subject,
-                text: messageBody,
-                from: env.RESEND_FROM || 'Wedding RSVP <onboarding@resend.dev>',
-            });
-            if (!sent.ok) {
-                return jsonResponse({ success: false, message: sent.message }, 502, request, env);
-            }
-            return jsonResponse({ success: true }, 200, request, env);
+        const sent = await sendToGoogleSheets(googleSheetsUrl, fields);
+        if (!sent.ok) {
+            return jsonResponse({ success: false, message: sent.message }, 502, request, env);
         }
-
-        if (accessKey) {
-            const web3 = await sendViaWeb3Forms({
-                accessKey,
-                recipient,
-                subject,
-                fromName: fields['Tên'] || 'Khách mời',
-                messageBody,
-            });
-            if (!web3.ok) {
-                return jsonResponse({ success: false, message: web3.message }, 502, request, env);
-            }
-            return jsonResponse({ success: true }, 200, request, env);
-        }
-
-        return jsonResponse({ success: false, message: 'Server chưa cấu hình dịch vụ email.' }, 500, request, env);
+        return jsonResponse({ success: true }, 200, request, env);
     },
 };
 
-async function sendViaResend({ apiKey, to, subject, text, from }) {
-    const res = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ from, to: [to], subject, text }),
-    });
+async function sendToGoogleSheets(url, fields) {
+    const payload = {
+        ...fields,
+        'Thời gian gửi': new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }),
+    };
 
-    let data = {};
     try {
-        data = await res.json();
-    } catch {
-        // ignore
-    }
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            redirect: 'follow', // Quan trọng: Google Apps Script yêu cầu follow redirect (302)
+        });
 
-    if (!res.ok) {
-        return { ok: false, message: data.message || 'Không thể gửi email qua Resend.' };
-    }
-    return { ok: true };
-}
-
-async function sendViaWeb3Forms({ accessKey, recipient, subject, fromName, messageBody }) {
-    const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-            access_key: accessKey,
-            subject,
-            from_name: fromName,
-            email: recipient,
-            message: messageBody,
-        }),
-    });
-
-    let data;
-    try {
-        data = await res.json();
-    } catch {
-        return { ok: false, message: 'Không nhận được phản hồi từ dịch vụ email.' };
-    }
-
-    if (!data.success) {
-        const msg = data.message || 'Không thể gửi email.';
-        if (/not allowed|client side/i.test(msg)) {
-            return {
-                ok: false,
-                message:
-                    'Web3Forms không hỗ trợ gọi từ server (free). Dùng RESEND_API_KEY — xem worker/README.md.',
-            };
+        if (!res.ok) {
+            return { ok: false, message: 'Không thể ghi dữ liệu lên Google Sheets.' };
         }
-        return { ok: false, message: msg };
+
+        const data = await res.json();
+        if (!data.success) {
+            return { ok: false, message: data.error || 'Google Sheets từ chối ghi dữ liệu.' };
+        }
+
+        return { ok: true };
+    } catch (err) {
+        return { ok: false, message: `Lỗi kết nối tới Google Sheets: ${err.message}` };
     }
-    return { ok: true };
 }
 
 function getAllowedOrigins(env) {

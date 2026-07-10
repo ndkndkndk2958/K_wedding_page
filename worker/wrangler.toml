@@ -6,3 +6,5 @@ compatibility_date = "2024-12-01"
 # Update with your GitHub Pages URL and custom domain before deploy.
 [vars]
 ALLOWED_ORIGINS = "http://localhost:8080,http://127.0.0.1:8080,http://localhost:8000,http://127.0.0.1:8000,https://ndkndkndk2958.github.io"
+# GOOGLE_SHEETS_URL = "Link web app Apps Script của bạn"
+
