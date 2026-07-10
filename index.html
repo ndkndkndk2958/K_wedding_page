@@ -1261,6 +1261,8 @@
         let msg = 'Captcha lỗi (' + code + '). Vui lòng tải lại trang.';
         if (code === 400020 || code === 110100 || code === 110200) {
             msg = 'Lỗi Captcha: Domain/IP chưa được khai báo trong Cloudflare Turnstile dashboard.';
+        } else if (code === 600010) {
+            msg = 'Lỗi kết nối: Không thể phân giải DNS Cloudflare (Vui lòng tắt Adblocker/VPN hoặc kiểm tra DNS/mạng).';
         }
         
         const rsvpStatus = document.getElementById('rsvp-status');
