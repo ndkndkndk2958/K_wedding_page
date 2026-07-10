@@ -1258,10 +1258,15 @@
 
     function onTurnstileError(code) {
         console.error('Turnstile error:', code);
+        let msg = 'Captcha lỗi (' + code + '). Vui lòng tải lại trang.';
         if (code === 400020 || code === 110100 || code === 110200) {
-            return 'Captcha chưa cấu hình đúng domain. Thêm ndkndkndk2958.github.io trong Cloudflare Turnstile → Hostnames.';
+            msg = 'Lỗi Captcha: Domain/IP chưa được khai báo trong Cloudflare Turnstile dashboard.';
         }
-        return 'Captcha lỗi (' + code + '). Vui lòng tải lại trang.';
+        
+        const rsvpStatus = document.getElementById('rsvp-status');
+        const wishStatus = document.getElementById('wish-status');
+        if (rsvpStatus) setFormStatus(rsvpStatus, msg, 'error');
+        if (wishStatus) setFormStatus(wishStatus, msg, 'error');
     }
 
     function renderTurnstileWidget(containerId) {
