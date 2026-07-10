@@ -73,6 +73,6 @@ const WEDDING_CONFIG = {
     },
     turnstile: {
         // Site key công khai từ Cloudflare Turnstile Dashboard (Dùng 1x00000000000000000000AA khi chạy local)
-        siteKey: '1x00000000000000000000AA',
+        siteKey: '0x4AAAAAADlq16jn93APeJp8',
     },
 };
