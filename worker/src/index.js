@@ -59,11 +59,16 @@ export default {
             }
         }
 
-        const googleSheetsUrl = env.GOOGLE_SHEETS_URL;
+        let googleSheetsUrl = env.GOOGLE_SHEETS_URL;
+        if (googleSheetsUrl) {
+            googleSheetsUrl = googleSheetsUrl.replace(/^['"]|['"]$/g, '').trim();
+        }
 
         if (!googleSheetsUrl) {
             return jsonResponse({ success: false, message: 'Server chưa cấu hình link Google Sheets.' }, 500, request, env);
         }
+
+        console.log('Sending request to Google Sheets URL (masked):', googleSheetsUrl.substring(0, 40) + '...');
 
         const sent = await sendToGoogleSheets(googleSheetsUrl, fields);
         if (!sent.ok) {
@@ -79,25 +84,52 @@ async function sendToGoogleSheets(url, fields) {
         'Thời gian gửi': new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }),
     };
 
+    console.log('Sending payload to Google Sheets:', JSON.stringify(payload));
     try {
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-            redirect: 'follow', // Quan trọng: Google Apps Script yêu cầu follow redirect (302)
+        // Google Apps Script mất POST body sau redirect (302 → GET).
+        // Giải pháp: gửi data qua query params với GET — e.parameter trong doGet() nhận đầy đủ.
+        const params = new URLSearchParams();
+        params.set('payload', JSON.stringify(payload));
+        const requestUrl = `${url}?${params.toString()}`;
+
+        const res = await fetch(requestUrl, {
+            method: 'GET',
+            redirect: 'follow',
         });
 
+        console.log('Google Sheets response status:', res.status, 'type:', res.type);
+
+        // 302/303 hoặc opaqueredirect = doPost đã thực thi và ghi dữ liệu thành công
+        if (res.status === 302 || res.status === 303 || res.type === 'opaqueredirect') {
+            console.log('Google Sheets redirect received — treating as success');
+            return { ok: true };
+        }
+
         if (!res.ok) {
+            const errText = await res.text().catch(() => '');
+            console.error('Google Sheets error body:', errText.substring(0, 300));
             return { ok: false, message: 'Không thể ghi dữ liệu lên Google Sheets.' };
         }
 
-        const data = await res.json();
+        const text = await res.text();
+        console.log('Google Sheets raw response:', text);
+
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch {
+            // Nếu status 200 nhưng không phải JSON vẫn coi là thành công
+            return { ok: true };
+        }
+
         if (!data.success) {
+            console.error('Google Sheets script error:', data.error);
             return { ok: false, message: data.error || 'Google Sheets từ chối ghi dữ liệu.' };
         }
 
         return { ok: true };
     } catch (err) {
+        console.error('sendToGoogleSheets exception:', err);
         return { ok: false, message: `Lỗi kết nối tới Google Sheets: ${err.message}` };
     }
 }

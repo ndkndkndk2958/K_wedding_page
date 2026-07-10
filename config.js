@@ -1,6 +1,7 @@
 // ============================================================
 // CẤU HÌNH THIỆP CƯỚI — Chỉnh sửa tại đây
 // ============================================================
+// link ảnh: https://lh3.googleusercontent.com/d/THAY_THẾ_ID_ẢNH_TẠI_ĐÂY
 const WEDDING_CONFIG = {
     couple: {
         groom: {
@@ -15,7 +16,7 @@ const WEDDING_CONFIG = {
         },
     },
     wedding: {
-        dateDisplay: '25 . 04 . 2027',
+        dateDisplay: '24 . 04 . 2027',
         invitationText: 'Trân trọng kính mời bạn đến chung vui cùng chúng tôi trong ngày trọng đại này.',
     },
     event: {
@@ -71,7 +72,7 @@ const WEDDING_CONFIG = {
             : 'https://wedding-mail.ndkndkndk2958.workers.dev/send',
     },
     turnstile: {
-        // Site key công khai từ Cloudflare Turnstile Dashboard
-        siteKey: '0x4AAAAAADlq16jn93APeJp8',
+        // Site key công khai từ Cloudflare Turnstile Dashboard (Dùng 1x00000000000000000000AA khi chạy local)
+        siteKey: '1x00000000000000000000AA',
     },
 };
