@@ -549,7 +549,7 @@
 <input class="w-full bg-transparent border-0 border-b border-outline focus:ring-0 focus:border-primary px-0 py-3 font-body-md transition-colors" id="rsvp-guests" inputmode="numeric" max="20" min="1" required="" type="number" value="1"/>
 </div>
 <p class="form-status" id="rsvp-status"></p>
-<div class="flex justify-center" id="rsvp-turnstile"></div>
+
 <button class="w-full bg-primary text-white py-5 rounded-full font-label-caps text-label-caps tracking-widest transition-all hover:bg-tertiary active:scale-95 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed" id="rsvp-submit" type="submit">XÁC NHẬN</button>
 </form>
 </div>
@@ -568,7 +568,7 @@
 <label class="float-label text-outline font-label-caps text-label-caps" for="wish-message">Lời chúc tốt đẹp</label>
 </div>
 <p class="form-status" id="wish-status"></p>
-<div class="flex justify-center" id="wish-turnstile"></div>
+
 <button class="w-full bg-primary text-white py-5 rounded-full font-label-caps text-label-caps tracking-widest transition-all hover:bg-tertiary active:scale-95 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed" id="wish-submit" type="submit">GỬI LỜI CHÚC</button>
 </form>
 </div>
@@ -603,13 +603,7 @@
 <span class="material-symbols-outlined glass-nav-icon">keyboard_double_arrow_up</span>
 </button>
 <script src="config.js"></script>
-<script>
-    window.onTurnstileApiLoad = function () {
-        window._turnstileApiReady = true;
-        if (typeof window._bootTurnstile === 'function') window._bootTurnstile();
-    };
-</script>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileApiLoad" async defer></script>
+
 <script>
     let revealObserver = null;
     let heroSectionObserver = null;
