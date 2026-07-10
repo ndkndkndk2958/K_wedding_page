@@ -44,6 +44,7 @@ module.exports = {
         'display-lg': ['Playfair Display', 'serif'],
         'headline-md': ['Playfair Display', 'serif'],
         script: ['Great Vibes', 'cursive'],
+        alex: ['Alex Brush', 'cursive'],
       },
       fontSize: {
         'display-lg': ['48px', { lineHeight: '1.2' }],
