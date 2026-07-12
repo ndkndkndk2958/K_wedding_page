@@ -414,7 +414,28 @@
         top: -1rem;
         font-size: 0.75rem;
         letter-spacing: 0.15em;
-        color: var(--color-primary);
+        }
+      
+      /* Anti-download & anti-drag for images */
+      .prevent-download {
+        -webkit-touch-callout: none !important;
+        -webkit-user-select: none !important;
+        user-select: none !important;
+        pointer-events: none !important;
+        -webkit-user-drag: none !important;
+      }
+      .gallery-item {
+        cursor: pointer;
+      }
+      /* Lightbox Styles */
+      #lightbox-img {
+        transition: opacity 0.25s ease, transform 0.25s ease;
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      #lightbox-img.loaded {
+        opacity: 1;
+        transform: scale(1);
       }
     </style>
 </head>
@@ -486,7 +507,7 @@
 <!-- Chú rể -->
 <div class="flex flex-col items-center text-center reveal reveal-left reveal-delay-1">
 <div class="relative w-64 h-64 md:w-80 md:h-80 mb-8 p-3 rounded-full border border-primary/20">
-<img alt="Chú rể" class="w-full h-full object-cover rounded-full shadow-2xl" id="groom-photo"/>
+<img alt="Chú rể" class="w-full h-full object-cover rounded-full shadow-2xl prevent-download" id="groom-photo"/>
 <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-card px-6 py-2 rounded-full shadow-md border border-outline max-w-[min(100vw-3rem,16rem)]">
 <h4 class="font-headline-sm text-headline-sm italic text-primary text-center break-words" id="groom-name"></h4>
 </div>
@@ -500,7 +521,7 @@
 <!-- Cô dâu -->
 <div class="flex flex-col items-center text-center reveal reveal-right reveal-delay-2">
 <div class="relative w-64 h-64 md:w-80 md:h-80 mb-8 p-3 rounded-full border border-primary/20">
-<img alt="Cô dâu" class="w-full h-full object-cover rounded-full shadow-2xl" id="bride-photo"/>
+<img alt="Cô dâu" class="w-full h-full object-cover rounded-full shadow-2xl prevent-download" id="bride-photo"/>
 <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-card px-6 py-2 rounded-full shadow-md border border-outline max-w-[min(100vw-3rem,16rem)]">
 <h4 class="font-headline-sm text-headline-sm italic text-primary text-center break-words" id="bride-name"></h4>
 </div>
@@ -629,9 +650,53 @@
 <button aria-label="Quay lại đầu trang" class="glass-nav fixed safe-fixed-br z-[100] w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95" id="back-to-top" title="Quay lại đầu trang">
 <span class="material-symbols-outlined glass-nav-icon">keyboard_double_arrow_up</span>
 </button>
+
+<!-- Lightbox Modal for Gallery -->
+<div id="lightbox" class="fixed inset-0 z-[200] hidden bg-black/95 flex items-center justify-center backdrop-blur-md transition-opacity duration-300 opacity-0 select-none">
+    <button id="lightbox-close" class="absolute top-6 right-6 text-white/80 hover:text-white transition-colors focus:outline-none z-[210] w-12 h-12 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm" aria-label="Đóng">
+        <span class="material-symbols-outlined text-3xl">close</span>
+    </button>
+    <button id="lightbox-prev" class="absolute left-4 md:left-8 text-white/80 hover:text-white transition-colors focus:outline-none z-[210] w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm" aria-label="Ảnh trước">
+        <span class="material-symbols-outlined text-4xl">chevron_left</span>
+    </button>
+    <div id="lightbox-content" class="relative max-w-[92%] max-h-[88%] flex items-center justify-center">
+        <img id="lightbox-img" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl prevent-download" src="" alt="Ảnh cưới xem đầy đủ" draggable="false">
+    </div>
+    <button id="lightbox-next" class="absolute right-4 md:right-8 text-white/80 hover:text-white transition-colors focus:outline-none z-[210] w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm" aria-label="Ảnh tiếp">
+        <span class="material-symbols-outlined text-4xl">chevron_right</span>
+    </button>
+</div>
+
 <script src="config.js"></script>
 
 <script>
+(() => {
+    const decodeConfig = (str, key = 42) => {
+        const binary = atob(str);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) {
+            bytes[i] = binary.charCodeAt(i) ^ key;
+        }
+        return JSON.parse(new TextDecoder('utf-8').decode(bytes));
+    };
+
+    const WEDDING_CONFIG = decodeConfig(window._encodedConfig || '');
+    delete window._encodedConfig;
+
+    // Block right-clicks and image dragging
+    document.addEventListener('contextmenu', (e) => {
+        if (e.target.tagName === 'IMG' || e.target.closest('.gallery-item') || e.target.closest('#lightbox')) {
+            e.preventDefault();
+        }
+    });
+    document.addEventListener('dragstart', (e) => {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+        }
+    });
+
+    const gallerySources = [];
+
     let revealObserver = null;
     let heroSectionObserver = null;
     let scrollLocked = true;
@@ -970,11 +1035,15 @@
         wrapper.className = 'gallery-item reveal reveal-up overflow-hidden rounded-xl shadow-xl ring-4 md:ring-8 ring-surface-container-highest';
         wrapper.style.transitionDelay = `${(index % 3) * 0.1}s`;
         const img = document.createElement('img');
-        img.className = 'w-full h-full object-cover';
+        img.className = 'w-full h-full object-cover prevent-download';
         img.src = src;
         img.alt = `Ảnh cưới ${index + 1}`;
         img.loading = 'lazy';
+        img.setAttribute('draggable', 'false');
         wrapper.appendChild(img);
+        
+        wrapper.addEventListener('click', () => openLightbox(index));
+        
         return wrapper;
     }
 
@@ -982,7 +1051,10 @@
         const container = document.getElementById('gallery-container');
         container.innerHTML = '';
 
+        gallerySources.length = 0;
         const sources = galleryItems.map(item => typeof item === 'string' ? item : item.src);
+        gallerySources.push(...sources);
+
         const remainder = sources.length % 3;
         const mainCount = remainder === 0 ? sources.length : sources.length - remainder;
 
@@ -1392,7 +1464,96 @@
         });
     }
 
+    // Lightbox Controls
+    let currentLightboxIndex = 0;
+
+    function openLightbox(index) {
+        currentLightboxIndex = index;
+        const lightbox = document.getElementById('lightbox');
+        const img = document.getElementById('lightbox-img');
+
+        img.classList.remove('loaded');
+        img.src = gallerySources[currentLightboxIndex];
+        img.onload = () => img.classList.add('loaded');
+
+        lightbox.classList.remove('hidden');
+        // trigger reflow
+        lightbox.offsetWidth;
+        lightbox.classList.add('opacity-100');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('opacity-100');
+        setTimeout(() => {
+            lightbox.classList.add('hidden');
+        }, 300);
+        document.body.style.overflow = '';
+    }
+
+    function navigateLightbox(direction) {
+        currentLightboxIndex = (currentLightboxIndex + direction + gallerySources.length) % gallerySources.length;
+        const img = document.getElementById('lightbox-img');
+        img.classList.remove('loaded');
+        setTimeout(() => {
+            img.src = gallerySources[currentLightboxIndex];
+            img.onload = () => img.classList.add('loaded');
+        }, 150);
+    }
+
+    function initLightboxEvents() {
+        const lightbox = document.getElementById('lightbox');
+        const closeBtn = document.getElementById('lightbox-close');
+        const prevBtn = document.getElementById('lightbox-prev');
+        const nextBtn = document.getElementById('lightbox-next');
+
+        closeBtn.addEventListener('click', closeLightbox);
+        prevBtn.addEventListener('click', () => navigateLightbox(-1));
+        nextBtn.addEventListener('click', () => navigateLightbox(1));
+
+        // Close on clicking overlay (outside the image container)
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.id === 'lightbox-content') {
+                closeLightbox();
+            }
+        });
+
+        // Keyboard Controls
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.classList.contains('hidden')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        });
+
+        // Mobile Touch Swipe Gestures
+        let touchStartX = 0;
+        let touchEndX = 0;
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        lightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const threshold = 50;
+            if (touchEndX < touchStartX - threshold) {
+                navigateLightbox(1); // swipe left -> next
+            }
+            if (touchEndX > touchStartX + threshold) {
+                navigateLightbox(-1); // swipe right -> prev
+            }
+        }
+    }
+
+    initLightboxEvents();
     initRsvpForm();
     initWishesForm();
+
+    window.toggleMenu = toggleMenu;
+})();
 </script>
 </body></html>
