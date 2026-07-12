@@ -1,878 +1,1093 @@
 <!DOCTYPE html>
 
-<html class="light" lang="vi"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
-<title>Elena &amp; Julian | Nguyễn Văn A &amp; Trần Thị B Wedding</title>
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"/>
-<script>
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  window.scrollTo(0, 0);
-  try {
-    if (location.protocol === 'file:' && location.hash) {
-      history.replaceState(null, document.title, location.pathname + location.search);
+<html class="light" lang="vi">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+  <title>Elena &amp; Julian | Nguyễn Văn A &amp; Trần Thị B Wedding</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <script>
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+    try {
+      if (location.protocol === 'file:' && location.hash) {
+        history.replaceState(null, document.title, location.pathname + location.search);
+      }
+    } catch (_) { }
+  </script>
+  <script>
+    (function () {
+      var saved = localStorage.getItem('wedding-theme');
+      var theme = saved || 'light';
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+      document.documentElement.classList.toggle('light', theme !== 'dark');
+    })();
+  </script>
+  <script src="colors.js"></script>
+  <link rel="stylesheet" href="assets/tailwind.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Montserrat:ital,wght@0,100..900;1,100..900&amp;family=Great+Vibes&amp;family=Alex+Brush&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
-  } catch (_) {}
-</script>
-<script>
-  (function () {
-    var saved = localStorage.getItem('wedding-theme');
-    var theme = saved || 'light';
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    document.documentElement.classList.toggle('light', theme !== 'dark');
-  })();
-</script>
-<script src="colors.js"></script>
-<link rel="stylesheet" href="assets/tailwind.css"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Montserrat:ital,wght@0,100..900;1,100..900&amp;family=Great+Vibes&amp;family=Alex+Brush&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-      .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-      }
-      .font-script { font-family: 'Great Vibes', cursive; }
-      .font-alex { font-family: 'Alex Brush', cursive; }
-      html {
-        scroll-behavior: smooth;
-        overflow-x: clip;
-        -webkit-text-size-adjust: 100%;
-        text-size-adjust: 100%;
-      }
-      body {
-        overflow-x: clip;
-        width: 100%;
-        max-width: 100%;
+
+    .font-script {
+      font-family: 'Great Vibes', cursive;
+    }
+
+    .font-alex {
+      font-family: 'Alex Brush', cursive;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: clip;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    body {
+      overflow-x: clip;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    /* Full-viewport hero — ổn định khi zoom mobile */
+    .hero-screen {
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    /* Nút cố định — tôn trọng safe-area khi zoom / notch */
+    .safe-fixed-tl {
+      top: max(1.5rem, env(safe-area-inset-top, 0px));
+      left: max(1.5rem, env(safe-area-inset-left, 0px));
+    }
+
+    .safe-fixed-tr {
+      top: max(1.5rem, env(safe-area-inset-top, 0px));
+      right: max(1.5rem, env(safe-area-inset-right, 0px));
+    }
+
+    .safe-fixed-br {
+      bottom: max(2rem, env(safe-area-inset-bottom, 0px));
+      right: max(1.5rem, env(safe-area-inset-right, 0px));
+    }
+
+    /* Falling Petals Animation */
+    .petals-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      background-color: var(--petal-default);
+      border-radius: 150% 0 150% 0;
+      opacity: 0.3;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0;
       }
 
-      /* Full-viewport hero — ổn định khi zoom mobile */
-      .hero-screen {
-        min-height: 100vh;
-        min-height: 100dvh;
+      10% {
+        opacity: 0.6;
       }
 
-      /* Nút cố định — tôn trọng safe-area khi zoom / notch */
-      .safe-fixed-tl {
-        top: max(1.5rem, env(safe-area-inset-top, 0px));
-        left: max(1.5rem, env(safe-area-inset-left, 0px));
-      }
-      .safe-fixed-tr {
-        top: max(1.5rem, env(safe-area-inset-top, 0px));
-        right: max(1.5rem, env(safe-area-inset-right, 0px));
-      }
-      .safe-fixed-br {
-        bottom: max(2rem, env(safe-area-inset-bottom, 0px));
-        right: max(1.5rem, env(safe-area-inset-right, 0px));
-      }
-      
-      /* Falling Petals Animation */
-      .petals-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        max-width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 5;
-        overflow: hidden;
-      }
-      .petal {
-        position: absolute;
-        background-color: var(--petal-default);
-        border-radius: 150% 0 150% 0;
-        opacity: 0.3;
-        animation: fall linear infinite;
-      }
-      @keyframes fall {
-        0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
-        10% { opacity: 0.6; }
-        90% { opacity: 0.6; }
-        100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+      90% {
+        opacity: 0.6;
       }
 
-      .fade-in { animation: fadeIn 2s ease-out forwards; }
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
       }
-      .slideshow-image { transition: opacity 1.5s ease-in-out; }
-      
-      /* Glassmorphism Navigation */
-      .glass-nav {
-        background: var(--glass-bg);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid var(--glass-border);
-        box-shadow:
-          0 4px 18px rgba(74, 21, 25, 0.25),
-          0 2px 6px rgba(0, 0, 0, 0.08),
-          inset 0 1px 0 rgba(255, 255, 255, 0.5);
-      }
-      html.dark .glass-nav {
-        box-shadow:
-          0 4px 22px rgba(0, 0, 0, 0.5),
-          inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      }
-      .glass-nav .glass-nav-icon {
-        font-size: 2rem;
-        line-height: 1;
-        font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
-        color: var(--color-tertiary);
-        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.12));
-      }
-      html.dark .glass-nav .glass-nav-icon {
-        color: var(--color-primary);
-        filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
+    }
+
+    .fade-in {
+      animation: fadeIn 2s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
       }
 
-      /* Full Screen Menu */
-      #mobile-menu {
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        transform: translateY(-100%);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-      }
-      html.light #mobile-menu {
-        background: rgba(176, 101, 107, 0.85);
-      }
-      html.dark #mobile-menu {
-        background: rgba(8, 8, 8, 0.7);
-      }
-      #mobile-menu.active {
+      to {
+        opacity: 1;
         transform: translateY(0);
       }
-      #mobile-menu nav a {
-        transition: color 0.2s ease;
-      }
-      html.light #mobile-menu nav a {
-        color: var(--color-secondary);
-        font-weight: 600;
-      }
-      html.light #mobile-menu nav a:hover {
-        color: #ffffff;
-      }
-      html.dark #mobile-menu nav a {
-        color: var(--color-primary);
-        font-weight: 600;
-      }
-      html.dark #mobile-menu nav a:hover {
-        color: var(--color-secondary);
+    }
+
+    .slideshow-image {
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    /* Glassmorphism Navigation */
+    .glass-nav {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      box-shadow:
+        0 4px 18px rgba(74, 21, 25, 0.25),
+        0 2px 6px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    html.dark .glass-nav {
+      box-shadow:
+        0 4px 22px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .glass-nav .glass-nav-icon {
+      font-size: 2rem;
+      line-height: 1;
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+      color: var(--color-tertiary);
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.12));
+    }
+
+    html.dark .glass-nav .glass-nav-icon {
+      color: var(--color-primary);
+      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
+    }
+
+    /* Full Screen Menu */
+    #mobile-menu {
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(-100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    html.light #mobile-menu {
+      background: rgba(176, 101, 107, 0.85);
+    }
+
+    html.dark #mobile-menu {
+      background: rgba(8, 8, 8, 0.7);
+    }
+
+    #mobile-menu.active {
+      transform: translateY(0);
+    }
+
+    #mobile-menu nav a {
+      transition: color 0.2s ease;
+    }
+
+    html.light #mobile-menu nav a {
+      color: var(--color-secondary);
+      font-weight: 600;
+    }
+
+    html.light #mobile-menu nav a:hover {
+      color: #ffffff;
+    }
+
+    html.dark #mobile-menu nav a {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    html.dark #mobile-menu nav a:hover {
+      color: var(--color-secondary);
+    }
+
+    /* Gallery grid */
+    .gallery-item {
+      aspect-ratio: 3 / 4;
+    }
+
+    .gallery-item img {
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.04);
+    }
+
+    /* Ảnh lẻ cuối cùng — căn giữa (2 cột mobile, item trực tiếp trong grid) */
+    #gallery-container>.gallery-item:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: calc((100% - 1rem) / 2);
+    }
+
+    /* Hàng cuối lẻ — căn giữa bằng flex (tablet+ 3 cột) */
+    .gallery-last-row {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .gallery-last-row__item {
+      flex-shrink: 0;
+      width: calc((100% - 1rem) / 2);
+    }
+
+    @media (min-width: 768px) {
+      #gallery-container>.gallery-item:last-child:nth-child(odd) {
+        grid-column: auto;
+        justify-self: auto;
+        width: auto;
       }
 
-      /* Gallery grid */
-      .gallery-item {
-        aspect-ratio: 3 / 4;
-      }
-      .gallery-item img {
-        transition: transform 0.5s ease;
-      }
-      .gallery-item:hover img {
-        transform: scale(1.04);
-      }
-      /* Ảnh lẻ cuối cùng — căn giữa (2 cột mobile, item trực tiếp trong grid) */
-      #gallery-container > .gallery-item:last-child:nth-child(odd) {
-        grid-column: 1 / -1;
-        justify-self: center;
-        width: calc((100% - 1rem) / 2);
-      }
-      /* Hàng cuối lẻ — căn giữa bằng flex (tablet+ 3 cột) */
       .gallery-last-row {
-        display: flex;
-        justify-content: center;
-        align-items: stretch;
-        gap: 1rem;
-        width: 100%;
+        gap: 1.5rem;
       }
+
       .gallery-last-row__item {
-        flex-shrink: 0;
-        width: calc((100% - 1rem) / 2);
+        width: calc((100% - 3rem) / 3);
       }
-      @media (min-width: 768px) {
-        #gallery-container > .gallery-item:last-child:nth-child(odd) {
-          grid-column: auto;
-          justify-self: auto;
-          width: auto;
-        }
-        .gallery-last-row {
-          gap: 1.5rem;
-        }
-        .gallery-last-row__item {
-          width: calc((100% - 3rem) / 3);
-        }
+    }
+
+    /* Music toggle pulse when playing */
+    #music-btn.playing {
+      animation: musicPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes musicPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 var(--music-pulse);
       }
 
-      /* Music toggle pulse when playing */
-      #music-btn.playing {
-        animation: musicPulse 2s ease-in-out infinite;
+      50% {
+        box-shadow: 0 0 0 8px rgba(176, 101, 107, 0);
       }
-      @keyframes musicPulse {
-        0%, 100% { box-shadow: 0 0 0 0 var(--music-pulse); }
-        50% { box-shadow: 0 0 0 8px rgba(176, 101, 107, 0); }
-      }
+    }
 
-      /* Hero — tên nổi bật tone hồng */
-      .hero-content {
-        will-change: transform, opacity;
-        width: 100%;
-        max-width: 100%;
-      }
-      .hero-names-wrap {
-        position: relative;
-        padding: 1.25rem 1rem;
-        width: 100%;
-        max-width: 100%;
-        overflow: hidden;
-      }
-      .hero-names-wrap::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: var(--hero-halo);
-        pointer-events: none;
-        z-index: -1;
-      }
-      .hero-name {
-        font-family: 'Great Vibes', cursive;
-        background: var(--hero-name-gradient);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        filter: var(--hero-name-glow);
-        max-width: 100%;
-        overflow-wrap: anywhere;
-        word-break: break-word;
-      }
-      .hero-ampersand {
-        color: var(--hero-ampersand);
-        text-shadow: var(--hero-ampersand-glow);
-      }
-      .hero-divider {
-        background: var(--hero-divider);
-        height: 2px;
-        box-shadow: var(--hero-divider-glow);
-      }
-      .hero-date-text {
-        color: var(--hero-date-text);
-      }
+    /* Hero — tên nổi bật tone hồng */
+    .hero-content {
+      will-change: transform, opacity;
+      width: 100%;
+      max-width: 100%;
+    }
 
-      /* Scroll reveal — chuyển cảnh giữa các section */
-      .reveal {
-        opacity: 0;
-        transition:
-          opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
-          transform 1s cubic-bezier(0.22, 1, 0.36, 1),
-          filter 1s cubic-bezier(0.22, 1, 0.36, 1);
-        will-change: opacity, transform;
-      }
-      .reveal-up { transform: translateY(48px); }
-      .reveal-down { transform: translateY(-32px); }
-      .reveal-left { transform: translateX(-48px); }
-      .reveal-right { transform: translateX(48px); }
-      .reveal-scale { transform: scale(0.92); }
-      .reveal-blur { filter: blur(8px); }
+    .hero-names-wrap {
+      position: relative;
+      padding: 1.25rem 1rem;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
 
-      .reveal.revealed {
-        opacity: 1;
-        transform: none;
-        filter: none;
-      }
+    .hero-names-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--hero-halo);
+      pointer-events: none;
+      z-index: -1;
+    }
 
-      .reveal-delay-1 { transition-delay: 0.12s; }
-      .reveal-delay-2 { transition-delay: 0.24s; }
-      .reveal-delay-3 { transition-delay: 0.36s; }
-      .reveal-delay-4 { transition-delay: 0.48s; }
+    .hero-name {
+      font-family: 'Great Vibes', cursive;
+      background: var(--hero-name-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: var(--hero-name-glow);
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
 
-      .scroll-section {
-        position: relative;
-        overflow-x: clip;
-      }
+    .hero-ampersand {
+      color: var(--hero-ampersand);
+      text-shadow: var(--hero-ampersand-glow);
+    }
 
-      /* Đường phân cách mềm giữa các section */
+    .hero-divider {
+      background: var(--hero-divider);
+      height: 2px;
+      box-shadow: var(--hero-divider-glow);
+    }
+
+    .hero-date-text {
+      color: var(--hero-date-text);
+    }
+
+    /* Scroll reveal — chuyển cảnh giữa các section */
+    .reveal {
+      opacity: 0;
+      transition:
+        opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 1s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-up {
+      transform: translateY(48px);
+    }
+
+    .reveal-down {
+      transform: translateY(-32px);
+    }
+
+    .reveal-left {
+      transform: translateX(-48px);
+    }
+
+    .reveal-right {
+      transform: translateX(48px);
+    }
+
+    .reveal-scale {
+      transform: scale(0.92);
+    }
+
+    .reveal-blur {
+      filter: blur(8px);
+    }
+
+    .reveal.revealed {
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+
+    .reveal-delay-1 {
+      transition-delay: 0.12s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 0.24s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 0.36s;
+    }
+
+    .reveal-delay-4 {
+      transition-delay: 0.48s;
+    }
+
+    .scroll-section {
+      position: relative;
+      overflow-x: clip;
+    }
+
+    /* Đường phân cách mềm giữa các section */
+    .section-divider {
+      height: 1px;
+      background: var(--section-divider);
+      margin: 0 auto;
+      max-width: 720px;
+      opacity: 0;
+      transform: scaleX(0.6);
+      transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .section-divider.revealed {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .reveal,
       .section-divider {
-        height: 1px;
-        background: var(--section-divider);
-        margin: 0 auto;
-        max-width: 720px;
-        opacity: 0;
-        transform: scaleX(0.6);
-        transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-      }
-      .section-divider.revealed {
-        opacity: 1;
-        transform: scaleX(1);
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        transition: none !important;
       }
 
-      @media (prefers-reduced-motion: reduce) {
-        .reveal, .section-divider {
-          opacity: 1 !important;
-          transform: none !important;
-          filter: none !important;
-          transition: none !important;
-        }
-        .hero-content { transform: none !important; opacity: 1 !important; }
+      .hero-content {
+        transform: none !important;
+        opacity: 1 !important;
+      }
+    }
+
+    /* Khóa scroll khi intro hero chưa xong */
+    body.scroll-locked {
+      position: fixed;
+      left: 0;
+      right: 0;
+      width: 100%;
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    /* Hero bottom — dots & scroll hint căn giữa đồng nhất */
+    .hero-bottom-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      width: 100%;
+      padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+
+    #slideshow-dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      min-height: 12px;
+    }
+
+    #slideshow-dots button {
+      flex-shrink: 0;
+    }
+
+    #scroll-hint {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #scroll-hint.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* Khắc phục đè nút cuộn & dot chuyển hình trên mobile */
+    @media (max-width: 767px) {
+      .hero-name {
+        font-size: 3rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.25rem !important;
       }
 
-      /* Khóa scroll khi intro hero chưa xong */
-      body.scroll-locked {
-        position: fixed;
-        left: 0;
-        right: 0;
-        width: 100%;
-        overflow: hidden;
-        touch-action: none;
+      .hero-name#hero-bride-name {
+        margin-bottom: 1rem !important;
       }
 
-      /* Hero bottom — dots & scroll hint căn giữa đồng nhất */
-      .hero-bottom-controls {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        width: 100%;
-        padding-bottom: env(safe-area-inset-bottom, 0);
-      }
-      #slideshow-dots {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.75rem;
-        min-height: 12px;
-      }
-      #slideshow-dots button {
-        flex-shrink: 0;
-      }
-      #scroll-hint {
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(8px);
-        transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-      }
-      #scroll-hint.visible {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0);
+      .hero-ampersand {
+        font-size: 3.5rem !important;
+        margin-top: 0.25rem !important;
+        margin-bottom: 0.25rem !important;
       }
 
-      /* Khắc phục đè nút cuộn & dot chuyển hình trên mobile */
-      @media (max-width: 767px) {
-        .hero-name {
-          font-size: 3rem !important;
-          line-height: 1.2 !important;
-          margin-bottom: 0.25rem !important;
-        }
-        .hero-name#hero-bride-name {
-          margin-bottom: 1rem !important;
-        }
-        .hero-ampersand {
-          font-size: 3.5rem !important;
-          margin-top: 0.25rem !important;
-          margin-bottom: 0.25rem !important;
-        }
-        .hero-divider {
-          margin-bottom: 1rem !important;
-        }
-        .hero-date-text {
-          font-size: 1.25rem !important;
-          margin-bottom: 1rem !important;
-        }
-        .hero-content {
-          padding-bottom: 7.5rem !important;
-        }
+      .hero-divider {
+        margin-bottom: 1rem !important;
       }
 
-      /* Nút quay lại đầu trang */
-      #back-to-top {
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(12px);
-        transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s;
-      }
-      #back-to-top.visible {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0);
+      .hero-date-text {
+        font-size: 1.25rem !important;
+        margin-bottom: 1rem !important;
       }
 
-      .form-status {
-        font-size: 0.875rem;
-        text-align: center;
-        min-height: 1.25rem;
+      .hero-content {
+        padding-bottom: 7.5rem !important;
       }
-      .form-status.error { color: var(--form-error); }
-      .form-status.success { color: var(--form-success); }
+    }
 
-      /* Floating label — giữ label phía trên khi đã nhập (không chỉ khi focus) */
-      .float-label {
-        position: absolute;
-        left: 0;
-        top: 0.75rem;
-        transition: all 0.2s ease;
-      }
-      .float-field:focus ~ .float-label,
-      .float-field:not(:placeholder-shown) ~ .float-label {
-        top: -1rem;
-        font-size: 0.75rem;
-        letter-spacing: 0.15em;
-        }
-      
-      /* Anti-download & anti-drag for images */
-      .prevent-download {
-        -webkit-touch-callout: none !important;
-        -webkit-user-select: none !important;
-        user-select: none !important;
-        pointer-events: none !important;
-        -webkit-user-drag: none !important;
-      }
-      .gallery-item {
-        cursor: pointer;
-      }
-      /* Lightbox Styles */
-      #lightbox-img {
-        transition: opacity 0.25s ease, transform 0.25s ease;
-        opacity: 0;
-        transform: scale(0.95);
-      }
-      #lightbox-img.loaded {
-        opacity: 1;
-        transform: scale(1);
-      }
-    </style>
+    /* Nút quay lại đầu trang */
+    #back-to-top {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s;
+    }
+
+    #back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .form-status {
+      font-size: 0.875rem;
+      text-align: center;
+      min-height: 1.25rem;
+    }
+
+    .form-status.error {
+      color: var(--form-error);
+    }
+
+    .form-status.success {
+      color: var(--form-success);
+    }
+
+    /* Floating label — giữ label phía trên khi đã nhập (không chỉ khi focus) */
+    .float-label {
+      position: absolute;
+      left: 0;
+      top: 0.75rem;
+      transition: all 0.2s ease;
+    }
+
+    .float-field:focus~.float-label,
+    .float-field:not(:placeholder-shown)~.float-label {
+      top: -1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+    }
+
+    /* Anti-download & anti-drag for images */
+    .prevent-download {
+      -webkit-touch-callout: none !important;
+      -webkit-user-select: none !important;
+      user-select: none !important;
+      pointer-events: none !important;
+      -webkit-user-drag: none !important;
+    }
+
+    .gallery-item {
+      cursor: pointer;
+    }
+
+    /* Lightbox Styles */
+    #lightbox-img {
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    #lightbox-img.loaded {
+      opacity: 1;
+      transform: scale(1);
+    }
+  </style>
 </head>
-<body class="bg-background text-on-background font-body-md overflow-x-clip scroll-locked transition-colors duration-500">
-<div class="petals-container" id="petals"></div>
-<!-- Music & Theme toggles -->
-<div class="fixed safe-fixed-tl z-[100] flex flex-col gap-3">
-<button aria-label="Bật/tắt nhạc nền" class="glass-nav w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all" id="music-btn" title="Nhạc nền">
-<span class="material-symbols-outlined glass-nav-icon" id="music-icon">volume_off</span>
-</button>
-<button aria-label="Bật/tắt chế độ tối" class="glass-nav w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all" id="theme-toggle" title="Chế độ tối">
-<span class="material-symbols-outlined glass-nav-icon" id="theme-icon">dark_mode</span>
-</button>
-</div>
-<audio id="bg-music" loop preload="auto"></audio>
-<!-- Modern Hamburger Navigation -->
-<header class="fixed safe-fixed-tr z-[100]">
-<button class="glass-nav w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all" id="menu-btn">
-<span class="material-symbols-outlined glass-nav-icon" id="menu-icon">menu</span>
-</button>
-</header>
-<!-- Full-screen Menu Overlay -->
-<div class="fixed inset-0 z-[90] flex flex-col items-center justify-center hidden" id="mobile-menu">
-<nav class="flex flex-col gap-8 text-center">
-<a class="font-headline-md text-3xl" href="#home" onclick="toggleMenu()">Home</a>
-<a class="font-headline-md text-3xl" href="#intro" onclick="toggleMenu()">Introduction</a>
-<a class="font-headline-md text-3xl" href="#gallery" onclick="toggleMenu()">Gallery</a>
-<a class="font-headline-md text-3xl" href="#events" onclick="toggleMenu()">Events</a>
-<a class="font-headline-md text-3xl" href="#rsvp" onclick="toggleMenu()">RSVP</a>
-</nav>
-<!-- <div class="mt-16">
-<button class="bg-primary text-white px-8 py-3 rounded-full font-label-caps text-label-caps tracking-widest hover:bg-tertiary transition-all" onclick="toggleMenu()">CLOSE</button> -->
-<!-- </div> -->
-</div>
-<!-- 1. Hero Slideshow Banner -->
-<section class="relative hero-screen flex flex-col items-center justify-center text-center overflow-hidden overflow-x-clip" id="home">
-<div class="absolute inset-0 z-0" id="hero-slideshow">
-<div class="absolute inset-0 bg-black/20 dark:bg-black/40" id="hero-overlay"></div>
-</div>
-<div class="relative z-10 fade-in text-white px-gutter hero-content">
-<div class="flex flex-col items-center hero-names-wrap">
-<h1 class="hero-name text-7xl md:text-[96px] leading-tight mb-2 reveal reveal-up reveal-delay-1" id="hero-groom-name"></h1>
-<span class="hero-ampersand font-alex text-7xl md:text-9xl my-4 reveal reveal-scale reveal-delay-2">&amp;</span>
-<h1 class="hero-name text-7xl md:text-[96px] leading-tight mb-8 reveal reveal-up reveal-delay-3" id="hero-bride-name"></h1>
-</div>
-<div class="hero-divider w-32 mx-auto mb-8 reveal reveal-scale reveal-delay-3"></div>
-<p class="font-headline-sm text-headline-sm tracking-[0.25em] mb-4 hero-date-text drop-shadow-md reveal reveal-up reveal-delay-3" id="hero-date"></p>
-<p class="font-body-lg text-body-lg italic opacity-95 max-w-2xl mx-auto text-white/95 drop-shadow reveal reveal-up reveal-delay-4" id="hero-invitation"></p>
-</div>
-<div class="absolute bottom-8 left-0 right-0 z-20 hero-bottom-controls">
-<div id="slideshow-dots"></div>
-<a aria-label="Cuộn xuống" class="text-white hover:opacity-80 transition-opacity" href="#intro" id="scroll-hint">
-<span class="material-symbols-outlined text-4xl animate-bounce block">keyboard_double_arrow_down</span>
-</a>
-</div>
-</section>
-<div aria-hidden="true" class="section-divider reveal"></div>
-<!-- 2. Introduction Section (Swapped Hierarchy) -->
-<section class="py-section-gap-desktop max-w-container-max mx-auto px-margin-mobile md:px-gutter scroll-section" id="intro">
-<div class="text-center mb-16 reveal reveal-up">
-<h2 class="font-headline-md text-headline-md text-primary mb-2">Gia Đình &amp; Cặp Đôi</h2>
-<div class="flex items-center justify-center gap-4">
-<div class="h-px w-12 bg-outline"></div>
-<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
-<div class="h-px w-12 bg-outline"></div>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32">
-<!-- Chú rể -->
-<div class="flex flex-col items-center text-center reveal reveal-left reveal-delay-1">
-<div class="relative w-64 h-64 md:w-80 md:h-80 mb-8 p-3 rounded-full border border-primary/20">
-<img alt="Chú rể" class="w-full h-full object-cover rounded-full shadow-2xl prevent-download" id="groom-photo"/>
-<div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-card px-6 py-2 rounded-full shadow-md border border-outline max-w-[min(100vw-3rem,16rem)]">
-<h4 class="font-headline-sm text-headline-sm italic text-primary text-center break-words" id="groom-name"></h4>
-</div>
-</div>
-<div class="mt-8 space-y-1">
-<p class="font-label-caps text-label-caps text-tertiary dark:text-secondary tracking-widest mb-2">PHỤ HUYNH NHÀ TRAI</p>
-<p class="font-body-md">Ông: <strong id="groom-father"></strong></p>
-<p class="font-body-md">Bà: <strong id="groom-mother"></strong></p>
-</div>
-</div>
-<!-- Cô dâu -->
-<div class="flex flex-col items-center text-center reveal reveal-right reveal-delay-2">
-<div class="relative w-64 h-64 md:w-80 md:h-80 mb-8 p-3 rounded-full border border-primary/20">
-<img alt="Cô dâu" class="w-full h-full object-cover rounded-full shadow-2xl prevent-download" id="bride-photo"/>
-<div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-card px-6 py-2 rounded-full shadow-md border border-outline max-w-[min(100vw-3rem,16rem)]">
-<h4 class="font-headline-sm text-headline-sm italic text-primary text-center break-words" id="bride-name"></h4>
-</div>
-</div>
-<div class="mt-8 space-y-1">
-<p class="font-label-caps text-label-caps text-tertiary dark:text-secondary tracking-widest mb-2">PHỤ HUYNH NHÀ GÁI</p>
-<p class="font-body-md">Ông: <strong id="bride-father"></strong></p>
-<p class="font-body-md">Bà: <strong id="bride-mother"></strong></p>
-</div>
-</div>
-</div>
-</section>
-<div aria-hidden="true" class="section-divider reveal"></div>
-<!-- 3. Wedding Gallery Grid -->
-<section class="py-section-gap-desktop bg-surface dark:bg-surface-lowest scroll-section overflow-x-clip" id="gallery">
-<div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter mb-12">
-<div class="text-center reveal reveal-up">
-<h2 class="font-headline-md text-headline-md text-primary mb-4">Album Hình Cưới</h2>
-<p class="font-body-md text-on-surface-variant max-w-xl mx-auto italic">Từng nhịp thở, từng ánh mắt, được gói trọn trong những khung hình.</p>
-</div>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-container-max mx-auto px-margin-mobile md:px-gutter pb-12" id="gallery-container"></div>
-</section>
-<div aria-hidden="true" class="section-divider reveal"></div>
-<!-- 4. Wedding Banquet Details Only -->
-<section class="py-section-gap-desktop bg-background scroll-section" id="events">
-<div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
-<div class="text-center mb-16 reveal reveal-up">
-<h2 class="font-headline-md text-headline-md text-primary mb-4">Sự Kiện Trọng Đại</h2>
-<div class="h-px w-32 bg-secondary/50 dark:bg-secondary/30 mx-auto"></div>
-</div>
-<div class="max-w-2xl mx-auto reveal reveal-scale reveal-delay-1">
-<div class="bg-surface-container p-12 rounded-3xl shadow-sm flex flex-col items-center text-center border border-primary/10">
-<span class="material-symbols-outlined text-6xl text-primary mb-6">celebration</span>
-<h3 class="font-headline-sm text-3xl italic mb-8" id="event-title"></h3>
-<div class="space-y-6">
-<div>
-<p class="font-label-caps text-label-caps text-tertiary dark:text-secondary mb-2">THỜI GIAN</p>
-<p class="font-body-lg text-2xl font-bold text-on-background" id="event-time"></p>
-<p class="font-body-md text-on-surface-variant" id="event-date"></p>
-</div>
-<div class="h-px w-24 bg-outline mx-auto"></div>
-<div>
-<p class="font-label-caps text-label-caps text-tertiary dark:text-secondary mb-2">ĐỊA ĐIỂM</p>
-<p class="font-body-md text-xl font-medium" id="event-venue"></p>
-<p class="font-body-md text-on-surface-variant italic" id="event-address"></p>
-</div>
-</div>
-<a class="mt-10 bg-primary text-white px-10 py-4 rounded-full font-label-caps text-label-caps tracking-widest transition-all hover:bg-tertiary active:scale-95 shadow-lg flex items-center gap-3" href="#" id="event-maps-link" target="_blank">
-<span class="material-symbols-outlined">map</span> CHỈ ĐƯỜNG
-</a>
-</div>
-</div>
-</div>
-</section>
-<div aria-hidden="true" class="section-divider reveal"></div>
-<!-- 5. RSVP & Wishes Section -->
-<section class="py-section-gap-desktop bg-surface-container relative scroll-section" id="rsvp">
-<div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter relative z-10">
-<div class="grid grid-cols-1 gap-20 max-w-2xl mx-auto">
-<div class="bg-card p-10 md:p-14 rounded-3xl shadow-xl border border-outline/30 reveal reveal-up">
-<div class="text-center mb-10">
-<h2 class="font-headline-md text-headline-md text-primary mb-2">Xác Nhận Tham Dự</h2>
-<p class="font-body-md text-on-surface-variant italic" id="rsvp-deadline"></p>
-</div>
-<form class="space-y-8" id="rsvp-form">
-<div class="relative">
-<input class="float-field peer w-full bg-transparent border-0 border-b border-outline focus:ring-0 focus:border-primary px-0 py-3 font-body-md transition-colors" id="rsvp-name" placeholder=" " required="" type="text"/>
-<label class="float-label text-outline font-label-caps text-label-caps" for="rsvp-name">Họ và tên</label>
-</div>
-<div>
-<label class="block font-label-caps text-label-caps text-tertiary dark:text-secondary tracking-widest mb-3" for="rsvp-guests">Số lượng khách</label>
-<input class="w-full bg-transparent border-0 border-b border-outline focus:ring-0 focus:border-primary px-0 py-3 font-body-md transition-colors" id="rsvp-guests" inputmode="numeric" max="20" min="1" required="" type="number" value="1"/>
-</div>
-<p class="form-status" id="rsvp-status"></p>
 
-<button class="w-full bg-primary text-white py-5 rounded-full font-label-caps text-label-caps tracking-widest transition-all hover:bg-tertiary active:scale-95 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed" id="rsvp-submit" type="submit">XÁC NHẬN</button>
-</form>
-</div>
-<div class="bg-card p-10 md:p-14 rounded-3xl shadow-xl border border-outline/30 reveal reveal-up reveal-delay-1">
-<div class="text-center mb-10">
-<h2 class="font-headline-md text-headline-md text-primary mb-2">Gửi Lời Chúc Phúc</h2>
-<p class="font-body-md text-on-surface-variant italic">Mọi lời chúc là món quà vô giá</p>
-</div>
-<form class="space-y-8" id="wishes-form">
-<div class="relative">
-<input class="float-field peer w-full bg-transparent border-0 border-b border-outline focus:ring-0 focus:border-primary px-0 py-3 font-body-md transition-colors" id="wish-name" placeholder=" " required="" type="text"/>
-<label class="float-label text-outline font-label-caps text-label-caps" for="wish-name">Tên của bạn</label>
-</div>
-<div class="relative">
-<textarea class="float-field peer w-full bg-transparent border-0 border-b border-outline focus:ring-0 focus:border-primary px-0 py-3 font-body-md resize-none transition-colors" id="wish-message" placeholder=" " required="" rows="4"></textarea>
-<label class="float-label text-outline font-label-caps text-label-caps" for="wish-message">Lời chúc tốt đẹp</label>
-</div>
-<p class="form-status" id="wish-status"></p>
-
-<button class="w-full bg-primary text-white py-5 rounded-full font-label-caps text-label-caps tracking-widest transition-all hover:bg-tertiary active:scale-95 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed" id="wish-submit" type="submit">GỬI LỜI CHÚC</button>
-</form>
-</div>
-<div class="flex flex-col reveal reveal-up reveal-delay-2">
-<div class="mb-10">
-<h3 class="font-headline-sm text-headline-sm italic text-primary mb-4">Lời chúc từ gia đình & bạn bè</h3>
-<div class="h-1 w-12 bg-primary"></div>
-</div>
-<div class="space-y-6 max-h-[500px] overflow-y-auto pr-4 scrollbar-thin" id="wishes-display">
-<div class="bg-card p-8 rounded-2xl border-l-4 border-primary shadow-sm">
-<p class="font-body-md italic text-on-surface mb-4">"Chúc hai con trăm năm hạnh phúc, đầu bạc răng long nhé!"</p>
-<p class="font-label-caps text-label-caps text-primary">— Gia Đình</p>
-</div>
-<div class="bg-card p-8 rounded-2xl border-l-4 border-primary shadow-sm">
-<p class="font-body-md italic text-on-surface mb-4">"Mừng cho đôi bạn trẻ đã tìm thấy bến đỗ bình yên."</p>
-<p class="font-label-caps text-label-caps text-primary">— Bạn Thân Cấp 3</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Footer -->
-<footer class="bg-background py-section-gap-mobile w-full text-center scroll-section">
-<div class="max-w-container-max mx-auto flex flex-col items-center gap-unit reveal reveal-up">
-<div class="font-headline-sm text-3xl text-primary mb-4 italic" id="footer-names"></div>
-<p class="font-body-md text-on-surface-variant max-w-lg mb-8" id="footer-message"></p>
-<p class="font-label-caps text-label-caps text-outline" id="footer-copyright"></p>
-</div>
-</footer>
-<button aria-label="Quay lại đầu trang" class="glass-nav fixed safe-fixed-br z-[100] w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95" id="back-to-top" title="Quay lại đầu trang">
-<span class="material-symbols-outlined glass-nav-icon">keyboard_double_arrow_up</span>
-</button>
-
-<!-- Lightbox Modal for Gallery -->
-<div id="lightbox" class="fixed inset-0 z-[200] hidden bg-black/95 flex items-center justify-center backdrop-blur-md transition-opacity duration-300 opacity-0 select-none">
-    <button id="lightbox-close" class="absolute top-6 right-6 text-white/80 hover:text-white transition-colors focus:outline-none z-[210] w-12 h-12 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm" aria-label="Đóng">
-        <span class="material-symbols-outlined text-3xl">close</span>
+<body
+  class="bg-background text-on-background font-body-md overflow-x-clip scroll-locked transition-colors duration-500">
+  <div class="petals-container" id="petals"></div>
+  <!-- Music & Theme toggles -->
+  <div class="fixed safe-fixed-tl z-[100] flex flex-col gap-3">
+    <button aria-label="Bật/tắt nhạc nền"
+      class="glass-nav w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all"
+      id="music-btn" title="Nhạc nền">
+      <span class="material-symbols-outlined glass-nav-icon" id="music-icon">volume_off</span>
     </button>
-    <button id="lightbox-prev" class="absolute left-4 md:left-8 text-white/80 hover:text-white transition-colors focus:outline-none z-[210] w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm" aria-label="Ảnh trước">
-        <span class="material-symbols-outlined text-4xl">chevron_left</span>
+    <button aria-label="Bật/tắt chế độ tối"
+      class="glass-nav w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all"
+      id="theme-toggle" title="Chế độ tối">
+      <span class="material-symbols-outlined glass-nav-icon" id="theme-icon">dark_mode</span>
+    </button>
+  </div>
+  <audio id="bg-music" loop preload="auto"></audio>
+  <!-- Modern Hamburger Navigation -->
+  <header class="fixed safe-fixed-tr z-[100]">
+    <button
+      class="glass-nav w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all"
+      id="menu-btn">
+      <span class="material-symbols-outlined glass-nav-icon" id="menu-icon">menu</span>
+    </button>
+  </header>
+  <!-- Full-screen Menu Overlay -->
+  <div class="fixed inset-0 z-[90] flex flex-col items-center justify-center hidden" id="mobile-menu">
+    <nav class="flex flex-col gap-8 text-center">
+      <a class="font-headline-md text-3xl" href="#home" onclick="toggleMenu()">Home</a>
+      <a class="font-headline-md text-3xl" href="#intro" onclick="toggleMenu()">Introduction</a>
+      <a class="font-headline-md text-3xl" href="#gallery" onclick="toggleMenu()">Gallery</a>
+      <a class="font-headline-md text-3xl" href="#events" onclick="toggleMenu()">Events</a>
+      <a class="font-headline-md text-3xl" href="#rsvp" onclick="toggleMenu()">RSVP</a>
+    </nav>
+    <!-- <div class="mt-16">
+<button class="bg-primary text-white px-8 py-3 rounded-full font-label-caps text-label-caps tracking-widest hover:bg-tertiary transition-all" onclick="toggleMenu()">CLOSE</button> -->
+    <!-- </div> -->
+  </div>
+  <!-- 1. Hero Slideshow Banner -->
+  <section
+    class="relative hero-screen flex flex-col items-center justify-center text-center overflow-hidden overflow-x-clip"
+    id="home">
+    <div class="absolute inset-0 z-0" id="hero-slideshow">
+      <div class="absolute inset-0 bg-black/20 dark:bg-black/40" id="hero-overlay"></div>
+    </div>
+    <div class="relative z-10 fade-in text-white px-gutter hero-content">
+      <div class="flex flex-col items-center hero-names-wrap">
+        <h1 class="hero-name text-7xl md:text-[96px] leading-tight mb-2 reveal reveal-up reveal-delay-1"
+          id="hero-groom-name"></h1>
+        <span class="hero-ampersand font-alex text-7xl md:text-9xl my-4 reveal reveal-scale reveal-delay-2">&amp;</span>
+        <h1 class="hero-name text-7xl md:text-[96px] leading-tight mb-8 reveal reveal-up reveal-delay-3"
+          id="hero-bride-name"></h1>
+      </div>
+      <div class="hero-divider w-32 mx-auto mb-8 reveal reveal-scale reveal-delay-3"></div>
+      <p class="font-headline-sm text-headline-sm tracking-[0.25em] mb-4 hero-date-text drop-shadow-md reveal reveal-up reveal-delay-3"
+        id="hero-date"></p>
+      <p class="font-body-lg text-body-lg italic opacity-95 max-w-2xl mx-auto text-white/95 drop-shadow reveal reveal-up reveal-delay-4"
+        id="hero-invitation"></p>
+    </div>
+    <div class="absolute bottom-8 left-0 right-0 z-20 hero-bottom-controls">
+      <div id="slideshow-dots"></div>
+      <a aria-label="Cuộn xuống" class="text-white hover:opacity-80 transition-opacity" href="#intro" id="scroll-hint">
+        <span class="material-symbols-outlined text-4xl animate-bounce block">keyboard_double_arrow_down</span>
+      </a>
+    </div>
+  </section>
+  <div aria-hidden="true" class="section-divider reveal"></div>
+  <!-- 2. Introduction Section (Swapped Hierarchy) -->
+  <section class="py-section-gap-desktop max-w-container-max mx-auto px-margin-mobile md:px-gutter scroll-section"
+    id="intro">
+    <div class="text-center mb-16 reveal reveal-up">
+      <h2 class="font-headline-md text-headline-md text-primary mb-2">Gia Đình &amp; Cặp Đôi</h2>
+      <div class="flex items-center justify-center gap-4">
+        <div class="h-px w-12 bg-outline"></div>
+        <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+        <div class="h-px w-12 bg-outline"></div>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32">
+      <!-- Chú rể -->
+      <div class="flex flex-col items-center text-center reveal reveal-left reveal-delay-1">
+        <div class="relative w-64 h-64 md:w-80 md:h-80 mb-8 p-3 rounded-full border border-primary/20">
+          <img alt="Chú rể" class="w-full h-full object-cover rounded-full shadow-2xl prevent-download"
+            id="groom-photo" />
+          <div
+            class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-card px-6 py-2 rounded-full shadow-md border border-outline max-w-[min(100vw-3rem,16rem)]">
+            <h4 class="font-headline-sm text-headline-sm italic text-primary text-center break-words" id="groom-name">
+            </h4>
+          </div>
+        </div>
+        <div class="mt-8 space-y-1">
+          <p class="font-label-caps text-label-caps text-tertiary dark:text-secondary tracking-widest mb-2">PHỤ HUYNH
+            NHÀ TRAI</p>
+          <p class="font-body-md">Ông: <strong id="groom-father"></strong></p>
+          <p class="font-body-md">Bà: <strong id="groom-mother"></strong></p>
+        </div>
+      </div>
+      <!-- Cô dâu -->
+      <div class="flex flex-col items-center text-center reveal reveal-right reveal-delay-2">
+        <div class="relative w-64 h-64 md:w-80 md:h-80 mb-8 p-3 rounded-full border border-primary/20">
+          <img alt="Cô dâu" class="w-full h-full object-cover rounded-full shadow-2xl prevent-download"
+            id="bride-photo" />
+          <div
+            class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-card px-6 py-2 rounded-full shadow-md border border-outline max-w-[min(100vw-3rem,16rem)]">
+            <h4 class="font-headline-sm text-headline-sm italic text-primary text-center break-words" id="bride-name">
+            </h4>
+          </div>
+        </div>
+        <div class="mt-8 space-y-1">
+          <p class="font-label-caps text-label-caps text-tertiary dark:text-secondary tracking-widest mb-2">PHỤ HUYNH
+            NHÀ GÁI</p>
+          <p class="font-body-md">Ông: <strong id="bride-father"></strong></p>
+          <p class="font-body-md">Bà: <strong id="bride-mother"></strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div aria-hidden="true" class="section-divider reveal"></div>
+  <!-- 3. Wedding Gallery Grid -->
+  <section class="py-section-gap-desktop bg-surface dark:bg-surface-lowest scroll-section overflow-x-clip" id="gallery">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter mb-12">
+      <div class="text-center reveal reveal-up">
+        <h2 class="font-headline-md text-headline-md text-primary mb-4">Album Hình Cưới</h2>
+        <p class="font-body-md text-on-surface-variant max-w-xl mx-auto italic">Từng nhịp thở, từng ánh mắt, được gói
+          trọn trong những khung hình.</p>
+      </div>
+    </div>
+    <div
+      class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-container-max mx-auto px-margin-mobile md:px-gutter pb-12"
+      id="gallery-container"></div>
+  </section>
+  <div aria-hidden="true" class="section-divider reveal"></div>
+  <!-- 4. Wedding Banquet Details Only -->
+  <section class="py-section-gap-desktop bg-background scroll-section" id="events">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+      <div class="text-center mb-16 reveal reveal-up">
+        <h2 class="font-headline-md text-headline-md text-primary mb-4">Sự Kiện Trọng Đại</h2>
+        <div class="h-px w-32 bg-secondary/50 dark:bg-secondary/30 mx-auto"></div>
+      </div>
+      <div class="max-w-2xl mx-auto reveal reveal-scale reveal-delay-1">
+        <div
+          class="bg-surface-container p-12 rounded-3xl shadow-sm flex flex-col items-center text-center border border-primary/10">
+          <span class="material-symbols-outlined text-6xl text-primary mb-6">celebration</span>
+          <h3 class="font-headline-sm text-3xl italic mb-8" id="event-title"></h3>
+          <div class="space-y-6">
+            <div>
+              <p class="font-label-caps text-label-caps text-tertiary dark:text-secondary mb-2">THỜI GIAN</p>
+              <p class="font-body-lg text-2xl font-bold text-on-background" id="event-time"></p>
+              <p class="font-body-md text-on-surface-variant" id="event-date"></p>
+            </div>
+            <div class="h-px w-24 bg-outline mx-auto"></div>
+            <div>
+              <p class="font-label-caps text-label-caps text-tertiary dark:text-secondary mb-2">ĐỊA ĐIỂM</p>
+              <p class="font-body-md text-xl font-medium" id="event-venue"></p>
+              <p class="font-body-md text-on-surface-variant italic" id="event-address"></p>
+            </div>
+          </div>
+          <a class="mt-10 bg-primary text-white px-10 py-4 rounded-full font-label-caps text-label-caps tracking-widest transition-all hover:bg-tertiary active:scale-95 shadow-lg flex items-center gap-3"
+            href="#" id="event-maps-link" target="_blank">
+            <span class="material-symbols-outlined">map</span> CHỈ ĐƯỜNG
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div aria-hidden="true" class="section-divider reveal"></div>
+  <!-- 5. RSVP & Wishes Section -->
+  <section class="py-section-gap-desktop bg-surface-container relative scroll-section" id="rsvp">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter relative z-10">
+      <div class="grid grid-cols-1 gap-20 max-w-2xl mx-auto">
+        <div class="bg-card p-10 md:p-14 rounded-3xl shadow-xl border border-outline/30 reveal reveal-up">
+          <div class="text-center mb-10">
+            <h2 class="font-headline-md text-headline-md text-primary mb-2">Xác Nhận Tham Dự</h2>
+            <p class="font-body-md text-on-surface-variant italic" id="rsvp-deadline"></p>
+          </div>
+          <form class="space-y-6" id="rsvp-form" novalidate>
+            <div>
+              <label
+                class="block font-label-caps text-label-caps text-tertiary dark:text-secondary tracking-widest mb-2"
+                for="rsvp-name">Tên của bạn + Mối quan hệ (để cô dâu/chú rể dễ nhận ra nhé)</label>
+              <input
+                class="w-full bg-background/50 border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary px-4 py-3 rounded-2xl font-body-md transition-all outline-none"
+                id="rsvp-name" placeholder="VD: Khoa HDGames, Nhung 12A1..." required type="text" />
+              <p class="text-tertiary text-xs mt-1.5 hidden" id="rsvp-name-error"></p>
+            </div>
+            <div>
+              <label
+                class="block font-label-caps text-label-caps text-tertiary dark:text-secondary tracking-widest mb-2"
+                for="rsvp-guests">Số lượng khách</label>
+              <input
+                class="w-full bg-background/50 border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary px-4 py-3 rounded-2xl font-body-md transition-all outline-none"
+                id="rsvp-guests" inputmode="numeric" max="20" min="1" required type="number" value="1" />
+              <p class="text-tertiary text-xs mt-1.5 hidden" id="rsvp-guests-error"></p>
+            </div>
+            <p class="form-status hidden mb-4" id="rsvp-status"></p>
+
+            <button
+              class="w-full bg-primary text-white py-5 rounded-full font-label-caps text-label-caps tracking-widest transition-all hover:bg-tertiary active:scale-95 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
+              id="rsvp-submit" type="submit">XÁC NHẬN</button>
+          </form>
+        </div>
+        <div
+          class="bg-card p-10 md:p-14 rounded-3xl shadow-xl border border-outline/30 reveal reveal-up reveal-delay-1">
+          <div class="text-center mb-10">
+            <h2 class="font-headline-md text-headline-md text-primary mb-2">Gửi Lời Chúc Phúc</h2>
+            <p class="font-body-md text-on-surface-variant italic">Mọi lời chúc là món quà vô giá</p>
+          </div>
+          <form class="space-y-6" id="wishes-form" novalidate>
+            <div>
+              <label
+                class="block font-label-caps text-label-caps text-tertiary dark:text-secondary tracking-widest mb-2"
+                for="wish-name">Tên của bạn + Mối quan hệ (để cô dâu/chú rể dễ nhận ra nhé)</label>
+              <input
+                class="w-full bg-background/50 border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary px-4 py-3 rounded-2xl font-body-md transition-all outline-none"
+                id="wish-name" placeholder="VD: Khoa HDGames, Nhung 12A1..." required type="text" />
+              <p class="text-tertiary text-xs mt-1.5 hidden" id="wish-name-error"></p>
+            </div>
+            <div>
+              <label
+                class="block font-label-caps text-label-caps text-tertiary dark:text-secondary tracking-widest mb-2"
+                for="wish-message">Lời chúc tốt đẹp</label>
+              <textarea
+                class="w-full bg-background/50 border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary px-4 py-3 rounded-2xl font-body-md resize-none transition-all outline-none"
+                id="wish-message" placeholder="Nhập lời chúc phúc của bạn gửi tới cô dâu & chú rể..." required
+                rows="4"></textarea>
+              <p class="text-tertiary text-xs mt-1.5 hidden" id="wish-message-error"></p>
+            </div>
+            <p class="form-status hidden mb-4" id="wish-status"></p>
+
+            <button
+              class="w-full bg-primary text-white py-5 rounded-full font-label-caps text-label-caps tracking-widest transition-all hover:bg-tertiary active:scale-95 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
+              id="wish-submit" type="submit">GỬI LỜI CHÚC</button>
+          </form>
+        </div>
+        <div class="flex flex-col reveal reveal-up reveal-delay-2">
+          <div class="mb-10">
+            <h3 class="font-headline-sm text-headline-sm italic text-primary mb-4">Lời chúc từ gia đình & bạn bè</h3>
+            <div class="h-1 w-12 bg-primary"></div>
+          </div>
+          <div class="space-y-6 max-h-[500px] overflow-y-auto pr-4 scrollbar-thin" id="wishes-display">
+            <div class="bg-card p-8 rounded-2xl border-l-4 border-primary shadow-sm">
+              <p class="font-body-md italic text-on-surface mb-4">"Chúc hai con trăm năm hạnh phúc, đầu bạc răng long
+                nhé!"</p>
+              <p class="font-label-caps text-label-caps text-primary">— Gia Đình</p>
+            </div>
+            <div class="bg-card p-8 rounded-2xl border-l-4 border-primary shadow-sm">
+              <p class="font-body-md italic text-on-surface mb-4">"Mừng cho đôi bạn trẻ đã tìm thấy bến đỗ bình yên."
+              </p>
+              <p class="font-label-caps text-label-caps text-primary">— Bạn Thân Cấp 3</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-background py-section-gap-mobile w-full text-center scroll-section">
+    <div class="max-w-container-max mx-auto flex flex-col items-center gap-unit reveal reveal-up">
+      <div class="font-headline-sm text-3xl text-primary mb-4 italic" id="footer-names"></div>
+      <p class="font-body-md text-on-surface-variant max-w-lg mb-8" id="footer-message"></p>
+      <p class="font-label-caps text-label-caps text-outline" id="footer-copyright"></p>
+    </div>
+  </footer>
+  <button aria-label="Quay lại đầu trang"
+    class="glass-nav fixed safe-fixed-br z-[100] w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95"
+    id="back-to-top" title="Quay lại đầu trang">
+    <span class="material-symbols-outlined glass-nav-icon">keyboard_double_arrow_up</span>
+  </button>
+
+  <!-- Lightbox Modal for Gallery -->
+  <div id="lightbox"
+    class="fixed inset-0 z-[200] hidden bg-black/95 flex items-center justify-center backdrop-blur-md transition-opacity duration-300 opacity-0 select-none">
+    <button id="lightbox-close"
+      class="absolute top-6 right-6 text-white/80 hover:text-white transition-colors focus:outline-none z-[210] w-12 h-12 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm"
+      aria-label="Đóng">
+      <span class="material-symbols-outlined text-3xl">close</span>
+    </button>
+    <button id="lightbox-prev"
+      class="absolute left-4 md:left-8 text-white/80 hover:text-white transition-colors focus:outline-none z-[210] w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm"
+      aria-label="Ảnh trước">
+      <span class="material-symbols-outlined text-4xl">chevron_left</span>
     </button>
     <div id="lightbox-content" class="relative max-w-[92%] max-h-[88%] flex items-center justify-center">
-        <img id="lightbox-img" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl prevent-download" src="" alt="Ảnh cưới xem đầy đủ" draggable="false">
+      <img id="lightbox-img" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl prevent-download" src=""
+        alt="Ảnh cưới xem đầy đủ" draggable="false">
     </div>
-    <button id="lightbox-next" class="absolute right-4 md:right-8 text-white/80 hover:text-white transition-colors focus:outline-none z-[210] w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm" aria-label="Ảnh tiếp">
-        <span class="material-symbols-outlined text-4xl">chevron_right</span>
+    <button id="lightbox-next"
+      class="absolute right-4 md:right-8 text-white/80 hover:text-white transition-colors focus:outline-none z-[210] w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm"
+      aria-label="Ảnh tiếp">
+      <span class="material-symbols-outlined text-4xl">chevron_right</span>
     </button>
-</div>
+  </div>
 
-<script src="config.js"></script>
+  <!-- Form Popup Modal (Success / Error) -->
+  <div id="form-popup"
+    class="fixed inset-0 hidden bg-black/60 flex items-center justify-center backdrop-blur-sm transition-opacity duration-300 opacity-0 select-none"
+    style="z-index: 9999;">
+    <div id="form-popup-card"
+      class="bg-card border border-outline/20 p-8 md:p-10 rounded-3xl shadow-2xl max-w-sm w-[90%] text-center transform scale-95 transition-transform duration-300 relative">
+      <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 text-primary"
+        id="form-popup-icon-container">
+        <span class="material-symbols-outlined text-4xl" id="form-popup-icon">favorite</span>
+      </div>
+      <h3 class="font-headline-sm text-2xl text-primary mb-3" id="form-popup-title">Gửi thành công!</h3>
+      <p class="font-body-md text-on-surface-variant mb-8" id="form-popup-message">Cảm ơn bạn đã gửi phản hồi.</p>
+      <button id="form-popup-close"
+        class="w-full bg-primary text-white py-4 rounded-full font-label-caps text-label-caps tracking-widest transition-all hover:bg-tertiary active:scale-95 shadow-md">ĐỒNG
+        Ý</button>
+    </div>
+  </div>
 
-<script>
-(() => {
-    const decodeConfig = (str, key = 42) => {
+  <script src="config.js"></script>
+
+  <script>
+    (() => {
+      const decodeConfig = (str, key = 42) => {
         const binary = atob(str);
         const bytes = new Uint8Array(binary.length);
         for (let i = 0; i < binary.length; i++) {
-            bytes[i] = binary.charCodeAt(i) ^ key;
+          bytes[i] = binary.charCodeAt(i) ^ key;
         }
         return JSON.parse(new TextDecoder('utf-8').decode(bytes));
-    };
+      };
 
-    const WEDDING_CONFIG = decodeConfig(window._encodedConfig || '');
-    delete window._encodedConfig;
+      const WEDDING_CONFIG = decodeConfig(window._encodedConfig || '');
+      delete window._encodedConfig;
 
-    // Block right-clicks and image dragging
-    document.addEventListener('contextmenu', (e) => {
+      // Block right-clicks and image dragging
+      document.addEventListener('contextmenu', (e) => {
         if (e.target.tagName === 'IMG' || e.target.closest('.gallery-item') || e.target.closest('#lightbox')) {
-            e.preventDefault();
+          e.preventDefault();
         }
-    });
-    document.addEventListener('dragstart', (e) => {
+      });
+      document.addEventListener('dragstart', (e) => {
         if (e.target.tagName === 'IMG') {
-            e.preventDefault();
+          e.preventDefault();
         }
-    });
+      });
 
-    const gallerySources = [];
+      const gallerySources = [];
 
-    let revealObserver = null;
-    let heroSectionObserver = null;
-    let scrollLocked = true;
-    let menuOpen = false;
-    let menuScrollY = 0;
-    let heroIntroComplete = false;
-    let skipNextHeroIntersect = true;
-    const observedReveals = new WeakSet();
+      let revealObserver = null;
+      let heroSectionObserver = null;
+      let scrollLocked = true;
+      let menuOpen = false;
+      let menuScrollY = 0;
+      let heroIntroComplete = false;
+      let skipNextHeroIntersect = true;
+      const observedReveals = new WeakSet();
 
-    const HERO_REVEAL_START = 350;
-    const HERO_REVEAL_STAGGER = 140;
-    const HERO_TRANSITION_MS = 1000;
+      const HERO_REVEAL_START = 350;
+      const HERO_REVEAL_STAGGER = 140;
+      const HERO_TRANSITION_MS = 1000;
 
-    function scrollToTop() {
+      function scrollToTop() {
         window.scrollTo(0, 0);
-    }
+      }
 
-    function resetHeroContentStyles() {
+      function resetHeroContentStyles() {
         const heroContent = document.querySelector('.hero-content');
         if (heroContent) {
-            heroContent.style.transform = '';
-            heroContent.style.opacity = '';
+          heroContent.style.transform = '';
+          heroContent.style.opacity = '';
         }
-    }
+      }
 
-    function resetSectionReveals() {
+      function resetSectionReveals() {
         document.querySelectorAll('.reveal').forEach(el => {
-            if (!el.closest('#home')) el.classList.remove('revealed');
+          if (!el.closest('#home')) el.classList.remove('revealed');
         });
-    }
+      }
 
-    let scrollLockY = 0;
+      let scrollLockY = 0;
 
-    function lockScroll() {
+      function lockScroll() {
         scrollLocked = true;
         scrollLockY = window.scrollY;
         document.body.classList.add('scroll-locked');
         document.body.style.top = `-${scrollLockY}px`;
-    }
+      }
 
-    function unlockScroll() {
+      function unlockScroll() {
         scrollLocked = false;
         document.body.classList.remove('scroll-locked');
         document.body.style.top = '';
         window.scrollTo(0, scrollLockY);
-    }
+      }
 
-    function showScrollHint() {
+      function showScrollHint() {
         document.getElementById('scroll-hint')?.classList.add('visible');
-    }
+      }
 
-    function hideScrollHint() {
+      function hideScrollHint() {
         document.getElementById('scroll-hint')?.classList.remove('visible');
-    }
+      }
 
-    function preventScrollWhileLocked(e) {
+      function preventScrollWhileLocked(e) {
         if (!scrollLocked && !menuOpen) return;
         e.preventDefault();
-    }
+      }
 
-    function lockMenuScroll() {
+      function lockMenuScroll() {
         if (menuOpen) return;
         menuScrollY = window.scrollY;
         menuOpen = true;
         if (!scrollLocked) {
-            document.body.classList.add('scroll-locked');
-            document.body.style.top = `-${menuScrollY}px`;
+          document.body.classList.add('scroll-locked');
+          document.body.style.top = `-${menuScrollY}px`;
         }
-    }
+      }
 
-    function unlockMenuScroll() {
+      function unlockMenuScroll() {
         if (!menuOpen) return;
         menuOpen = false;
         if (!scrollLocked) {
-            document.body.classList.remove('scroll-locked');
-            document.body.style.top = '';
-            window.scrollTo(0, menuScrollY);
+          document.body.classList.remove('scroll-locked');
+          document.body.style.top = '';
+          window.scrollTo(0, menuScrollY);
         }
-    }
+      }
 
-    function initScrollLock() {
+      function initScrollLock() {
         window.addEventListener('wheel', preventScrollWhileLocked, { passive: false });
         window.addEventListener('touchmove', preventScrollWhileLocked, { passive: false });
         window.addEventListener('keydown', (e) => {
-            if (!scrollLocked && !menuOpen) return;
-            if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(e.key)) {
-                e.preventDefault();
-            }
+          if (!scrollLocked && !menuOpen) return;
+          if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(e.key)) {
+            e.preventDefault();
+          }
         });
-    }
+      }
 
-    function initBackToTop() {
+      function initBackToTop() {
         const btn = document.getElementById('back-to-top');
         const footer = document.querySelector('footer');
 
         function updateBackToTop() {
-            if (scrollLocked) {
-                btn.classList.remove('visible');
-                return;
-            }
+          if (scrollLocked) {
+            btn.classList.remove('visible');
+            return;
+          }
 
-            const footerRect = footer.getBoundingClientRect();
-            const nearBottom = footerRect.top < window.innerHeight * 0.85;
-            btn.classList.toggle('visible', nearBottom && window.scrollY > 200);
+          const footerRect = footer.getBoundingClientRect();
+          const nearBottom = footerRect.top < window.innerHeight * 0.85;
+          btn.classList.toggle('visible', nearBottom && window.scrollY > 200);
         }
 
         btn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
         window.addEventListener('scroll', () => {
-            updateBackToTop();
-            if (window.scrollY > window.innerHeight * 0.4) {
-                hideScrollHint();
-            } else if (!scrollLocked) {
-                showScrollHint();
-            }
+          updateBackToTop();
+          if (window.scrollY > window.innerHeight * 0.4) {
+            hideScrollHint();
+          } else if (!scrollLocked) {
+            showScrollHint();
+          }
         }, { passive: true });
 
         updateBackToTop();
-    }
+      }
 
-    function initInPageNavigation() {
+      function initInPageNavigation() {
         document.addEventListener('click', (e) => {
-            const anchor = e.target.closest('a[href^="#"]');
-            if (!anchor) return;
+          const anchor = e.target.closest('a[href^="#"]');
+          if (!anchor) return;
 
-            const hash = anchor.getAttribute('href');
-            if (!hash || hash === '#') return;
+          const hash = anchor.getAttribute('href');
+          if (!hash || hash === '#') return;
 
-            const target = document.querySelector(hash);
-            if (!target) return;
+          const target = document.querySelector(hash);
+          if (!target) return;
 
-            e.preventDefault();
+          e.preventDefault();
 
-            if (scrollLocked && hash !== '#home') return;
+          if (scrollLocked && hash !== '#home') return;
 
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-            if (window.location.protocol !== 'file:') {
-                history.replaceState(null, '', hash);
-            }
+          if (window.location.protocol !== 'file:') {
+            history.replaceState(null, '', hash);
+          }
         });
-    }
+      }
 
-    function observeRevealElements() {
+      function observeRevealElements() {
         if (!revealObserver) return;
         document.querySelectorAll('.reveal').forEach(el => {
-            if (el.closest('#home')) return;
-            if (observedReveals.has(el)) return;
-            observedReveals.add(el);
-            revealObserver.observe(el);
+          if (el.closest('#home')) return;
+          if (observedReveals.has(el)) return;
+          observedReveals.add(el);
+          revealObserver.observe(el);
         });
-    }
+      }
 
-    function initScrollReveal() {
+      function initScrollReveal() {
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         if (reducedMotion) {
-            document.querySelectorAll('.reveal').forEach(el => el.classList.add('revealed'));
-            heroIntroComplete = true;
-            return;
+          document.querySelectorAll('.reveal').forEach(el => el.classList.add('revealed'));
+          heroIntroComplete = true;
+          return;
         }
 
         revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
-                }
-            });
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+            }
+          });
         }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
 
         observeRevealElements();
-    }
+      }
 
-    function playHeroReveal({ stagger = true, startDelay = 0 } = {}) {
+      function playHeroReveal({ stagger = true, startDelay = 0 } = {}) {
         const heroReveals = document.querySelectorAll('#home .reveal');
         heroReveals.forEach(el => el.classList.remove('revealed'));
 
@@ -880,48 +1095,48 @@
         const startMs = stagger ? HERO_REVEAL_START : 0;
 
         heroReveals.forEach((el, i) => {
-            setTimeout(() => el.classList.add('revealed'), startDelay + startMs + i * staggerMs);
+          setTimeout(() => el.classList.add('revealed'), startDelay + startMs + i * staggerMs);
         });
 
         return startDelay + startMs + Math.max(0, heroReveals.length - 1) * staggerMs + HERO_TRANSITION_MS;
-    }
+      }
 
-    function initHeroReturnObserver() {
+      function initHeroReturnObserver() {
         const home = document.getElementById('home');
         if (!home || heroSectionObserver) return;
 
         heroSectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (!heroIntroComplete || scrollLocked) return;
+          entries.forEach(entry => {
+            if (!heroIntroComplete || scrollLocked) return;
 
-                if (entry.isIntersecting) {
-                    if (skipNextHeroIntersect) {
-                        skipNextHeroIntersect = false;
-                        return;
-                    }
-                    resetHeroContentStyles();
-                    playHeroReveal({ stagger: true, startDelay: 0 });
-                    showScrollHint();
-                } else {
-                    document.querySelectorAll('#home .reveal').forEach(el => el.classList.remove('revealed'));
-                    hideScrollHint();
-                }
-            });
+            if (entry.isIntersecting) {
+              if (skipNextHeroIntersect) {
+                skipNextHeroIntersect = false;
+                return;
+              }
+              resetHeroContentStyles();
+              playHeroReveal({ stagger: true, startDelay: 0 });
+              showScrollHint();
+            } else {
+              document.querySelectorAll('#home .reveal').forEach(el => el.classList.remove('revealed'));
+              hideScrollHint();
+            }
+          });
         }, { threshold: 0.4 });
 
         heroSectionObserver.observe(home);
-    }
+      }
 
-    function revealHeroOnLoad() {
+      function revealHeroOnLoad() {
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         if (reducedMotion) {
-            document.querySelectorAll('#home .reveal').forEach(el => el.classList.add('revealed'));
-            heroIntroComplete = true;
-            unlockScroll();
-            showScrollHint();
-            initHeroReturnObserver();
-            return;
+          document.querySelectorAll('#home .reveal').forEach(el => el.classList.add('revealed'));
+          heroIntroComplete = true;
+          unlockScroll();
+          showScrollHint();
+          initHeroReturnObserver();
+          return;
         }
 
         lockScroll();
@@ -931,44 +1146,44 @@
         const totalDuration = playHeroReveal({ stagger: true, startDelay: 0 }) + 300;
 
         setTimeout(() => {
-            heroIntroComplete = true;
-            unlockScroll();
-            showScrollHint();
-            initHeroReturnObserver();
+          heroIntroComplete = true;
+          unlockScroll();
+          showScrollHint();
+          initHeroReturnObserver();
         }, totalDuration);
-    }
+      }
 
-    function initHeroParallax() {
+      function initHeroParallax() {
         const heroContent = document.querySelector('.hero-content');
         if (!heroContent || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         if (window.matchMedia('(pointer: coarse)').matches) return;
 
         const resetHeroParallax = () => {
-            heroContent.style.transform = '';
-            heroContent.style.opacity = '';
+          heroContent.style.transform = '';
+          heroContent.style.opacity = '';
         };
 
         if (window.visualViewport) {
-            window.visualViewport.addEventListener('resize', () => {
-                if (window.visualViewport.scale !== 1) resetHeroParallax();
-            });
+          window.visualViewport.addEventListener('resize', () => {
+            if (window.visualViewport.scale !== 1) resetHeroParallax();
+          });
         }
 
         window.addEventListener('scroll', () => {
-            if (window.visualViewport?.scale && window.visualViewport.scale !== 1) return;
+          if (window.visualViewport?.scale && window.visualViewport.scale !== 1) return;
 
-            const scrollY = window.scrollY;
-            const limit = window.innerHeight;
-            if (scrollY > limit) return;
+          const scrollY = window.scrollY;
+          const limit = window.innerHeight;
+          if (scrollY > limit) return;
 
-            const progress = scrollY / limit;
-            heroContent.style.transform = `translateY(${scrollY * 0.35}px) scale(${1 - progress * 0.05})`;
-            heroContent.style.opacity = String(1 - progress * 0.6);
+          const progress = scrollY / limit;
+          heroContent.style.transform = `translateY(${scrollY * 0.35}px) scale(${1 - progress * 0.05})`;
+          heroContent.style.opacity = String(1 - progress * 0.6);
         }, { passive: true });
-    }
+      }
 
-    // --- Render nội dung từ WEDDING_CONFIG ---
-    function initWeddingContent() {
+      // --- Render nội dung từ WEDDING_CONFIG ---
+      function initWeddingContent() {
         const { couple, wedding, event, footer, images, rsvp } = WEDDING_CONFIG;
 
         document.title = `${couple.groom.name} & ${couple.bride.name} | Wedding`;
@@ -996,7 +1211,7 @@
         document.getElementById('event-maps-link').href = event.mapsUrl;
 
         if (rsvp?.deadlineText) {
-            document.getElementById('rsvp-deadline').textContent = rsvp.deadlineText;
+          document.getElementById('rsvp-deadline').textContent = rsvp.deadlineText;
         }
 
         document.getElementById('footer-names').textContent = footer.names;
@@ -1006,31 +1221,31 @@
         initHeaderSlideshow(images.header);
         initGallery(images.gallery);
         observeRevealElements();
-    }
+      }
 
-    function initHeaderSlideshow(headerImages) {
+      function initHeaderSlideshow(headerImages) {
         const container = document.getElementById('hero-slideshow');
         const overlay = document.getElementById('hero-overlay');
 
         headerImages.forEach((url, i) => {
-            const slide = document.createElement('div');
-            slide.className = 'slideshow-image absolute inset-0 bg-cover bg-center';
-            slide.style.backgroundImage = `url('${url}')`;
-            slide.style.opacity = i === 0 ? '1' : '0';
-            container.insertBefore(slide, overlay);
+          const slide = document.createElement('div');
+          slide.className = 'slideshow-image absolute inset-0 bg-cover bg-center';
+          slide.style.backgroundImage = `url('${url}')`;
+          slide.style.opacity = i === 0 ? '1' : '0';
+          container.insertBefore(slide, overlay);
         });
 
         const dotsContainer = document.getElementById('slideshow-dots');
         dotsContainer.innerHTML = '';
         headerImages.forEach((_, i) => {
-            const dot = document.createElement('button');
-            dot.className = `w-2 h-2 rounded-full transition-all ${i === 0 ? 'scale-150 bg-white' : 'bg-white/40'}`;
-            dot.addEventListener('click', () => goToSlide(i));
-            dotsContainer.appendChild(dot);
+          const dot = document.createElement('button');
+          dot.className = `w-2 h-2 rounded-full transition-all ${i === 0 ? 'scale-150 bg-white' : 'bg-white/40'}`;
+          dot.addEventListener('click', () => goToSlide(i));
+          dotsContainer.appendChild(dot);
         });
-    }
+      }
 
-    function createGalleryItem(src, index) {
+      function createGalleryItem(src, index) {
         const wrapper = document.createElement('div');
         wrapper.className = 'gallery-item reveal reveal-up overflow-hidden rounded-xl shadow-xl ring-4 md:ring-8 ring-surface-container-highest';
         wrapper.style.transitionDelay = `${(index % 3) * 0.1}s`;
@@ -1041,13 +1256,13 @@
         img.loading = 'lazy';
         img.setAttribute('draggable', 'false');
         wrapper.appendChild(img);
-        
-        wrapper.addEventListener('click', () => openLightbox(index));
-        
-        return wrapper;
-    }
 
-    function initGallery(galleryItems) {
+        wrapper.addEventListener('click', () => openLightbox(index));
+
+        return wrapper;
+      }
+
+      function initGallery(galleryItems) {
         const container = document.getElementById('gallery-container');
         container.innerHTML = '';
 
@@ -1059,53 +1274,53 @@
         const mainCount = remainder === 0 ? sources.length : sources.length - remainder;
 
         sources.slice(0, mainCount).forEach((src, i) => {
-            container.appendChild(createGalleryItem(src, i));
+          container.appendChild(createGalleryItem(src, i));
         });
 
         const tail = sources.slice(mainCount);
         if (tail.length > 0) {
-            const lastRow = document.createElement('div');
-            lastRow.className = 'gallery-last-row col-span-2 md:col-span-3 reveal reveal-up';
-            tail.forEach((src, i) => {
-                const item = createGalleryItem(src, mainCount + i);
-                item.classList.remove('reveal', 'reveal-up');
-                item.classList.add('gallery-last-row__item');
-                lastRow.appendChild(item);
-            });
-            container.appendChild(lastRow);
+          const lastRow = document.createElement('div');
+          lastRow.className = 'gallery-last-row col-span-2 md:col-span-3 reveal reveal-up';
+          tail.forEach((src, i) => {
+            const item = createGalleryItem(src, mainCount + i);
+            item.classList.remove('reveal', 'reveal-up');
+            item.classList.add('gallery-last-row__item');
+            lastRow.appendChild(item);
+          });
+          container.appendChild(lastRow);
         }
-    }
+      }
 
-    function initThemeToggle() {
+      function initThemeToggle() {
         const btn = document.getElementById('theme-toggle');
         const icon = document.getElementById('theme-icon');
         const html = document.documentElement;
 
         function updateThemeUI() {
-            const isDark = html.classList.contains('dark');
-            icon.textContent = isDark ? 'light_mode' : 'dark_mode';
-            btn.title = isDark ? 'Bật sáng' : 'Bật tối';
-            btn.setAttribute('aria-label', isDark ? 'Bật chế độ sáng' : 'Bật chế độ tối');
+          const isDark = html.classList.contains('dark');
+          icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+          btn.title = isDark ? 'Bật sáng' : 'Bật tối';
+          btn.setAttribute('aria-label', isDark ? 'Bật chế độ sáng' : 'Bật chế độ tối');
         }
 
         updateThemeUI();
 
         btn.addEventListener('click', () => {
-            const isDark = html.classList.toggle('dark');
-            html.classList.toggle('light', !isDark);
-            localStorage.setItem('wedding-theme', isDark ? 'dark' : 'light');
-            applyThemeColors();
-            updateThemeUI();
+          const isDark = html.classList.toggle('dark');
+          html.classList.toggle('light', !isDark);
+          localStorage.setItem('wedding-theme', isDark ? 'dark' : 'light');
+          applyThemeColors();
+          updateThemeUI();
         });
-    }
+      }
 
-    // --- Nhạc nền ---
-    const bgMusic = document.getElementById('bg-music');
-    const musicBtn = document.getElementById('music-btn');
-    const musicIcon = document.getElementById('music-icon');
-    let isMusicPlaying = false;
+      // --- Nhạc nền ---
+      const bgMusic = document.getElementById('bg-music');
+      const musicBtn = document.getElementById('music-btn');
+      const musicIcon = document.getElementById('music-icon');
+      let isMusicPlaying = false;
 
-    function initBackgroundMusic() {
+      function initBackgroundMusic() {
         bgMusic.src = WEDDING_CONFIG.music.src;
         bgMusic.volume = WEDDING_CONFIG.music.volume;
 
@@ -1113,91 +1328,91 @@
         const wantsMusic = WEDDING_CONFIG.music.autoplay !== false && savedState !== 'false';
 
         if (wantsMusic) {
-            tryPlayMusic().then((played) => {
-                if (!played) setupMusicAutoplayResume();
-            });
+          tryPlayMusic().then((played) => {
+            if (!played) setupMusicAutoplayResume();
+          });
         } else {
-            updateMusicUI(false);
+          updateMusicUI(false);
         }
 
         musicBtn.addEventListener('click', toggleMusic);
         bgMusic.addEventListener('ended', () => updateMusicUI(false));
-    }
+      }
 
-    function setupMusicAutoplayResume() {
+      function setupMusicAutoplayResume() {
         const resume = () => {
-            if (localStorage.getItem('wedding-music-playing') === 'false') return;
-            tryPlayMusic().then((played) => {
-                if (played) {
-                    document.removeEventListener('click', resume);
-                    document.removeEventListener('scroll', resume);
-                    document.removeEventListener('touchstart', resume);
-                }
-            });
+          if (localStorage.getItem('wedding-music-playing') === 'false') return;
+          tryPlayMusic().then((played) => {
+            if (played) {
+              document.removeEventListener('click', resume);
+              document.removeEventListener('scroll', resume);
+              document.removeEventListener('touchstart', resume);
+            }
+          });
         };
         document.addEventListener('click', resume);
         document.addEventListener('scroll', resume, { passive: true });
         document.addEventListener('touchstart', resume, { passive: true });
-    }
+      }
 
-    function updateMusicUI(playing) {
+      function updateMusicUI(playing) {
         isMusicPlaying = playing;
         musicIcon.textContent = playing ? 'volume_up' : 'volume_off';
         musicBtn.classList.toggle('playing', playing);
         musicBtn.title = playing ? 'Tắt nhạc nền' : 'Bật nhạc nền';
-    }
+      }
 
-    function tryPlayMusic() {
+      function tryPlayMusic() {
         return bgMusic.play().then(() => {
-            updateMusicUI(true);
-            localStorage.setItem('wedding-music-playing', 'true');
-            return true;
+          updateMusicUI(true);
+          localStorage.setItem('wedding-music-playing', 'true');
+          return true;
         }).catch(() => {
-            updateMusicUI(false);
-            return false;
+          updateMusicUI(false);
+          return false;
         });
-    }
+      }
 
-    function toggleMusic() {
+      function toggleMusic() {
         if (isMusicPlaying) {
-            bgMusic.pause();
-            updateMusicUI(false);
-            localStorage.setItem('wedding-music-playing', 'false');
+          bgMusic.pause();
+          updateMusicUI(false);
+          localStorage.setItem('wedding-music-playing', 'false');
         } else {
-            tryPlayMusic();
+          tryPlayMusic();
         }
-    }
+      }
 
-    scrollToTop();
+      scrollToTop();
 
-    window.addEventListener('pageshow', (e) => {
+      window.addEventListener('pageshow', (e) => {
         scrollToTop();
         if (e.persisted) {
-            heroIntroComplete = false;
-            skipNextHeroIntersect = true;
-            resetSectionReveals();
-            document.querySelectorAll('#home .reveal').forEach(el => el.classList.remove('revealed'));
-            resetHeroContentStyles();
-            hideScrollHint();
-            revealHeroOnLoad();
+          heroIntroComplete = false;
+          skipNextHeroIntersect = true;
+          resetSectionReveals();
+          document.querySelectorAll('#home .reveal').forEach(el => el.classList.remove('revealed'));
+          resetHeroContentStyles();
+          hideScrollHint();
+          revealHeroOnLoad();
         }
-    });
+      });
 
-    initScrollLock();
-    initScrollReveal();
-    initInPageNavigation();
-    initThemeToggle();
-    initWeddingContent();
-    initBackgroundMusic();
-    initHeroParallax();
-    initBackToTop();
-    revealHeroOnLoad();
+      initScrollLock();
+      initScrollReveal();
+      initInPageNavigation();
+      initThemeToggle();
+      initWeddingContent();
+      initBackgroundMusic();
+      initHeroParallax();
+      initBackToTop();
+      revealHeroOnLoad();
 
-    // Falling Petals Logic
-    const petalsContainer = document.getElementById('petals');
-    const petalColors = THEME_COLORS.petals;
-    
-    function createPetal() {
+      // Falling Petals Logic
+      const petalsContainer = document.getElementById('petals');
+      const petalColors = THEME_COLORS.petals;
+
+      function createPetal() {
         const petal = document.createElement('div');
         petal.classList.add('petal');
         const size = Math.random() * 15 + 10 + 'px';
@@ -1207,90 +1422,90 @@
         petal.style.animationDuration = Math.random() * 5 + 5 + 's';
         petal.style.backgroundColor = petalColors[Math.floor(Math.random() * petalColors.length)];
         petalsContainer.appendChild(petal);
-        
+
         setTimeout(() => petal.remove(), 10000);
-    }
-    setInterval(createPetal, 300);
+      }
+      setInterval(createPetal, 300);
 
-    // Navigation Toggle Logic
-    const menuBtn = document.getElementById('menu-btn');
-    const menuIcon = document.getElementById('menu-icon');
-    const mobileMenu = document.getElementById('mobile-menu');
+      // Navigation Toggle Logic
+      const menuBtn = document.getElementById('menu-btn');
+      const menuIcon = document.getElementById('menu-icon');
+      const mobileMenu = document.getElementById('mobile-menu');
 
-    function toggleMenu() {
+      function toggleMenu() {
         const isActive = mobileMenu.classList.toggle('hidden');
         if (!isActive) {
-            mobileMenu.classList.add('flex');
-            lockMenuScroll();
-            setTimeout(() => mobileMenu.classList.add('active'), 10);
-            menuIcon.innerText = 'close';
+          mobileMenu.classList.add('flex');
+          lockMenuScroll();
+          setTimeout(() => mobileMenu.classList.add('active'), 10);
+          menuIcon.innerText = 'close';
         } else {
-            mobileMenu.classList.remove('active');
-            unlockMenuScroll();
-            setTimeout(() => {
-                mobileMenu.classList.remove('flex');
-                mobileMenu.classList.add('hidden');
-            }, 400);
-            menuIcon.innerText = 'menu';
+          mobileMenu.classList.remove('active');
+          unlockMenuScroll();
+          setTimeout(() => {
+            mobileMenu.classList.remove('flex');
+            mobileMenu.classList.add('hidden');
+          }, 400);
+          menuIcon.innerText = 'menu';
         }
-    }
-    menuBtn.addEventListener('click', toggleMenu);
+      }
+      menuBtn.addEventListener('click', toggleMenu);
 
-    // Slideshow Logic
-    let currentSlide = 0;
-    let slideInterval;
+      // Slideshow Logic
+      let currentSlide = 0;
+      let slideInterval;
 
-    function getSlides() {
+      function getSlides() {
         return document.querySelectorAll('.slideshow-image');
-    }
+      }
 
-    function getDots() {
+      function getDots() {
         return document.querySelectorAll('#slideshow-dots button');
-    }
+      }
 
-    function showSlide(index) {
+      function showSlide(index) {
         const slides = getSlides();
         const dots = getDots();
         if (!slides.length) return;
 
         slides.forEach((slide, i) => {
-            slide.style.opacity = i === index ? '1' : '0';
+          slide.style.opacity = i === index ? '1' : '0';
         });
         dots.forEach((dot, i) => {
-            if (i === index) {
-                dot.classList.add('scale-150', 'bg-white');
-                dot.classList.remove('bg-white/40');
-            } else {
-                dot.classList.remove('scale-150', 'bg-white');
-                dot.classList.add('bg-white/40');
-            }
+          if (i === index) {
+            dot.classList.add('scale-150', 'bg-white');
+            dot.classList.remove('bg-white/40');
+          } else {
+            dot.classList.remove('scale-150', 'bg-white');
+            dot.classList.add('bg-white/40');
+          }
         });
         currentSlide = index;
-    }
+      }
 
-    function nextSlide() {
+      function nextSlide() {
         const slides = getSlides();
         if (!slides.length) return;
         showSlide((currentSlide + 1) % slides.length);
-    }
+      }
 
-    function prevSlide() {
+      function prevSlide() {
         const slides = getSlides();
         if (!slides.length) return;
         showSlide((currentSlide - 1 + slides.length) % slides.length);
-    }
+      }
 
-    function restartSlideInterval() {
+      function restartSlideInterval() {
         clearInterval(slideInterval);
         slideInterval = setInterval(nextSlide, 5000);
-    }
+      }
 
-    function goToSlide(index) {
+      function goToSlide(index) {
         showSlide(index);
         restartSlideInterval();
-    }
+      }
 
-    function initHeroSwipe() {
+      function initHeroSwipe() {
         const hero = document.getElementById('home');
         if (!hero) return;
 
@@ -1300,174 +1515,320 @@
         let tracking = false;
 
         function onSwipeStart(x, y) {
-            if (menuOpen || getSlides().length <= 1) return;
-            startX = x;
-            startY = y;
-            tracking = true;
+          if (menuOpen || getSlides().length <= 1) return;
+          startX = x;
+          startY = y;
+          tracking = true;
         }
 
         function onSwipeEnd(x, y) {
-            if (!tracking) return;
-            tracking = false;
+          if (!tracking) return;
+          tracking = false;
 
-            const deltaX = x - startX;
-            const deltaY = y - startY;
+          const deltaX = x - startX;
+          const deltaY = y - startY;
 
-            if (Math.abs(deltaX) < SWIPE_THRESHOLD) return;
-            if (Math.abs(deltaX) <= Math.abs(deltaY)) return;
+          if (Math.abs(deltaX) < SWIPE_THRESHOLD) return;
+          if (Math.abs(deltaX) <= Math.abs(deltaY)) return;
 
-            if (deltaX < 0) nextSlide();
-            else prevSlide();
-            restartSlideInterval();
+          if (deltaX < 0) nextSlide();
+          else prevSlide();
+          restartSlideInterval();
         }
 
         hero.addEventListener('touchstart', (e) => {
-            const touch = e.touches[0];
-            if (touch) onSwipeStart(touch.clientX, touch.clientY);
+          const touch = e.touches[0];
+          if (touch) onSwipeStart(touch.clientX, touch.clientY);
         }, { passive: true });
 
         hero.addEventListener('touchend', (e) => {
-            const touch = e.changedTouches[0];
-            if (touch) onSwipeEnd(touch.clientX, touch.clientY);
+          const touch = e.changedTouches[0];
+          if (touch) onSwipeEnd(touch.clientX, touch.clientY);
         }, { passive: true });
 
         hero.addEventListener('mousedown', (e) => {
-            if (e.button !== 0) return;
-            onSwipeStart(e.clientX, e.clientY);
+          if (e.button !== 0) return;
+          onSwipeStart(e.clientX, e.clientY);
         });
 
         window.addEventListener('mouseup', (e) => {
-            if (!tracking || e.button !== 0) return;
-            onSwipeEnd(e.clientX, e.clientY);
+          if (!tracking || e.button !== 0) return;
+          onSwipeEnd(e.clientX, e.clientY);
         });
-    }
+      }
 
-    slideInterval = setInterval(nextSlide, 5000);
-    initHeroSwipe();
+      slideInterval = setInterval(nextSlide, 5000);
+      initHeroSwipe();
 
-    // --- Gửi form qua Cloudflare Worker (Google Sheets URL ẩn phía server) ---
-    async function sendToWorker(subject, fields) {
+      // --- Gửi form qua Cloudflare Worker (Google Sheets URL ẩn phía server) ---
+      async function sendToWorker(subject, fields) {
         const endpoint = WEDDING_CONFIG.worker?.endpoint;
 
         if (!endpoint) {
-            throw new Error('Vui lòng cấu hình worker.endpoint trong config.js');
+          throw new Error('Vui lòng cấu hình worker.endpoint trong config.js');
         }
 
         if (window.location.protocol === 'file:') {
-            throw new Error('Không gửi được khi mở file trực tiếp. Chạy: python3 -m http.server 8080');
+          throw new Error('Không gửi được khi mở file trực tiếp. Chạy: python3 -m http.server 8080');
         }
 
         const res = await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({ subject, fields }),
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ subject, fields }),
         });
 
         let data;
         try {
-            data = await res.json();
+          data = await res.json();
         } catch {
-            throw new Error('Không nhận được phản hồi từ server. Vui lòng thử lại.');
+          throw new Error('Không nhận được phản hồi từ server. Vui lòng thử lại.');
         }
 
         if (!res.ok || !data.success) {
-            throw new Error(data.message || 'Không thể gửi. Vui lòng thử lại.');
+          throw new Error(data.message || 'Không thể gửi. Vui lòng thử lại.');
         }
-    }
+      }
 
-    function setFormStatus(el, message, type = '') {
+      function setFormStatus(el, message, type = '') {
+        if (!message) {
+          el.textContent = '';
+          el.classList.add('hidden');
+          return;
+        }
         el.textContent = message;
-        el.className = `form-status${type ? ` ${type}` : ''}`;
-    }
+        el.className = `form-status ${type ? ` ${type}` : ''}`;
+        el.classList.remove('hidden');
+      }
 
-    function setSubmitLoading(btn, loading, defaultText) {
+      function showFormPopup(title, message) {
+        const popup = document.getElementById('form-popup');
+        const card = document.getElementById('form-popup-card');
+        const titleEl = document.getElementById('form-popup-title');
+        const messageEl = document.getElementById('form-popup-message');
+
+        titleEl.textContent = title;
+        messageEl.textContent = message;
+
+        popup.classList.remove('hidden');
+        popup.offsetHeight; // trigger reflow
+        popup.classList.remove('opacity-0');
+        popup.classList.add('opacity-100');
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+      }
+
+      function closeFormPopup() {
+        const popup = document.getElementById('form-popup');
+        const card = document.getElementById('form-popup-card');
+
+        popup.classList.remove('opacity-100');
+        popup.classList.add('opacity-0');
+        card.classList.remove('scale-100');
+        card.classList.add('scale-95');
+
+        setTimeout(() => {
+          popup.classList.add('hidden');
+        }, 300);
+      }
+
+      function initFormPopupEvents() {
+        document.getElementById('form-popup-close').addEventListener('click', closeFormPopup);
+        document.getElementById('form-popup').addEventListener('click', (e) => {
+          if (e.target === document.getElementById('form-popup')) {
+            closeFormPopup();
+          }
+        });
+      }
+
+      function setSubmitLoading(btn, loading, defaultText) {
         btn.disabled = loading;
         btn.textContent = loading ? 'ĐANG GỬI...' : defaultText;
-    }
+      }
 
-    function initRsvpForm() {
+      function initRsvpForm() {
         const form = document.getElementById('rsvp-form');
         const guestsInput = document.getElementById('rsvp-guests');
         const statusEl = document.getElementById('rsvp-status');
         const submitBtn = document.getElementById('rsvp-submit');
 
         form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('rsvp-name').value.trim();
-            const guests = parseInt(guestsInput.value, 10);
+          e.preventDefault();
+          const nameInput = document.getElementById('rsvp-name');
+          const name = nameInput.value.trim();
+          const guestsVal = guestsInput.value.trim();
 
-            if (!name || !guests) return;
+          if (!name) {
+            const errorEl = document.getElementById('rsvp-name-error');
+            errorEl.textContent = 'Vui lòng nhập tên của bạn.';
+            errorEl.classList.remove('hidden');
 
-            setFormStatus(statusEl, '');
-            setSubmitLoading(submitBtn, true, 'XÁC NHẬN');
+            nameInput.classList.add('border-tertiary', 'focus:ring-tertiary');
+            nameInput.classList.remove('border-outline/30', 'focus:ring-primary');
+            nameInput.focus();
 
-            try {
-                const coupleNames = WEDDING_CONFIG.footer.names;
-                await sendToWorker(`[Phản hồi tham dự] ${name} — ${coupleNames}`, {
-                    'Loại': 'Xác nhận tham dự',
-                    'Tên': name,
-                    'Tham dự': 'Có',
-                    'Số khách': String(guests),
-                    'Sự kiện': WEDDING_CONFIG.event.title,
-                    'Ngày': WEDDING_CONFIG.event.dateText,
-                });
-                setFormStatus(statusEl, 'Cảm ơn bạn đã xác nhận!', 'success');
-                form.reset();
-                guestsInput.value = '1';
-            } catch (err) {
-                setFormStatus(statusEl, err.message || 'Gửi thất bại, vui lòng thử lại.', 'error');
-            } finally {
-                setSubmitLoading(submitBtn, false, 'XÁC NHẬN');
-            }
+            const onNameInput = () => {
+              nameInput.classList.remove('border-tertiary', 'focus:ring-tertiary');
+              nameInput.classList.add('border-outline/30', 'focus:ring-primary');
+              errorEl.classList.add('hidden');
+              errorEl.textContent = '';
+              nameInput.removeEventListener('input', onNameInput);
+            };
+            nameInput.addEventListener('input', onNameInput);
+            return;
+          }
+
+          if (!guestsVal) {
+            const errorEl = document.getElementById('rsvp-guests-error');
+            errorEl.textContent = 'Vui lòng nhập số lượng khách.';
+            errorEl.classList.remove('hidden');
+
+            guestsInput.classList.add('border-tertiary', 'focus:ring-tertiary');
+            guestsInput.classList.remove('border-outline/30', 'focus:ring-primary');
+            guestsInput.focus();
+
+            const onGuestsInput = () => {
+              guestsInput.classList.remove('border-tertiary', 'focus:ring-tertiary');
+              guestsInput.classList.add('border-outline/30', 'focus:ring-primary');
+              errorEl.classList.add('hidden');
+              errorEl.textContent = '';
+              guestsInput.removeEventListener('input', onGuestsInput);
+            };
+            guestsInput.addEventListener('input', onGuestsInput);
+            return;
+          }
+
+          const guests = parseInt(guestsVal, 10);
+          if (isNaN(guests) || guests < 1) {
+            const errorEl = document.getElementById('rsvp-guests-error');
+            errorEl.textContent = 'Số lượng khách phải từ 1 người trở lên.';
+            errorEl.classList.remove('hidden');
+
+            guestsInput.classList.add('border-tertiary', 'focus:ring-tertiary');
+            guestsInput.classList.remove('border-outline/30', 'focus:ring-primary');
+            guestsInput.focus();
+
+            const onGuestsInput = () => {
+              guestsInput.classList.remove('border-tertiary', 'focus:ring-tertiary');
+              guestsInput.classList.add('border-outline/30', 'focus:ring-primary');
+              errorEl.classList.add('hidden');
+              errorEl.textContent = '';
+              guestsInput.removeEventListener('input', onGuestsInput);
+            };
+            guestsInput.addEventListener('input', onGuestsInput);
+            return;
+          }
+
+          setFormStatus(statusEl, '');
+          setSubmitLoading(submitBtn, true, 'XÁC NHẬN');
+
+          try {
+            const coupleNames = WEDDING_CONFIG.footer.names;
+            await sendToWorker(`[Phản hồi tham dự] ${name} — ${coupleNames}`, {
+              'Loại': 'Xác nhận tham dự',
+              'Tên': name,
+              'Tham dự': 'Có',
+              'Số khách': String(guests),
+              'Sự kiện': WEDDING_CONFIG.event.title,
+              'Ngày': WEDDING_CONFIG.event.dateText,
+            });
+            showFormPopup('Xác Nhận Thành Công!', 'Cảm ơn bạn đã xác nhận tham dự lễ cưới của chúng mình!');
+            form.reset();
+            guestsInput.value = '1';
+          } catch (err) {
+            setFormStatus(statusEl, err.message || 'Gửi thất bại, vui lòng thử lại.', 'error');
+          } finally {
+            setSubmitLoading(submitBtn, false, 'XÁC NHẬN');
+          }
         });
-    }
+      }
 
-    function initWishesForm() {
+      function initWishesForm() {
         const form = document.getElementById('wishes-form');
         const statusEl = document.getElementById('wish-status');
         const submitBtn = document.getElementById('wish-submit');
 
         form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('wish-name').value.trim();
-            const message = document.getElementById('wish-message').value.trim();
+          e.preventDefault();
+          const nameInput = document.getElementById('wish-name');
+          const messageInput = document.getElementById('wish-message');
+          const name = nameInput.value.trim();
+          const message = messageInput.value.trim();
 
-            if (!name || !message) return;
+          if (!name) {
+            const errorEl = document.getElementById('wish-name-error');
+            errorEl.textContent = 'Vui lòng nhập tên của bạn.';
+            errorEl.classList.remove('hidden');
 
-            setFormStatus(statusEl, '');
-            setSubmitLoading(submitBtn, true, 'GỬI LỜI CHÚC');
+            nameInput.classList.add('border-tertiary', 'focus:ring-tertiary');
+            nameInput.classList.remove('border-outline/30', 'focus:ring-primary');
+            nameInput.focus();
 
-            try {
-                const coupleNames = WEDDING_CONFIG.footer.names;
-                await sendToWorker(`[Lời chúc] ${name} — ${coupleNames}`, {
-                    'Loại': 'Lời chúc',
-                    'Tên': name,
-                    'Lời chúc': message,
-                });
+            const onNameInput = () => {
+              nameInput.classList.remove('border-tertiary', 'focus:ring-tertiary');
+              nameInput.classList.add('border-outline/30', 'focus:ring-primary');
+              errorEl.classList.add('hidden');
+              errorEl.textContent = '';
+              nameInput.removeEventListener('input', onNameInput);
+            };
+            nameInput.addEventListener('input', onNameInput);
+            return;
+          }
 
-                const display = document.getElementById('wishes-display');
-                const newWish = document.createElement('div');
-                newWish.className = 'bg-card p-8 rounded-2xl border-l-4 border-primary shadow-sm fade-in';
-                newWish.innerHTML = `
+          if (!message) {
+            const errorEl = document.getElementById('wish-message-error');
+            errorEl.textContent = 'Vui lòng nhập lời chúc tốt đẹp của bạn.';
+            errorEl.classList.remove('hidden');
+
+            messageInput.classList.add('border-tertiary', 'focus:ring-tertiary');
+            messageInput.classList.remove('border-outline/30', 'focus:ring-primary');
+            messageInput.focus();
+
+            const onMessageInput = () => {
+              messageInput.classList.remove('border-tertiary', 'focus:ring-tertiary');
+              messageInput.classList.add('border-outline/30', 'focus:ring-primary');
+              errorEl.classList.add('hidden');
+              errorEl.textContent = '';
+              messageInput.removeEventListener('input', onMessageInput);
+            };
+            messageInput.addEventListener('input', onMessageInput);
+            return;
+          }
+
+          setFormStatus(statusEl, '');
+          setSubmitLoading(submitBtn, true, 'GỬI LỜI CHÚC');
+
+          try {
+            const coupleNames = WEDDING_CONFIG.footer.names;
+            await sendToWorker(`[Lời chúc] ${name} — ${coupleNames}`, {
+              'Loại': 'Lời chúc',
+              'Tên': name,
+              'Lời chúc': message,
+            });
+
+            const display = document.getElementById('wishes-display');
+            const newWish = document.createElement('div');
+            newWish.className = 'bg-card p-8 rounded-2xl border-l-4 border-primary shadow-sm fade-in';
+            newWish.innerHTML = `
                     <p class="font-body-md italic text-on-surface mb-4">"${message.replace(/"/g, '&quot;')}"</p>
                     <p class="font-label-caps text-label-caps text-primary">— ${name.replace(/</g, '&lt;')}</p>
                 `;
-                display.prepend(newWish);
+            display.prepend(newWish);
 
-                setFormStatus(statusEl, 'Cảm ơn lời chúc chân thành của bạn!', 'success');
-                form.reset();
-            } catch (err) {
-                setFormStatus(statusEl, err.message || 'Gửi thất bại, vui lòng thử lại.', 'error');
-            } finally {
-                setSubmitLoading(submitBtn, false, 'GỬI LỜI CHÚC');
-            }
+            showFormPopup('Gửi Lời Chúc Thành Công!', 'Cảm ơn lời chúc chân thành và ý nghĩa của bạn!');
+            form.reset();
+          } catch (err) {
+            setFormStatus(statusEl, err.message || 'Gửi thất bại, vui lòng thử lại.', 'error');
+          } finally {
+            setSubmitLoading(submitBtn, false, 'GỬI LỜI CHÚC');
+          }
         });
-    }
+      }
 
-    // Lightbox Controls
-    let currentLightboxIndex = 0;
+      // Lightbox Controls
+      let currentLightboxIndex = 0;
 
-    function openLightbox(index) {
+      function openLightbox(index) {
         currentLightboxIndex = index;
         const lightbox = document.getElementById('lightbox');
         const img = document.getElementById('lightbox-img');
@@ -1481,28 +1842,28 @@
         lightbox.offsetWidth;
         lightbox.classList.add('opacity-100');
         document.body.style.overflow = 'hidden';
-    }
+      }
 
-    function closeLightbox() {
+      function closeLightbox() {
         const lightbox = document.getElementById('lightbox');
         lightbox.classList.remove('opacity-100');
         setTimeout(() => {
-            lightbox.classList.add('hidden');
+          lightbox.classList.add('hidden');
         }, 300);
         document.body.style.overflow = '';
-    }
+      }
 
-    function navigateLightbox(direction) {
+      function navigateLightbox(direction) {
         currentLightboxIndex = (currentLightboxIndex + direction + gallerySources.length) % gallerySources.length;
         const img = document.getElementById('lightbox-img');
         img.classList.remove('loaded');
         setTimeout(() => {
-            img.src = gallerySources[currentLightboxIndex];
-            img.onload = () => img.classList.add('loaded');
+          img.src = gallerySources[currentLightboxIndex];
+          img.onload = () => img.classList.add('loaded');
         }, 150);
-    }
+      }
 
-    function initLightboxEvents() {
+      function initLightboxEvents() {
         const lightbox = document.getElementById('lightbox');
         const closeBtn = document.getElementById('lightbox-close');
         const prevBtn = document.getElementById('lightbox-prev');
@@ -1514,46 +1875,49 @@
 
         // Close on clicking overlay (outside the image container)
         lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox || e.target.id === 'lightbox-content') {
-                closeLightbox();
-            }
+          if (e.target === lightbox || e.target.id === 'lightbox-content') {
+            closeLightbox();
+          }
         });
 
         // Keyboard Controls
         document.addEventListener('keydown', (e) => {
-            if (lightbox.classList.contains('hidden')) return;
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowRight') navigateLightbox(1);
-            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+          if (lightbox.classList.contains('hidden')) return;
+          if (e.key === 'Escape') closeLightbox();
+          if (e.key === 'ArrowRight') navigateLightbox(1);
+          if (e.key === 'ArrowLeft') navigateLightbox(-1);
         });
 
         // Mobile Touch Swipe Gestures
         let touchStartX = 0;
         let touchEndX = 0;
         lightbox.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
+          touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
         lightbox.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
         }, { passive: true });
 
         function handleSwipe() {
-            const threshold = 50;
-            if (touchEndX < touchStartX - threshold) {
-                navigateLightbox(1); // swipe left -> next
-            }
-            if (touchEndX > touchStartX + threshold) {
-                navigateLightbox(-1); // swipe right -> prev
-            }
+          const threshold = 50;
+          if (touchEndX < touchStartX - threshold) {
+            navigateLightbox(1); // swipe left -> next
+          }
+          if (touchEndX > touchStartX + threshold) {
+            navigateLightbox(-1); // swipe right -> prev
+          }
         }
-    }
+      }
 
-    initLightboxEvents();
-    initRsvpForm();
-    initWishesForm();
+      initLightboxEvents();
+      initFormPopupEvents();
+      initRsvpForm();
+      initWishesForm();
 
-    window.toggleMenu = toggleMenu;
-})();
-</script>
-</body></html>
+      window.toggleMenu = toggleMenu;
+    })();
+  </script>
+</body>
+
+</html>
