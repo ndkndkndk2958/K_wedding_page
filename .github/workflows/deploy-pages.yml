@@ -31,7 +31,7 @@ jobs:
       - name: Assemble static site
         run: |
           mkdir site
-          cp index.html colors.js config.js site/
+          cp index.html tao-link.html colors.js config.js site/
           cp -r assets site/
 
       - uses: actions/upload-pages-artifact@v3

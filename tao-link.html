@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+  <title>Tạo Link Thiệp Mời Cá Nhân Hóa — Đăng Khoa &amp; Cẩm Nhung</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <script src="colors.js"></script>
+  <link rel="stylesheet" href="assets/tailwind.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Montserrat:ital,wght@0,100..900;1,100..900&amp;family=Great+Vibes&amp;display=swap"
+    rel="stylesheet" />
+  <style>
+    body {
+      background-color: #FAF6F0;
+      color: #2B1F23;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .font-serif-title {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .font-script {
+      font-family: 'Great Vibes', cursive;
+    }
+
+    .paper-card {
+      background: #FFFCF8;
+      border: 1px solid rgba(120, 37, 54, 0.16);
+      box-shadow: 0 20px 50px -15px rgba(43, 31, 35, 0.08), 0 4px 16px -4px rgba(43, 31, 35, 0.04);
+    }
+
+    .envelope-badge {
+      background: linear-gradient(180deg, #FFFDF9 0%, #FBF5EC 100%);
+      border: 1px solid rgba(197, 160, 89, 0.45);
+    }
+
+    .burgundy-btn {
+      background-color: #782536;
+      color: #FFFFFF;
+      transition: all 0.2s ease;
+    }
+
+    .burgundy-btn:hover {
+      background-color: #601C2A;
+    }
+
+    .burgundy-btn:active {
+      transform: scale(0.98);
+    }
+
+    .chip-btn {
+      background-color: #FFFDF9;
+      border: 1px solid rgba(120, 37, 54, 0.22);
+      color: #5C2230;
+      transition: all 0.18s ease;
+    }
+
+    .chip-btn:hover {
+      background-color: #F6ECE3;
+      border-color: rgba(120, 37, 54, 0.45);
+    }
+
+    .chip-btn:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen py-8 md:py-12 px-4 sm:px-6">
+  <main class="max-w-3xl mx-auto space-y-6">
+    <!-- 1. Header -->
+    <header class="text-center space-y-2 pb-2">
+      <p class="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#782536]/80">
+        Wedding Invitation Link Generator
+      </p>
+      <h1 class="font-serif-title text-2xl sm:text-3xl md:text-4xl font-semibold text-[#2B1F23]">
+        Tạo Link Thiệp Mời Cá Nhân Hóa
+      </h1>
+      <p id="couple-names-subtitle" class="font-script text-3xl sm:text-4xl text-[#782536] pt-1">
+        Đăng Khoa &amp; Cẩm Nhung
+      </p>
+    </header>
+
+    <!-- 2. Input Card -->
+    <section class="paper-card rounded-2xl p-5 sm:p-7 space-y-5">
+      <!-- Official Domain Display / Input -->
+      <div class="space-y-1.5">
+        <div class="flex items-center justify-between gap-2">
+          <label for="base-url-input" class="text-xs font-semibold uppercase tracking-wider text-[#5A464C]">
+            Tên miền thiệp cưới chính thức (GitHub Pages)
+          </label>
+          <button type="button" id="reset-domain-btn"
+            class="text-xs font-medium text-[#782536] hover:underline focus:outline-none">
+            Đặt lại mặc định
+          </button>
+        </div>
+        <input id="base-url-input" type="url"
+          value="https://ndkndkndk2958.github.io/K_wedding_page/"
+          class="w-full rounded-xl border border-[#D8C8B8] bg-white px-3.5 py-2.5 text-xs sm:text-sm font-mono text-[#2B1F23] focus:border-[#782536] focus:ring-1 focus:ring-[#782536] focus:outline-none" />
+      </div>
+
+      <!-- Guest Name Input -->
+      <div class="space-y-2.5">
+        <div class="flex flex-wrap items-baseline justify-between gap-2">
+          <label for="guest-names-input" class="text-xs font-semibold uppercase tracking-wider text-[#5A464C]">
+            Danh sách tên khách mời (mỗi dòng 1 khách)
+          </label>
+          <span id="guest-count-badge" class="text-xs font-medium text-[#782536]">
+            0 khách mời
+          </span>
+        </div>
+
+        <!-- Quick-insert toolbar buttons -->
+        <div class="flex flex-wrap items-center gap-1.5" role="toolbar" aria-label="Chèn nhanh ký tự">
+          <button type="button" data-insert=" &amp; ❤️"
+            class="chip-btn px-2.5 py-1.5 rounded-lg text-xs font-medium">
+            + &amp; ❤️
+          </button>
+          <button type="button" data-insert="❤️"
+            class="chip-btn px-2.5 py-1.5 rounded-lg text-xs font-medium">
+            + ❤️
+          </button>
+          <button type="button" data-insert="💕"
+            class="chip-btn px-2.5 py-1.5 rounded-lg text-xs font-medium">
+            + 💕
+          </button>
+          <button type="button" data-insert="Vợ chồng "
+            class="chip-btn px-2.5 py-1.5 rounded-lg text-xs font-medium">
+            + Vợ chồng
+          </button>
+          <button type="button" data-insert="Gia đình "
+            class="chip-btn px-2.5 py-1.5 rounded-lg text-xs font-medium">
+            + Gia đình
+          </button>
+          <button type="button" id="clear-input-btn"
+            class="ml-auto px-2.5 py-1.5 rounded-lg text-xs font-medium text-[#8C4A58] hover:bg-[#F5E6E8] transition-colors">
+            Xoá trắng
+          </button>
+        </div>
+
+        <textarea id="guest-names-input" rows="5"
+          placeholder="Nhập tên khách mời (mỗi dòng 1 tên)...&#10;Ví dụ:&#10;Khôi 9A5 &amp; ❤️&#10;Vợ chồng Sơn 9A5"
+          class="w-full rounded-xl border border-[#D8C8B8] bg-white p-3.5 text-sm sm:text-base text-[#2B1F23] placeholder-[#9B8A8E] focus:border-[#782536] focus:ring-1 focus:ring-[#782536] focus:outline-none leading-relaxed"></textarea>
+
+        <p class="text-xs text-[#6E5A5F] leading-relaxed">
+          💡 <strong>Mẹo:</strong> Bạn có thể dán trực tiếp emoji (❤️, 💕) hoặc gõ tắt <code
+            class="px-1.5 py-0.5 rounded bg-[#F3ECE3] text-[#782536] font-mono">&lt;3</code>, <code
+            class="px-1.5 py-0.5 rounded bg-[#F3ECE3] text-[#782536] font-mono">[tim]</code> — hệ thống sẽ tự động đổi
+          thành ❤️ và mã hoá link ngắn gọn.
+        </p>
+      </div>
+    </section>
+
+    <!-- 3. Bulk Action Bar (hidden when 0 guests) -->
+    <section id="bulk-actions-bar"
+      class="hidden paper-card rounded-2xl p-4 sm:px-6 flex flex-wrap items-center justify-between gap-3">
+      <div class="text-xs sm:text-sm font-medium text-[#392D31]">
+        Đã tạo <span id="bulk-count-number" class="font-bold text-[#782536]">0</span> link thiệp mời
+      </div>
+      <div class="flex flex-wrap items-center gap-2.5">
+        <button type="button" id="copy-all-links-btn"
+          class="chip-btn px-3.5 py-2 rounded-xl text-xs font-semibold tracking-wide">
+          Copy tất cả Link
+        </button>
+        <button type="button" id="copy-excel-table-btn"
+          class="burgundy-btn px-4 py-2 rounded-xl text-xs font-semibold tracking-wide shadow-sm">
+          Copy bảng (Tên + Link cho Excel/Sheets)
+        </button>
+      </div>
+    </section>
+
+    <!-- 4. Instant Results List -->
+    <section id="generated-links-list" class="space-y-3" aria-live="polite"></section>
+  </main>
+
+  <script src="config.js"></script>
+  <script>
+    (() => {
+      const DEFAULT_OFFICIAL_URL = 'https://ndkndkndk2958.github.io/K_wedding_page/';
+
+      const decodeConfig = (str, key = 42) => {
+        try {
+          if (!str) return null;
+          const binary = atob(str);
+          const bytes = new Uint8Array(binary.length);
+          for (let i = 0; i < binary.length; i++) {
+            bytes[i] = binary.charCodeAt(i) ^ key;
+          }
+          return JSON.parse(new TextDecoder('utf-8').decode(bytes));
+        } catch {
+          return null;
+        }
+      };
+
+      const WEDDING_CONFIG = decodeConfig(window._encodedConfig || '') || {};
+      delete window._encodedConfig;
+
+      const officialSiteUrl = (WEDDING_CONFIG.siteUrl && typeof WEDDING_CONFIG.siteUrl === 'string')
+        ? WEDDING_CONFIG.siteUrl
+        : DEFAULT_OFFICIAL_URL;
+
+      // Exact same normalization & UTF-8 Base64URL encoding as index.html
+      function normalizeGuestText(raw) {
+        if (typeof raw !== 'string') return '';
+        return raw
+          .trim()
+          .replace(/\s+/g, ' ')
+          .replace(/<3|\[trái\s*tim\]|\[tim\]/gi, '❤️')
+          .slice(0, 80);
+      }
+
+      function encodeGuestParam(rawName) {
+        const normalized = normalizeGuestText(rawName);
+        if (!normalized) return '';
+        try {
+          const bytes = new TextEncoder().encode(normalized);
+          let binary = '';
+          for (let i = 0; i < bytes.length; i++) {
+            binary += String.fromCharCode(bytes[i]);
+          }
+          return btoa(binary)
+            .replace(/\+/g, '-')
+            .replace(/\//g, '_')
+            .replace(/=+$/g, '');
+        } catch {
+          return '';
+        }
+      }
+
+      function decodeGuestParam(encoded) {
+        if (!encoded || typeof encoded !== 'string') return '';
+        try {
+          const trimmed = encoded.trim();
+          if (!trimmed) return '';
+          let base64 = trimmed.replace(/-/g, '+').replace(/_/g, '/');
+          const padLen = (4 - (base64.length % 4)) % 4;
+          if (padLen > 0) base64 += '='.repeat(padLen);
+          const binary = atob(base64);
+          const bytes = new Uint8Array(binary.length);
+          for (let i = 0; i < binary.length; i++) {
+            bytes[i] = binary.charCodeAt(i);
+          }
+          const decoded = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+          return normalizeGuestText(decoded);
+        } catch {
+          return '';
+        }
+      }
+
+      const baseUrlInput = document.getElementById('base-url-input');
+      const resetDomainBtn = document.getElementById('reset-domain-btn');
+      const guestNamesInput = document.getElementById('guest-names-input');
+      const clearInputBtn = document.getElementById('clear-input-btn');
+      const guestCountBadge = document.getElementById('guest-count-badge');
+      const bulkActionsBar = document.getElementById('bulk-actions-bar');
+      const bulkCountNumber = document.getElementById('bulk-count-number');
+      const copyAllLinksBtn = document.getElementById('copy-all-links-btn');
+      const copyExcelTableBtn = document.getElementById('copy-excel-table-btn');
+      const generatedLinksList = document.getElementById('generated-links-list');
+
+      if (baseUrlInput) {
+        baseUrlInput.value = officialSiteUrl;
+      }
+
+      function getNormalizedBaseUrl() {
+        const raw = (baseUrlInput?.value || '').trim() || officialSiteUrl;
+        try {
+          const url = new URL(raw);
+          url.search = '';
+          url.hash = '';
+          let str = url.toString();
+          if (!str.endsWith('/') && !str.endsWith('.html')) {
+            str += '/';
+          }
+          return str;
+        } catch {
+          return raw.endsWith('/') ? raw : `${raw}/`;
+        }
+      }
+
+      function buildOfficialGuestLink(guestName) {
+        const code = encodeGuestParam(guestName);
+        const base = getNormalizedBaseUrl();
+        return code ? `${base}?g=${code}` : base;
+      }
+
+      function buildPreviewHref(guestName) {
+        const code = encodeGuestParam(guestName);
+        return code ? `index.html?g=${code}` : 'index.html';
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      async function copyTextToClipboard(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          try {
+            await navigator.clipboard.writeText(text);
+            return true;
+          } catch {}
+        }
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        let ok = false;
+        try {
+          ok = document.execCommand('copy');
+        } catch {}
+        document.body.removeChild(ta);
+        return ok;
+      }
+
+      function showButtonFeedback(btn, copiedLabel = 'Đã copy ✓') {
+        if (!btn) return;
+        const original = btn.dataset.originalText || btn.textContent;
+        btn.dataset.originalText = original;
+        btn.textContent = copiedLabel;
+        clearTimeout(btn._feedbackTimer);
+        btn._feedbackTimer = setTimeout(() => {
+          btn.textContent = original;
+        }, 1600);
+      }
+
+      function getCurrentEntries() {
+        const rawLines = (guestNamesInput?.value || '').split(/\r?\n/);
+        const entries = [];
+        for (const line of rawLines) {
+          const guestName = normalizeGuestText(line);
+          if (!guestName) continue;
+          const code = encodeGuestParam(guestName);
+          if (!code) continue;
+          entries.push({
+            guestName,
+            code,
+            officialUrl: buildOfficialGuestLink(guestName),
+            previewHref: buildPreviewHref(guestName),
+          });
+        }
+        return entries;
+      }
+
+      function renderGeneratedLinks() {
+        const entries = getCurrentEntries();
+        const count = entries.length;
+
+        if (guestCountBadge) {
+          guestCountBadge.textContent = `${count} khách mời`;
+        }
+        if (bulkCountNumber) {
+          bulkCountNumber.textContent = String(count);
+        }
+        if (bulkActionsBar) {
+          bulkActionsBar.classList.toggle('hidden', count === 0);
+        }
+
+        if (!generatedLinksList) return;
+
+        if (count === 0) {
+          generatedLinksList.innerHTML = `
+            <div class="paper-card rounded-2xl p-6 text-center space-y-3">
+              <p class="text-sm text-[#5A464C]">
+                Nhập tên khách mời ở ô bên trên để tạo link tự động, hoặc bấm thử mẫu:
+              </p>
+              <div class="flex flex-wrap items-center justify-center gap-2">
+                <button type="button" data-sample="Khôi 9A5 &amp; ❤️"
+                  class="chip-btn px-3.5 py-1.5 rounded-full text-xs font-medium">
+                  Thử mẫu: Khôi 9A5 &amp; ❤️
+                </button>
+                <button type="button" data-sample="Vợ chồng Sơn 9A5"
+                  class="chip-btn px-3.5 py-1.5 rounded-full text-xs font-medium">
+                  Thử mẫu: Vợ chồng Sơn 9A5
+                </button>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        generatedLinksList.innerHTML = entries
+          .map(
+            (item, idx) => `
+            <div class="paper-card rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="space-y-2 min-w-0 flex-1">
+                <div class="flex items-center gap-2.5 flex-wrap">
+                  <span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#782536]/10 text-[#782536]">
+                    #${idx + 1}
+                  </span>
+                  <div class="envelope-badge px-3 py-1 rounded-lg inline-flex items-baseline gap-2">
+                    <span class="text-[10px] uppercase tracking-[0.18em] text-[#7A6267] font-semibold">
+                      TRÂN TRỌNG KÍNH MỜI:
+                    </span>
+                    <span class="font-serif-title font-semibold text-sm sm:text-base text-[#782536]">
+                      ${escapeHtml(item.guestName)}
+                    </span>
+                  </div>
+                </div>
+                <div class="bg-[#FAF5EF] border border-[#E6DACB] rounded-xl px-3 py-2 font-mono text-xs text-[#392D31] break-all select-all">
+                  ${escapeHtml(item.officialUrl)}
+                </div>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <button type="button" data-copy-link="${escapeHtml(item.officialUrl)}"
+                  class="burgundy-btn px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wide shadow-sm">
+                  Copy Link
+                </button>
+                <a href="${escapeHtml(item.previewHref)}" target="_blank" rel="noopener noreferrer"
+                  class="chip-btn px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide text-center">
+                  Xem thử ↗
+                </a>
+              </div>
+            </div>
+          `
+          )
+          .join('');
+      }
+
+      // Insert snippet at cursor or end of current line
+      function insertAtCursor(snippet) {
+        if (!guestNamesInput) return;
+        const start = guestNamesInput.selectionStart ?? guestNamesInput.value.length;
+        const end = guestNamesInput.selectionEnd ?? guestNamesInput.value.length;
+        const val = guestNamesInput.value;
+        guestNamesInput.value = val.slice(0, start) + snippet + val.slice(end);
+        const nextPos = start + snippet.length;
+        guestNamesInput.focus();
+        guestNamesInput.setSelectionRange(nextPos, nextPos);
+        renderGeneratedLinks();
+      }
+
+      document.querySelectorAll('[data-insert]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          insertAtCursor(btn.getAttribute('data-insert') || '');
+        });
+      });
+
+      clearInputBtn?.addEventListener('click', () => {
+        if (!guestNamesInput) return;
+        guestNamesInput.value = '';
+        guestNamesInput.focus();
+        renderGeneratedLinks();
+      });
+
+      resetDomainBtn?.addEventListener('click', () => {
+        if (!baseUrlInput) return;
+        baseUrlInput.value = officialSiteUrl;
+        renderGeneratedLinks();
+      });
+
+      baseUrlInput?.addEventListener('input', renderGeneratedLinks);
+      guestNamesInput?.addEventListener('input', renderGeneratedLinks);
+
+      generatedLinksList?.addEventListener('click', async (e) => {
+        const sampleBtn = e.target.closest('[data-sample]');
+        if (sampleBtn && guestNamesInput) {
+          const sample = sampleBtn.getAttribute('data-sample') || '';
+          guestNamesInput.value = guestNamesInput.value.trim()
+            ? `${guestNamesInput.value.trim()}\n${sample}`
+            : sample;
+          renderGeneratedLinks();
+          return;
+        }
+
+        const copyBtn = e.target.closest('[data-copy-link]');
+        if (copyBtn) {
+          const link = copyBtn.getAttribute('data-copy-link') || '';
+          if (link) {
+            await copyTextToClipboard(link);
+            showButtonFeedback(copyBtn, 'Đã copy ✓');
+          }
+        }
+      });
+
+      copyAllLinksBtn?.addEventListener('click', async () => {
+        const entries = getCurrentEntries();
+        if (!entries.length) return;
+        const text = entries.map((e) => e.officialUrl).join('\n');
+        await copyTextToClipboard(text);
+        showButtonFeedback(copyAllLinksBtn, 'Đã copy ✓');
+      });
+
+      copyExcelTableBtn?.addEventListener('click', async () => {
+        const entries = getCurrentEntries();
+        if (!entries.length) return;
+        const text = entries.map((e) => `${e.guestName}\t${e.officialUrl}`).join('\n');
+        await copyTextToClipboard(text);
+        showButtonFeedback(copyExcelTableBtn, 'Đã copy ✓');
+      });
+
+      // Expose helpers for testing
+      window.normalizeGuestText = normalizeGuestText;
+      window.encodeGuestParam = encodeGuestParam;
+      window.decodeGuestParam = decodeGuestParam;
+
+      renderGeneratedLinks();
+    })();
+  </script>
+</body>
+
+</html>

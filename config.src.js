@@ -3,6 +3,7 @@
 // ============================================================
 // link ảnh: https://lh3.googleusercontent.com/d/THAY_THẾ_ID_ẢNH_TẠI_ĐÂY
 const WEDDING_CONFIG = {
+    siteUrl: 'https://ndkndkndk2958.github.io/K_wedding_page/',
     couple: {
         groom: {
             name: 'Đăng Khoa',
@@ -16,7 +17,7 @@ const WEDDING_CONFIG = {
         },
     },
     wedding: {
-        dateDisplay: '24 . 04 . 2027',
+        dateDisplay: '25 . 04 . 2027',
         invitationText: 'Trân trọng kính mời bạn đến chung vui cùng chúng tôi trong ngày trọng đại này.',
     },
     event: {
@@ -30,6 +31,32 @@ const WEDDING_CONFIG = {
     rsvp: {
         deadlineText: 'Vui lòng phản hồi trước ngày 20/04/2027',
     },
+    wishes: [
+        {
+            name: 'Gia Đình Hai Bên',
+            message: 'Chúc hai con trăm năm hạnh phúc, đầu bạc răng long, sớm có thiên thần nhỏ nhé!',
+        },
+        {
+            name: 'Hội Bạn Thân Cấp 3',
+            message: 'Mừng cho đôi bạn trẻ đã tìm thấy bến đỗ bình yên. Chúc Khoa và Nhung mãi luôn ngọt ngào như thuở ban đầu!',
+        },
+        {
+            name: 'Anh Minh & Chị Lan',
+            message: 'Chúc mừng hạnh phúc hai em! Chúc tổ ấm nhỏ luôn tràn ngập tiếng cười, bình an và viên mãn.',
+        },
+        {
+            name: 'Team Đồng Nghiệp',
+            message: 'Happy Wedding Đăng Khoa & Cẩm Nhung! Chúc hai bạn trăm năm tình viên mãn, bạc đầu nghĩa phu thê.',
+        },
+        {
+            name: 'Bạn Ngọc Ánh',
+            message: 'Cô dâu Cẩm Nhung hôm nay xinh đẹp quá! Chúc hai bạn luôn nắm chặt tay nhau đi qua mọi chặng đường.',
+        },
+        {
+            name: 'Hoàng Nam',
+            message: 'Chúc mừng thằng bạn chí cốt đã rước được nàng về dinh! Trăm năm hạnh phúc và đại thành công nhé!',
+        },
+    ],
     footer: {
         names: 'Đăng Khoa & Cẩm Nhung',
         message: 'Cảm ơn bạn đã là một phần trong câu chuyện tình yêu của chúng tôi.',

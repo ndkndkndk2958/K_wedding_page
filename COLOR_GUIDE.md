@@ -29,26 +29,32 @@ graph TD
 
 ## 🎨 Chi tiết các nhóm màu & Nơi sử dụng
 
-### 1. Bảng màu chủ đạo (Theme Palette Colors)
+### 1. Bảng màu chủ đạo (Theme Palette Colors) — Bản thiết kế đã duyệt
 
 Được cấu hình thông qua Tailwind CSS và áp dụng rộng rãi bằng các class như `bg-{color}`, `text-{color}`, `border-{color}`.
 
+• **Light Mode**: Trắng ngà (`#F5F0EB`) – Đỏ rượu vang (`#762D40`).
+• **Dark Mode**: Cacao ấm (`#30221D`) – Champagne (`#F1D5AB` / `#F3D9AF`).
+
 | Tên biến CSS | Mã màu (Light / Dark) | Vai trò & Nơi sử dụng trong Web |
 | :--- | :--- | :--- |
-| **`primary`**<br>`--color-primary` | `#d4a3a3` / `#f1bebe` | **Màu nhấn chủ đạo (Hồng pastel / Rose gold):**<br>• Tiêu đề chính (`h2`) của các section.<br>• Tên cô dâu & chú rể ở phần giới thiệu gia đình.<br>• Màu nền nút bấm chính (Đóng Menu, Chỉ đường, Xác nhận RSVP, Gửi lời chúc).<br>• Icon trái tim trang trí.<br>• Viền tròn ảnh cô dâu chú rể (`border-primary/20`) và viền bên của thẻ Lời chúc.<br>• Màu icon điều hướng (glass-nav) ở chế độ tối. |
-| **`secondary`**<br>`--color-secondary` | `#f4e4e4` / `#d7c4a4` | **Màu phụ (Hồng nhạt / Beige):**<br>• Chữ tiêu đề phụ ("PHỤ HUYNH NHÀ TRAI/GÁI") ở chế độ tối.<br>• Link menu khi hover ở chế độ tối.<br>• Màu đường gạch ngang chia đôi section Sự Kiện (`bg-secondary/50`). |
-| **`tertiary`**<br>`--color-tertiary` | `#FFA1A1` / `#c5b393` | **Màu nhấn phụ (Coral / Vàng đồng):**<br>• Màu icon điều hướng (glass-nav) ở chế độ sáng.<br>• Trạng thái hover của các nút bấm chính (`hover:bg-tertiary`).<br>• Chữ tiêu đề phụ ("PHỤ HUYNH NHÀ TRAI/GÁI") ở chế độ sáng.<br>• Tiêu đề phụ trong form RSVP ("Số lượng khách"). |
-| **`background`**<br>`--color-background` | `#FFF5F5` / `#131313` | **Màu nền chính trang web:**<br>• Nền toàn bộ trang (`<body>`).<br>• Nền section Sự Kiện (`#events`).<br>• Nền phần chân trang (`<footer>`). |
-| **`surface`**<br>`--color-surface` | `#fff9f9` / `#131313` | **Nền bề mặt phụ:**<br>• Nền của section Album ảnh cưới (`#gallery`) ở chế độ sáng. |
-| **`surfaceLowest`**<br>`--color-surface-lowest` | `#fff9f9` / `#0e0e0e` | **Nền bề mặt sâu nhất:**<br>• Nền của section Album ảnh cưới (`#gallery`) ở chế độ tối. |
-| **`onBackground`**<br>`--color-on-background` | `#823C3C` / `#e5e2e1` | **Màu chữ chính:**<br>• Chữ nội dung toàn trang (đỏ đô đậm ở chế độ sáng, xám sáng ở chế độ tối).<br>• Thời gian chi tiết của sự kiện. |
-| **`onSurface`**<br>`--color-on-surface` | `#823C3C` / `#e5e2e1` | **Màu chữ trên các thẻ/hộp:**<br>• Nội dung lời chúc hiển thị trong danh sách lời chúc phúc. |
-| **`onSurfaceVariant`**<br>`--color-on-surface-variant` | `rgba(130, 60, 60, 0.65)` /<br>`rgba(212, 194, 194, 0.75)` | **Màu chữ phụ/mờ:**<br>• Lời trích dẫn/phụ đề dưới tiêu đề lớn (Album hình cưới, Sự kiện, RSVP).<br>• Địa chỉ chi tiết của sự kiện.<br>• Dòng bản quyền (Copyright) ở chân trang. |
-| **`outline`**<br>`--color-outline` | `#D4A3A3` / `#9d8d8d` | **Màu viền & đường line ngăn cách:**<br>• Đường gạch trang trí ngắn ở phần giới thiệu.<br>• Viền của nhãn tên cô dâu & chú rể ở giới thiệu gia đình.<br>• Đường gạch ngăn cách thông tin thời gian & địa điểm.<br>• Viền dưới của các ô nhập liệu (`input`, `textarea`).<br>• Màu nhãn nổi (floating label) khi chưa được focus. |
-| **`outlineVariant`**<br>`--color-outline-variant` | `#e2d1d1` / `#504444` | *Chưa dùng trực tiếp trên HTML (dự phòng cho các nét viền mảnh hơn).* |
-| **`surfaceContainer`**<br>`--color-surface-container` | `#FFF5F5` / `#201f1f` | **Hộp chứa nội dung:**<br>• Màu nền thẻ thông tin sự kiện lớn ở mục Sự Kiện.<br>• Màu nền của section nhập thông tin RSVP. |
-| **`card`**<br>`--color-card` | `#ffffff` / `#2a2a2a` | **Màu nền thẻ card nổi bật:**<br>• Nền của nhãn tên cô dâu/chú rể đè lên hình ảnh.<br>• Nền hộp nhập RSVP và hộp gửi Lời chúc.<br>• Nền các thẻ hiển thị lời chúc của bạn bè gửi tới. |
-| **`surfaceContainerHighest`**<br>`--color-surface-container-highest` | `#ffffff` / `#353534` | **Độ nổi hộp cao nhất:**<br>• Màu viền nổi (ring border) bao quanh từng bức ảnh trong Album Cưới. |
+| **`primary`**<br>`--color-primary` | `#762D40` / `#F1D5AB` | **Màu nhấn chủ đạo (Đỏ rượu vang / Champagne lì):**<br>• Tên cô dâu & chú rể, nhãn phụ đề (Overline caps).<br>• Nền nút bấm chính (`.ob-cta-button`, Xác nhận RSVP, Mở lời mời, Gửi phản hồi).<br>• Biểu tượng nhấn (trái tim, nhẫn cưới, kim cương).<br>• Chấm tiến trình hiện tại. |
+| **`primary-hover`**<br>`--color-primary-hover` | `#602235` / `#F7E2C3` | **Trạng thái hover nút chính:**<br>• Nền nút chính khi hover/focus. |
+| **`on-primary`**<br>`--color-on-primary` | `#FFFFFF` / `#39271E` | **Màu chữ nút chính:**<br>• Trắng tinh khôi trên nền đỏ rượu (Light) và nâu cacao trầm trên nền champagne (Dark), đạt chuẩn tương phản cao WCAG AA/AAA. |
+| **`secondary`**<br>`--color-secondary` | `#DED0BF` / `#B69B7B` | **Viền & đường trang trí (Champagne ấm lì, mảnh 1px):**<br>• Viền khung thẻ thiệp, đường kẻ phân cách, viền nút phụ. |
+| **`tertiary`**<br>`--color-tertiary` | `#602235` / `#E6C595` | **Màu nhấn phụ / Hover:**<br>• Trạng thái tương tác, cảnh báo lỗi form nhẹ nhàng. |
+| **`background`**<br>`--color-background` | `#F5F0EB` / `#30221D` | **Nền trang chính:**<br>• Light: Trắng ngà sạch, không ám vàng xanh.<br>• Dark: Nâu cacao ấm, có thể kết hợp radial gradient dịu nhẹ ánh đèn nến tiệc cưới. |
+| **`surface`**<br>`--color-surface` | `#FAF5EF` / `#3D2C25` | **Nền bề mặt phụ:**<br>• Lớp nền phụ cho các section lót. |
+| **`surfaceLowest`**<br>`--color-surface-lowest` | `#EFEAE3` / `#241814` | **Nền bề mặt sâu:**<br>• Lớp nền chuyển tiếp. |
+| **`onBackground`**<br>`--color-on-background` | `#392D31` / `#FFF6E8` | **Chữ chính, tiêu đề (WCAG AAA):**<br>• Chữ tiêu đề lớn, nội dung chính trên trang và trên thẻ thiệp. |
+| **`onSurface`**<br>`--color-on-surface` | `#392D31` / `#FFF6E8` | **Chữ trên các hộp nội dung & thẻ.** |
+| **`onSurfaceVariant`**<br>`--color-on-surface-variant` | `#705E61` / `#E8D9CA` | **Chữ phụ:**<br>• Lời dẫn, chú thích ngày giờ, địa chỉ, bản quyền. |
+| **`outline`**<br>`--color-outline` | `#DED0BF` / `#B69B7B` | **Viền và đường trang trí mảnh 1px:**<br>• Khung viền tấm thiệp, đường chỉ trang trí. |
+| **`outlineVariant`**<br>`--color-outline-variant` | `#E8DFD3` / `#523F36` | **Viền mờ phụ.** |
+| **`surfaceContainer`**<br>`--color-surface-container` | `#F7F2EC` / `#49372F` | **Hộp chứa nội dung / Trường nhập liệu Dark:**<br>• Nền các khối bên trong thiệp. |
+| **`card`**<br>`--color-card` | `#FFFCF8` / `#695247` | **Nền tấm thiệp:**<br>• Light: Trắng ngà tinh khôi `#FFFCF8`.<br>• Dark: Nâu taupe ấm `#695247` (sáng hơn nền cacao `#30221D` rõ ràng, tạo chiều sâu thị giác). |
+| **`input-bg`**<br>`--input-bg` | `#FFFFFF` / `#49372F` | **Nền trường nhập liệu:**<br>• Ô input, textarea, dropdown. |
+| **`input-border`**<br>`--input-border` | `#CDBDB4` / `#B69B7B` | **Viền trường nhập liệu.** |
 
 ---
 
@@ -80,8 +86,8 @@ graph TD
 
 #### B. Hiệu ứng Cánh hoa rơi (Falling Petals - `#petals`)
 * **`petals`** (Mảng màu):
-  * *Light:* `['#ffe4e1', '#fff0f5', '#ffebee']` (Hồng anh đào nhạt).
-  * *Dark:* `['#f1bebe', '#613d3d', '#482728']` (Hồng phấn xen kẽ đỏ rượu vang thẫm).
+  * *Light:* `['#F2E2D8', '#E6CEC0', '#D4B2A0']` (Cánh hoa mềm màu Champagne Cashmere).
+  * *Dark:* `['#DFC19D', '#6E5340', '#4A372B']` (Cánh hoa vàng đồng ánh kim xen kẽ nâu Espresso).
   * *Sử dụng:* Script JS sẽ tự động lấy ngẫu nhiên các màu này để gán cho các cánh hoa rơi tự do trên màn hình.
 
 #### C. Các hiệu ứng giao diện khác

@@ -1,76 +1,92 @@
 // ============================================================
 // CẤU HÌNH MÀU SẮC — Chỉnh sửa tại đây
 // Sau khi đổi màu theme, chạy: npm run build:css (nếu thêm token mới)
+//
+// Bản thiết kế đã duyệt:
+// • Light mode: Trắng ngà (#F5F0EB) – Đỏ rượu vang (#762D40).
+// • Dark mode: Cacao ấm (#30221D) – Champagne (#F1D5AB / #F3D9AF).
 // ============================================================
 const THEME_PALETTES = {
     light: {
-        primary: '#B0656B',
-        secondary: '#F8ECEB',
-        tertiary: '#90474D',
-        background: '#FDF8F7',
-        surface: '#FCF3F2',
-        surfaceLowest: '#FCF3F2',
-        onBackground: '#4A1519',
-        onSurface: '#4A1519',
-        onSurfaceVariant: 'rgba(74, 21, 25, 0.7)',
-        outline: '#B0656B',
-        outlineVariant: '#E2C8CA',
-        surfaceContainer: '#F8ECEB',
-        card: '#ffffff',
-        surfaceContainerHigh: '#ffffff',
-        surfaceContainerHighest: '#ffffff',
+        primary: '#762D40',                  // Đỏ rượu vang — tên cặp đôi, biểu tượng nhấn & nền nút chính
+        primaryHover: '#602235',             // Nền nút chính khi hover
+        onPrimary: '#FFFFFF',                // Chữ nút chính
+        secondary: '#DED0BF',                // Viền & đường trang trí (champagne ấm)
+        tertiary: '#602235',                 // Đỏ rượu đậm khi hover
+        background: '#F5F0EB',               // Nền trang trắng ngà sạch, không ám vàng xanh
+        surface: '#FAF5EF',                  // Bề mặt ngà ấm
+        surfaceLowest: '#EFEAE3',            // Lớp nền sâu hơn
+        onBackground: '#392D31',             // Chữ chính, tiêu đề (WCAG AAA)
+        onSurface: '#392D31',                // Chữ chính trên thiệp
+        onSurfaceVariant: '#705E61',         // Chữ phụ
+        outline: '#DED0BF',                  // Viền và đường trang trí mảnh 1px
+        outlineVariant: '#E8DFD3',           // Viền phụ mờ
+        surfaceContainer: '#F7F2EC',         // Hộp chứa nội dung
+        card: '#FFFCF8',                     // Nền tấm thiệp trắng ngà tinh khôi
+        surfaceContainerHigh: '#FFFFFF',
+        surfaceContainerHighest: '#FFFFFF',
+        inputBg: '#FFFFFF',                  // Nền trường nhập liệu
+        inputBorder: '#CDBDB4',              // Viền trường nhập liệu
+        inputText: '#392D31',                // Chữ trường nhập liệu
+        inputPlaceholder: 'rgba(112, 94, 97, 0.65)',
         hero: {
-            nameGradient: 'linear-gradient(135deg, #4A1519 0%, #B0656B 45%, #D68F95 70%, #4A1519 100%)',
-            nameGlow: 'drop-shadow(0 2px 8px rgba(74, 21, 25, 0.3)) drop-shadow(0 4px 20px rgba(176, 101, 107, 0.2))',
-            ampersand: '#B0656B',
-            dateText: '#4A1519',
-            halo: 'radial-gradient(ellipse at center, rgba(176, 101, 107, 0.2) 0%, rgba(253, 248, 247, 0.15) 50%, transparent 70%)',
-            divider: 'linear-gradient(90deg, transparent, rgba(176, 101, 107, 0.8), rgba(248, 236, 235, 1), rgba(176, 101, 107, 0.8), transparent)',
-            dividerGlow: '0 0 12px rgba(176, 101, 107, 0.4)',
-            ampersandGlow: '0 0 25px rgba(176, 101, 107, 0.5), 0 0 50px rgba(144, 71, 77, 0.3), 0 1px 10px rgba(74, 21, 25, 0.3)',
+            nameGradient: 'linear-gradient(135deg, #FFFFFF 0%, #FFF7F2 45%, #F5DFD5 80%, #FFFFFF 100%)',
+            nameGlow: 'drop-shadow(0 4px 18px rgba(38, 20, 26, 0.45)) drop-shadow(0 2px 8px rgba(118, 45, 64, 0.35))',
+            ampersand: '#F3D9AF',
+            dateText: '#FFFDF9',
+            halo: 'radial-gradient(ellipse at center, rgba(38, 20, 26, 0.32) 0%, rgba(38, 20, 26, 0.12) 50%, transparent 72%)',
+            divider: 'linear-gradient(90deg, transparent, rgba(222, 208, 191, 0.85), #FFFFFF, rgba(222, 208, 191, 0.85), transparent)',
+            dividerGlow: '0 0 14px rgba(222, 208, 191, 0.45)',
+            ampersandGlow: '0 0 28px rgba(243, 217, 175, 0.55), 0 2px 12px rgba(0, 0, 0, 0.45)',
         },
-        petals: ['#F2D6D8', '#E3B5B8', '#C58C91'],
-        sectionDivider: 'linear-gradient(90deg, transparent 5%, rgba(176, 101, 107, 0.35) 30%, rgba(176, 101, 107, 0.55) 50%, rgba(176, 101, 107, 0.35) 70%, transparent 95%)',
-        musicPulse: 'rgba(176, 101, 107, 0.4)',
-        form: { error: '#8B0000', success: '#B0656B' },
+        petals: ['#EADBD3', '#D6C0B5', '#C0A093'],
+        sectionDivider: 'linear-gradient(90deg, transparent 5%, rgba(222, 208, 191, 0.4) 30%, rgba(118, 45, 64, 0.55) 50%, rgba(222, 208, 191, 0.4) 70%, transparent 95%)',
+        musicPulse: 'rgba(118, 45, 64, 0.35)',
+        form: { error: '#A82835', success: '#2E6930' },
         glass: {
-            background: 'rgba(253, 248, 247, 0.65)',
-            border: 'rgba(176, 101, 107, 0.2)',
+            background: 'rgba(255, 252, 248, 0.88)',
+            border: '#DED0BF',
         },
     },
     dark: {
-        primary: '#f1bebe',
-        secondary: '#d7c4a4',
-        tertiary: '#c5b393',
-        background: '#131313',
-        surface: '#131313',
-        surfaceLowest: '#0e0e0e',
-        onBackground: '#e5e2e1',
-        onSurface: '#e5e2e1',
-        onSurfaceVariant: 'rgba(212, 194, 194, 0.75)',
-        outline: '#9d8d8d',
-        outlineVariant: '#504444',
-        surfaceContainer: '#201f1f',
-        card: '#2a2a2a',
-        surfaceContainerHigh: '#2a2a2a',
-        surfaceContainerHighest: '#353534',
+        primary: '#F1D5AB',                  // Champagne lì sang trọng (nền nút chính)
+        primaryHover: '#F7E2C3',             // Nền nút chính khi hover
+        onPrimary: '#39271E',                // Chữ nút chính màu nâu trầm
+        secondary: '#B69B7B',                // Viền & đường trang trí (champagne lì)
+        tertiary: '#F7E2C3',                 // Champagne sáng hover
+        background: '#30221D',               // Nền trang cacao ấm
+        surface: '#43332B',                  // Espresso Cacao
+        surfaceLowest: '#231814',            // Onyx Cacao
+        onBackground: '#FFF6E8',             // Chữ chính, tiêu đề
+        onSurface: '#FFF6E8',                // Chữ chính trên thiệp
+        onSurfaceVariant: '#E8D9CA',         // Chữ phụ
+        outline: '#B69B7B',                  // Viền và đường trang trí champagne lì mảnh 1px
+        outlineVariant: '#5A453A',           // Viền phụ nâu bronze
+        surfaceContainer: '#554238',         // Hộp chứa nâu taupe mềm
+        card: '#695247',                     // Nền tấm thiệp nâu taupe ấm (sáng hơn nền cacao rõ ràng)
+        surfaceContainerHigh: '#735B50',
+        surfaceContainerHighest: '#7F6558',
+        inputBg: '#49372F',                  // Nền trường nhập liệu cacao trầm
+        inputBorder: '#B69B7B',              // Viền trường nhập liệu champagne lì
+        inputText: '#FFF6E8',                // Chữ trường nhập liệu
+        inputPlaceholder: 'rgba(232, 217, 202, 0.65)',
         hero: {
-            nameGradient: 'linear-gradient(160deg, #ffffff 0%, #f4e0e0 35%, #edbaba 70%, #ffffff 100%)',
-            nameGlow: 'drop-shadow(0 2px 16px rgba(0, 0, 0, 0.55)) drop-shadow(0 4px 24px rgba(241, 190, 190, 0.35))',
-            ampersand: '#edbaba',
-            dateText: '#f4e0e0',
-            halo: 'radial-gradient(ellipse at center, rgba(241, 190, 190, 0.25) 0%, rgba(19, 19, 19, 0.2) 50%, transparent 70%)',
-            divider: 'linear-gradient(90deg, transparent, rgba(241, 190, 190, 0.7), rgba(255, 255, 255, 0.85), rgba(241, 190, 190, 0.7), transparent)',
-            dividerGlow: '0 0 14px rgba(241, 190, 190, 0.45)',
-            ampersandGlow: '0 0 40px rgba(241, 190, 190, 0.55), 0 0 80px rgba(124, 84, 84, 0.35), 0 2px 16px rgba(0, 0, 0, 0.4)',
+            nameGradient: 'linear-gradient(150deg, #FFFFFF 0%, #FFF6E8 38%, #F3D9AF 72%, #FFFFFF 100%)',
+            nameGlow: 'drop-shadow(0 4px 20px rgba(0, 0, 0, 0.75)) drop-shadow(0 2px 14px rgba(243, 217, 175, 0.35))',
+            ampersand: '#F3D9AF',
+            dateText: '#FFF6E8',
+            halo: 'radial-gradient(ellipse at center, rgba(48, 34, 29, 0.5) 0%, rgba(48, 34, 29, 0.2) 50%, transparent 72%)',
+            divider: 'linear-gradient(90deg, transparent, rgba(182, 155, 123, 0.8), rgba(255, 246, 232, 0.95), rgba(182, 155, 123, 0.8), transparent)',
+            dividerGlow: '0 0 16px rgba(182, 155, 123, 0.4)',
+            ampersandGlow: '0 0 36px rgba(243, 217, 175, 0.5), 0 2px 16px rgba(0, 0, 0, 0.5)',
         },
-        petals: ['#f1bebe', '#613d3d', '#482728'],
-        sectionDivider: 'linear-gradient(90deg, transparent 5%, rgba(157, 141, 141, 0.35) 30%, rgba(241, 190, 190, 0.45) 50%, rgba(157, 141, 141, 0.35) 70%, transparent 95%)',
-        musicPulse: 'rgba(241, 190, 190, 0.4)',
-        form: { error: '#ffb4ab', success: '#f1bebe' },
+        petals: ['#F1D5AB', '#8C6C57', '#5A4335'],
+        sectionDivider: 'linear-gradient(90deg, transparent 5%, rgba(182, 155, 123, 0.3) 30%, rgba(241, 213, 171, 0.6) 50%, rgba(182, 155, 123, 0.3) 70%, transparent 95%)',
+        musicPulse: 'rgba(241, 213, 171, 0.38)',
+        form: { error: '#FF9E9E', success: '#F1D5AB' },
         glass: {
-            background: 'rgba(19, 19, 19, 0.55)',
-            border: 'rgba(255, 255, 255, 0.1)',
+            background: 'rgba(105, 82, 71, 0.88)',
+            border: '#B69B7B',
         },
     },
 };
@@ -87,6 +103,8 @@ function applyThemeColors() {
     const t = getActivePalette();
 
     root.style.setProperty('--color-primary', t.primary);
+    root.style.setProperty('--color-primary-hover', t.primaryHover);
+    root.style.setProperty('--color-on-primary', t.onPrimary);
     root.style.setProperty('--color-secondary', t.secondary);
     root.style.setProperty('--color-tertiary', t.tertiary);
     root.style.setProperty('--color-background', t.background);
@@ -101,6 +119,11 @@ function applyThemeColors() {
     root.style.setProperty('--color-card', t.card);
     root.style.setProperty('--color-surface-container-high', t.surfaceContainerHigh);
     root.style.setProperty('--color-surface-container-highest', t.surfaceContainerHighest);
+
+    root.style.setProperty('--input-bg', t.inputBg);
+    root.style.setProperty('--input-border', t.inputBorder);
+    root.style.setProperty('--input-text', t.inputText);
+    root.style.setProperty('--input-placeholder', t.inputPlaceholder);
 
     root.style.setProperty('--hero-name-gradient', t.hero.nameGradient);
     root.style.setProperty('--hero-name-glow', t.hero.nameGlow);
@@ -125,7 +148,7 @@ if (typeof document !== 'undefined') {
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { THEME_PALETTES, getActivePalette };
+    module.exports = { THEME_PALETTES, getActivePalette, applyThemeColors };
 }
 
 // Giữ tương thích code cũ dùng THEME_COLORS.petals
