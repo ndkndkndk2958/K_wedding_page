@@ -44,7 +44,7 @@ module.exports = {
       spacing: {
         gutter: '24px',
         'margin-mobile': '20px',
-        'section-gap-mobile': '72px',
+        'section-gap-mobile': '44px',
         'container-max': '1140px',
         'section-gap-desktop': '120px',
         unit: '8px',

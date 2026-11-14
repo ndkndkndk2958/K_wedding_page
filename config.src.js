@@ -2,6 +2,25 @@
 // CẤU HÌNH THIỆP CƯỚI — Chỉnh sửa tại đây
 // ============================================================
 // link ảnh: https://lh3.googleusercontent.com/d/THAY_THẾ_ID_ẢNH_TẠI_ĐÂY
+
+// Pool ảnh demo đã verify HTTP 200 — luân phiên thứ tự để các hàng kề nhau không bị lặp cạnh nhau
+const DEMO_GALLERY_BASE = [
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuAr7HhXtbvsdZrznWPINk24223SjSAVo69piwJ61lZZx0JYGVMHUSbzlAaxv68T9j9A29OJc4Lv5Grn43643I-Suj76VNcGXnvnkmtVcLiWqjdP9vPYeceheLu_CBmy4dznoZnFwmQ0pSrIy3BUbZP6bKFLc7pt5iPVObCTW3Jk81KxWmYEahmDuvNR4LHpccjyKpS4Xt4dlodqkv9Jb5Gnc0T_GlxcVfTgxwW0-W1-0m3hf0JUfL2GPn2WO8bm3SJ03Tc_x5xky6I',
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuA1na3YtCbXhfShYsdh-x6g698S_UBY1HuecCjTB1J5N_W0TL3XundJeU46Z6G5EFbcwCcCkL6AX8cOZcAkCjD85J4rRTnBenJR67JtG-iCT9Bm5zPvuvUyEjMtI-2CNDnB_DeYbo6Vh8dLxeK3qel7rgeSAhAuRUjdNJfmwrm8xwn6zJTWV4uXUlymmOe7t5XGhyXef0HFQiLaCNPK1CA7bCQaVsttgdg0tMWvEu4Ax2Iz9Wcb71wcToxkh_e5NOwOM1knirH0kUI',
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuAnTsjgWVFxewxtFrXhwdYhQothNLBHYuzwVomF08ReyS3xbthWaGnGRkB0PllcCaqtuW5iAOdFL-hNC3K-Y646pHrUeiwO4JIV2_3XJbLjZLQU2koGCJK55LF2ZN02ckvPPC2s_C-oMuhbZjzi3EJ6G5wBmUzQ_ku2sxUfk8SEkjEGTYWSd27CpS1TTgW5hwq97SIRA5QWhzUysFPhdfAYIMJa3nbDKR2FFhwMAcvQodtr6P9RVfsyUjE5KQdP42UW8Aavuvb2rcM',
+    'https://lh3.googleusercontent.com/aida-public/AB6AXuBxhNx-olKiek-26zh9ZqpAbD5OMlj1HiAe6SUu0tW5syymbYP1WsqY0A4NpAyiRwh6oQWu03-jo5VzrLEkZ2Idk22FxyFZ1hs0kaIsR30Nr_Q_IHft3ui8XHHT_9bH73UULWzMm4AwWufqy2rPctoVt1MiB2qV_d-cKnF_rfIKqCeKWfsYIskrufrGk9yxR2X-xbdKzEu6_xnNduYFgCirdQoib19O5WG_xg3RYEfVGezLIWZKn1U7rcDfomt3zomaffUGb21l0D8',
+];
+const DEMO_GALLERY_PATTERN = [
+    DEMO_GALLERY_BASE[0],
+    DEMO_GALLERY_BASE[1],
+    DEMO_GALLERY_BASE[2],
+    DEMO_GALLERY_BASE[3],
+    DEMO_GALLERY_BASE[2],
+    DEMO_GALLERY_BASE[0],
+    DEMO_GALLERY_BASE[3],
+    DEMO_GALLERY_BASE[1],
+];
+
 const WEDDING_CONFIG = {
     siteUrl: 'https://ndkndkndk2958.github.io/K_wedding_page/',
     couple: {
@@ -75,16 +94,8 @@ const WEDDING_CONFIG = {
         // Ảnh chân dung cô dâu & chú rể
         groom: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA1qHvPtpS5U37Mq263QzHDW3hC1gnUckVn37HcWP-3-ZhCoNwnJCIKFsvY0Nszmb0JWFBl2AzMs9FaW81aJJ0pZm86OCkAuHA9AZjhEzXRS38XFnzc02mcyiQ5EKX-63KOHQc8WAVrU5R4CERXur4aRqUs91o1K7-Y7HcbSZyOm4MUkGhPsf5Hz9ptOORNXRC7PjhotV-NMy6cP1yBAXUfkrBVvosrL82v7HsOzo4Tyw8Q_1cr9k3lKBnag--70JCl8RVvDh7NifU',
         bride: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCLE4WPGCAD6ZcUhd4GU6P8SFWgubPHrgFupN2u0MNgNYxsCxsnjHQj0412HEQpAgRXq5L2T24zYBMWuF8fEWvCabYH21Yzu6RqemqVmrCDV8VQi23bxBwSTvAPxIts283DztXVg_WVFYfdDtaTmreghkyHvu5WtSMydqQrsLs0zYm3WOq-Ck40CI0pMXgLcSLHaQgISO1IkZP-38omMppyK_FlGQSoGKra8HzRaMadSKKeF0Udfny9-WXsWf1Jb0hjxl1XpUX1I9w',
-        // Album gallery — thêm URL ảnh (hiển thị lưới 2 cột mobile / 3 cột tablet+)
-        gallery: [
-            'https://lh3.googleusercontent.com/aida-public/AB6AXuAr7HhXtbvsdZrznWPINk24223SjSAVo69piwJ61lZZx0JYGVMHUSbzlAaxv68T9j9A29OJc4Lv5Grn43643I-Suj76VNcGXnvnkmtVcLiWqjdP9vPYeceheLu_CBmy4dznoZnFwmQ0pSrIy3BUbZP6bKFLc7pt5iPVObCTW3Jk81KxWmYEahmDuvNR4LHpccjyKpS4Xt4dlodqkv9Jb5Gnc0T_GlxcVfTgxwW0-W1-0m3hf0JUfL2GPn2WO8bm3SJ03Tc_x5xky6I',
-            'https://lh3.googleusercontent.com/aida-public/AB6AXuA1na3YtCbXhfShYsdh-x6g698S_UBY1HuecCjTB1J5N_W0TL3XundJeU46Z6G5EFbcwCcCkL6AX8cOZcAkCjD85J4rRTnBenJR67JtG-iCT9Bm5zPvuvUyEjMtI-2CNDnB_DeYbo6Vh8dLxeK3qel7rgeSAhAuRUjdNJfmwrm8xwn6zJTWV4uXUlymmOe7t5XGhyXef0HFQiLaCNPK1CA7bCQaVsttgdg0tMWvEu4Ax2Iz9Wcb71wcToxkh_e5NOwOM1knirH0kUI',
-            'https://lh3.googleusercontent.com/aida-public/AB6AXuAnTsjgWVFxewxtFrXhwdYhQothNLBHYuzwVomF08ReyS3xbthWaGnGRkB0PllcCaqtuW5iAOdFL-hNC3K-Y646pHrUeiwO4JIV2_3XJbLjZLQU2koGCJK55LF2ZN02ckvPPC2s_C-oMuhbZjzi3EJ6G5wBmUzQ_ku2sxUfk8SEkjEGTYWSd27CpS1TTgW5hwq97SIRA5QWhzUysFPhdfAYIMJa3nbDKR2FFhwMAcvQodtr6P9RVfsyUjE5KQdP42UW8Aavuvb2rcM',
-            'https://lh3.googleusercontent.com/aida-public/AB6AXuBxhNx-olKiek-26zh9ZqpAbD5OMlj1HiAe6SUu0tW5syymbYP1WsqY0A4NpAyiRwh6oQWu03-jo5VzrLEkZ2Idk22FxyFZ1hs0kaIsR30Nr_Q_IHft3ui8XHHT_9bH73UULWzMm4AwWufqy2rPctoVt1MiB2qV_d-cKnF_rfIKqCeKWfsYIskrufrGk9yxR2X-xbdKzEu6_xnNduYFgCirdQoib19O5WG_xg3RYEfVGezLIWZKn1U7rcDfomt3zomaffUGb21l0D8',
-            'https://lh3.googleusercontent.com/aida-public/AB6AXuAnTsjgWVFxewxtFrXhwdYhQothNLBHYuzwVomF08ReyS3xbthWaGnGRkB0PllcCaqtuW5iAOdFL-hNC3K-Y646pHrUeiwO4JIV2_3XJbLjZLQU2koGCJK55LF2ZN02ckvPPC2s_C-oMuhbZjzi3EJ6G5wBmUzQ_ku2sxUfk8SEkjEGTYWSd27CpS1TTgW5hwq97SIRA5QWhzUysFPhdfAYIMJa3nbDKR2FFhwMAcvQodtr6P9RVfsyUjE5KQdP42UW8Aavuvb2rcM',
-            'https://lh3.googleusercontent.com/aida-public/AB6AXuBxhNx-olKiek-26zh9ZqpAbD5OMlj1HiAe6SUu0tW5syymbYP1WsqY0A4NpAyiRwh6oQWu03-jo5VzrLEkZ2Idk22FxyFZ1hs0kaIsR30Nr_Q_IHft3ui8XHHT_9bH73UULWzMm4AwWufqy2rPctoVt1MiB2qV_d-cKnF_rfIKqCeKWfsYIskrufrGk9yxR2X-xbdKzEu6_xnNduYFgCirdQoib19O5WG_xg3RYEfVGezLIWZKn1U7rcDfomt3zomaffUGb21l0D8',
-            'https://lh3.googleusercontent.com/aida-public/AB6AXuBxhNx-olKiek-26zh9ZqpAbD5OMlj1HiAe6SUu0tW5syymbYP1WsqY0A4NpAyiRwh6oQWu03-jo5VzrLEkZ2Idk22FxyFZ1hs0kaIsR30Nr_Q_IHft3ui8XHHT_9bH73UULWzMm4AwWufqy2rPctoVt1MiB2qV_d-cKnF_rfIKqCeKWfsYIskrufrGk9yxR2X-xbdKzEu6_xnNduYFgCirdQoib19O5WG_xg3RYEfVGezLIWZKn1U7rcDfomt3zomaffUGb21l0D8',
-        ],
+        // Album gallery — demo 50 ảnh (khi > 10 ảnh sẽ tự phân trang tối đa 3 hàng + nút Next/Prev & vuốt ngang)
+        gallery: Array.from({ length: 50 }, (_, i) => DEMO_GALLERY_PATTERN[i % DEMO_GALLERY_PATTERN.length]),
     },
     music: {
         // Đặt file nhạc vào thư mục assets/ (ví dụ: assets/wedding-music.mp3)
